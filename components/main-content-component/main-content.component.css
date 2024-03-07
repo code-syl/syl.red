@@ -1,0 +1,11 @@
+@import url("/styles/common.css");
+
+.main-content {
+    background-color: var(--dark-grey);
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}

@@ -1,0 +1,25 @@
+:root {
+    --dark-red: #A50000;
+    --dark-grey: #1C1C1C;
+    --grey: #353535;   
+    --white: #EEEEEE; 
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--grey);
+    color: var(--white);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+}
+
+main-content-component {
+    width: 75%;
+    min-height: 100%;
+}
