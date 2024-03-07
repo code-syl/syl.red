@@ -1,7 +1,7 @@
 :root {
     --dark-red: #A50000;
-    --dark-grey: #1C1C1C;
-    --grey: #353535;   
+    --dark-grey: #161616;
+    --grey: #242424;   
     --white: #EEEEEE; 
 }
 
@@ -20,6 +20,13 @@ body {
 }
 
 main-content-component {
-    width: 50%;
+    width: 100%;
     min-height: 100%;
+}
+
+/* larger than mobile */
+@media only screen and (min-width: 600px) {
+    main-content-component {
+        width: 50%;
+    }
 }
