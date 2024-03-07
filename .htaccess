@@ -1,4 +1,3 @@
 <Files "README.md">
-    Order Allow,Deny
-    Deny from all
+    require all denied
 </Files>
