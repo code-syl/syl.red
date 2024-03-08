@@ -20,17 +20,7 @@
 <body>
 
     <main-content-component>
-        <img
-            src="/assets/underconstruction.png"
-            alt="Figure of a cartoon lady with red hair wearing a yellow hard 
-                 hat and black clothes."
-        />
-        <h1>Under Construction</h1>
-        <p>This page is under construction. Please check back later.</p>
-        <p>In the meantime, check out my GitHub profile:</p>
-        <a href="https://github.com/code-syl" target="_blank">
-            <img src="/assets/github.svg" alt="GitHub logo" width="50px" />
-        </a>
+        
     </main-content-component>
 
 </body>
