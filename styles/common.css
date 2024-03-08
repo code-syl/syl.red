@@ -1,7 +1,8 @@
 :root {
     --dark-red: #A50000;
     --dark-grey: #161616;
-    --grey: #242424;   
+    --grey: #242424;
+    --black: #101010;
     --white: #EEEEEE; 
 }
 
@@ -10,7 +11,7 @@ html, body {
 }
 
 body {
-    background-color: var(--grey);
+    background-color: var(--black);
     color: var(--white);
 
     display: flex;
