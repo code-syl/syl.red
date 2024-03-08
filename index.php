@@ -7,8 +7,14 @@
     <meta name="author" content="Code-Syl" />
     <meta name="description" content="Portfolio of Code-Syl" />
 
-    <link rel="stylesheet" href="/styles/common.css" type="text/css" media="screen" />
-    <script src="/components/main-content-component/main-content.component.js" type="module" defer></script>
+    <link 
+        rel="stylesheet" href="/styles/common.css" 
+        type="text/css" media="screen" 
+    />
+    <script 
+        src="/components/main-content-component/main-content.component.js" 
+        type="module" defer>
+    </script>
 </head>
 
 <body>
@@ -16,7 +22,8 @@
     <main-content-component>
         <img
             src="/assets/underconstruction.png"
-            alt="Figure of a cartoon lady with red hair wearing a yellow hard hat and black clothes."
+            alt="Figure of a cartoon lady with red hair wearing a yellow hard 
+                 hat and black clothes."
         />
         <h1>Under Construction</h1>
         <p>This page is under construction. Please check back later.</p>
