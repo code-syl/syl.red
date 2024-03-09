@@ -22,8 +22,8 @@ export function getHTML(componentName) {
         .then(response => response.text())
         .then(data => newComponent(
             componentName, 
-                data, 
-                '.'+componentName
+            data, 
+            '.'+componentName
         )
     );
 }
