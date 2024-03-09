@@ -8,7 +8,7 @@
     <meta name="description" content="Portfolio of Code-Syl" />
 
     <link rel="stylesheet" href="/styles/common.css" type="text/css" media="screen" />
-    <script src="/components/main-content/main-content.component.js" type="module" defer></script>
+    <script src="/components/main-content/main-content.component.js" type="module" name="main-content" defer></script>
     <script src="/components/under-construction/under-construction.component.js" type="module" name="under-construction" defer></script>
 </head>
 
