@@ -20,14 +20,23 @@ body {
     margin: 0;
 }
 
-main-content-component {
+.col { flex-direction: column; }
+.row { flex-direction: row; }
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main-content {
     width: 100%;
     min-height: 100%;
 }
 
 /* larger than mobile */
 @media only screen and (min-width: 600px) {
-    main-content-component {
+    main-content {
         width: 50%;
     }
 }

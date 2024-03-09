@@ -1,9 +1,9 @@
 import * as Builder from "/scripts/newComponent.js";
 
-fetch("/components/main-content-component/main-content.component.html")
+fetch("/components/main-content/main-content.component.html")
     .then(response => response.text())
     .then(data => Builder.newComponent(
-            'main-content-component', 
+            'main-content', 
             data, 
             '.main-content'
         ));
