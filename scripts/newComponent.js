@@ -1,4 +1,4 @@
-export function newComponent(componentName, componentTemplate, containerQuerySelectorString) {
+function newComponent(componentName, componentTemplate, containerQuerySelectorString) {
     customElements.define(
         componentName, 
         class extends HTMLElement {
@@ -16,3 +16,14 @@ export function newComponent(componentName, componentTemplate, containerQuerySel
         }
     );
 };
+
+export function getHTML(componentName) {
+    fetch('/components/'+componentName+'/'+componentName+'.component.html')
+        .then(response => response.text())
+        .then(data => newComponent(
+            componentName, 
+                data, 
+                '.'+componentName
+        )
+    );
+}
