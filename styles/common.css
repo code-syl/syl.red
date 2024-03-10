@@ -3,7 +3,8 @@
     --dark-grey: #161616;
     --grey: #242424;
     --black: #101010;
-    --white: #EEEEEE; 
+    --white: #EEEEEE;
+    --white-backdrop: #EEEEEE33;
 }
 
 html, body {
@@ -18,10 +19,12 @@ body {
     flex-direction: row;
     justify-content: center;
     margin: 0;
+
+    font-family: 'Helvetica Neue', sans-serif; 
 }
 
-.col { flex-direction: column; }
-.row { flex-direction: row; }
+.col { display: flex; flex-direction: column; }
+.row { display: flex; flex-direction: row; }
 
 .flex-center {
     display: flex;
@@ -32,6 +35,19 @@ body {
 main-content {
     width: 100%;
     min-height: 100%;
+}
+
+nav-bar {
+    width: 100%;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+    color: var(--white);
+    text-decoration: none;
+}
+
+* {
+    max-width: 100%;
 }
 
 /* larger than mobile */

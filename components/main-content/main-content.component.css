@@ -9,7 +9,3 @@
     align-items: center;
     padding: 1em;
 }
-
-.main-content > * {
-    max-width: 100%;
-}
