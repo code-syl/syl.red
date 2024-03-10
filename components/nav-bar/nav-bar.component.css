@@ -1,0 +1,32 @@
+@import url("/styles/common.css");
+
+.nav-container {
+    font: normal 100%/normal Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    min-height: 2em;
+    width: 100%;
+    margin-bottom: .5em;
+}
+
+.nav-container a {
+    padding-left: .2em;
+    padding-right: .2em;
+    min-width: 15%;
+    min-height: 2em;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-container > * {
+    cursor: pointer;
+}
+
+.nav-container a:hover {
+    background-color: var(--white-backdrop);
+}
