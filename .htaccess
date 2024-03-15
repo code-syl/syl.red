@@ -21,8 +21,3 @@ RewriteRule "(^|/)\." - [F]
 
 ## Disable directory browsing
 Options All -Indexes
-
-## Disable image hotlinking
-RewriteCond %{HTTP_REFERER} !^$
-RewriteCond %{HTTP_REFERER} !^https?://(.+\.)?example.com [NC]
-RewriteRule \.(jpe?g|png|gif|bmp|svg)$ - [NC,F,L]
