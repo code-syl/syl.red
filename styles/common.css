@@ -1,13 +1,18 @@
 :root {
-    --dark-red: #A50000;
+    --dark-red: #a50000;
     --dark-grey: #161616;
     --grey: #242424;
     --black: #101010;
-    --white: #EEEEEE;
-    --white-backdrop: #EEEEEE33;
+    --white: #eeeeee;
+    --white-backdrop: #eeeeee33;
+
+    --nav-height: 2em;
+    --nav-margin: 0.5em;
+    --nav-letter-spacing: 4px;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -20,11 +25,17 @@ body {
     justify-content: center;
     margin: 0;
 
-    font-family: 'Helvetica Neue', sans-serif; 
+    font-family: "Helvetica Neue", sans-serif;
 }
 
-.col { display: flex; flex-direction: column; }
-.row { display: flex; flex-direction: row; }
+.col {
+    display: flex;
+    flex-direction: column;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+}
 
 .flex-center {
     display: flex;
@@ -41,7 +52,11 @@ nav-bar {
     width: 100%;
 }
 
-a, a:link, a:visited, a:hover, a:active {
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
     color: var(--white);
     text-decoration: none;
 }
@@ -62,31 +77,47 @@ a, a:link, a:visited, a:hover, a:active {
 
 body {
     -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 1s; /* Firefox < 16 */
-        -ms-animation: fadein 1s; /* Internet Explorer */
-         -o-animation: fadein 1s; /* Opera < 12.1 */
-            animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox < 16 */
+    -ms-animation: fadein 1s; /* Internet Explorer */
+    -o-animation: fadein 1s; /* Opera < 12.1 */
+    animation: fadein 1s;
 }
 
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Firefox < 16 */
 @-moz-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Safari, Chrome and Opera > 12.1 */
 @-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Internet Explorer */
 @-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

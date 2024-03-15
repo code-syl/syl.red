@@ -21,7 +21,6 @@
 
 <body>
     <main-content>
-        <nav-bar></nav-bar>
         <under-construction></under-construction>
     </main-content>
     
