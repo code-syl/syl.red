@@ -1,26 +1,41 @@
 @import url("/styles/common.css");
 
+:root {
+    --nav-letter-spacing: 4px;
+}
+
 .nav-container {
-    font: normal 100%/normal Arial, Helvetica, sans-serif;
+    font: normal 100% / normal Arial, Helvetica, sans-serif;
     font-size: 18pt;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: var(--nav-letter-spacing);
 
     justify-content: space-around;
     flex-wrap: wrap;
 
     min-height: 2em;
     width: 100%;
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
 }
 
 .nav-container a {
-    padding-left: .2em;
-    padding-right: .2em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
     min-width: 15%;
     min-height: 2em;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
+
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    -webkit-text-decoration-color: transparent;
+    -moz-text-decoration-color: transparent;
+    text-underline-offset: 6px;
+    transition: text-decoration-color 0.25s ease;
+
+    background-color: transparent;
+    transition: background-color 0.5s ease;
 }
 
 .nav-container > * {
@@ -29,4 +44,13 @@
 
 .nav-container a:hover {
     background-color: var(--white-backdrop);
+    transition: background-color 0.5s ease;
+
+    text-decoration-color: var(--white-backdrop);
+    transition: text-decoration-color 0.25s ease;
+}
+
+/* stupid extra underline with letter spacing applied */
+.nav-container a:hover span {
+    clip-path: inset(0 var(--nav-letter-spacing) 0 0);
 }
