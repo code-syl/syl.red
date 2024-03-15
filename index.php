@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <title>Portfolio of Code-Syl</title>
     <meta charset="UTF-8">
@@ -13,9 +14,11 @@
     <script src="/components/nav-bar/nav-bar.component.js" type="module" name="nav-bar" defer></script>
 
     <script type="text/javascript">
-        var elm=document.getElementsByTagName("html")[0];
-        elm.style.display="none";
-        document.addEventListener("DOMContentLoaded",function(event) {elm.style.display="block"; });
+        var elm = document.getElementsByTagName("html")[0];
+        elm.style.display = "none";
+        document.addEventListener("DOMContentLoaded", function(event) {
+            elm.style.display = "block";
+        });
     </script>
 </head>
 
@@ -23,6 +26,7 @@
     <main-content>
         <under-construction></under-construction>
     </main-content>
-    
+
 </body>
+
 </html>
