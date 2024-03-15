@@ -20,7 +20,6 @@
 </head>
 
 <body>
-    <script>0</script>
     <main-content>
         <nav-bar></nav-bar>
         <under-construction></under-construction>
