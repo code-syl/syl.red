@@ -1,6 +1,13 @@
 # src: https://github.com/phanan/htaccess Edited.
 
+# Rewrites and Redirects
 RewriteEngine On
+
+## Force HTTPS and Remove trailing slash
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
 
 # Security
 
