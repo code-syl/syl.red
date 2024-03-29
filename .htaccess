@@ -17,3 +17,14 @@ RewriteRule "(^|/)\." - [F]
 
 ## Disable directory browsing
 Options All -Indexes
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/png "access 1 hour"
+    ExpiresByType image/gif "access 1 hour"
+    ExpiresByType image/jpeg "access 1 hour"
+    ExpiresByType text/javascript "access 1 hour"
+    ExpiresByType text/css "access 1 hour"
+    ExpiresByType text/html "modification 1 hour"
+    ExpiresDefault "access 2 days"
+</IfModule>
