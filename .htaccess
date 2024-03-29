@@ -24,6 +24,7 @@ Options All -Indexes
     ExpiresByType image/gif "access 1 hour"
     ExpiresByType image/jpeg "access 1 hour"
     ExpiresByType text/javascript "access 1 hour"
+    ExpiresByType application/javascript "access 1 hour"
     ExpiresByType text/css "access 1 hour"
     ExpiresByType text/html "modification 1 hour"
     ExpiresDefault "access 2 days"
