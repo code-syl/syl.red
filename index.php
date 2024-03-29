@@ -14,20 +14,31 @@
     <script src="/components/under-construction/under-construction.component.js" type="module" name="under-construction" defer></script>
     <script src="/components/nav-bar/nav-bar.component.js" type="module" name="nav-bar" defer></script>
 
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
         var elm = document.getElementsByTagName("html")[0];
         elm.style.display = "none";
         document.addEventListener("DOMContentLoaded", function(event) {
             elm.style.display = "block";
         });
-    </script>
+    </script>-->
 </head>
 
-<body>
+<body onload="document.body.style.visibility=`visible`;">
+    <script>
+        document.body.style.visibility = `hidden`;
+    </script>
+
     <main-content>
         <under-construction></under-construction>
     </main-content>
 
+    <noscript>
+        <style>
+            body {
+                visibility: visible;
+            }
+        </style>
+    </noscript>
 </body>
 
 </html>
