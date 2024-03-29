@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="author" content="Code-Syl" />
     <meta name="description" content="Portfolio of Code-Syl" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/styles/common.css" type="text/css" media="screen" />
     <script src="/components/main-content/main-content.component.js" type="module" name="main-content" defer></script>
