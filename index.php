@@ -13,15 +13,9 @@
     <script src="/components/main-content/main-content.component.js" type="module" name="main-content" defer></script>
     <script src="/components/under-construction/under-construction.component.js" type="module" name="under-construction" defer></script>
     <script src="/components/nav-bar/nav-bar.component.js" type="module" name="nav-bar" defer></script>
-
-    <!--<script type="text/javascript">
-        var elm = document.getElementsByTagName("html")[0];
-        elm.style.display = "none";
-        document.addEventListener("DOMContentLoaded", function(event) {
-            elm.style.display = "block";
-        });
-    </script>-->
 </head>
+
+<!-- thanks to https://stackoverflow.com/a/5983338 for the FOUC test fix -->
 
 <body onload="document.body.style.visibility=`visible`;">
     <script>
@@ -31,14 +25,6 @@
     <main-content>
         <under-construction></under-construction>
     </main-content>
-
-    <noscript>
-        <style>
-            body {
-                visibility: visible;
-            }
-        </style>
-    </noscript>
 </body>
 
 </html>
