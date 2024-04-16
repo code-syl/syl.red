@@ -50,7 +50,7 @@ function toPath(folderNames) {
 /**
  * Sets the HTML contents from a file to the specified component, by name.
  * @param {string} componentName - The name of the component
- * @param {string[] | null | undefined} subfolders - Any extra sub folders that prepend the `/components` folder
+ * @param {string[] | null | undefined} subfolders - Any extra sub folders that append the `/components` folder
  */
 export function getHTML(componentName, subfolders) {
     subfolders = subfolders || [];
