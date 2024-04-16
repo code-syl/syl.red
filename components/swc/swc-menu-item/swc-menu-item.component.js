@@ -1,2 +1,2 @@
 import { getHTML } from "/scripts/newComponent.js";
-getHTML("swc-menu-item");
+getHTML("swc-menu-item", "swc");
