@@ -28,10 +28,9 @@
 
         text-decoration: underline;
         text-decoration-color: transparent;
-        transition: text-decoration-color 0.25s ease;
 
         background-color: transparent;
-        transition: background-color 0.5s ease;
+        transition: background-color 0.5s ease, text-decoration-color 0.25s ease;
     }
 
     .nav-container > * {
@@ -40,10 +39,9 @@
 
     .nav-container a:hover {
         background-color: var(--white-backdrop);
-        transition: background-color 0.5s ease;
 
         text-decoration-color: var(--white-backdrop);
-        transition: text-decoration-color 0.5s ease;
+        transition: background-color 0.5s ease, text-decoration-color 0.5s ease;
     }
 
     /* stupid extra underline with letter spacing applied */
@@ -71,7 +69,7 @@
         <a
             id="swc-button"
             class="col"
-            href="/"
+            href="/swc/"
         >
             <span>SWC</span>
         </a>
