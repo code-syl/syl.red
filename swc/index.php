@@ -23,7 +23,13 @@
     </script>
 
     <main-content>
-        <swc-menu-item></swc-menu-item>
+        <div class="row">
+            <swc-menu-item>
+                <span slot="title">Character</span>
+            </swc-menu-item>
+            <swc-menu-item></swc-menu-item>
+            <swc-menu-item></swc-menu-item>
+        </div>
     </main-content>
 </body>
 

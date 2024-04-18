@@ -1,16 +1,17 @@
 <style>
     @import url("/styles/common.css");
 
-    .main-content {
+    section.main-content {
         background-color: var(--dark-grey);
-        min-height: calc(100% - var(--nav-height) - var(--nav-margin) * 2);
+        height: 100%;
 
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 1em;
     }
 </style>
 
 <nav-bar></nav-bar>
-<section class="main-content"></section>
+<section class="main-content">
+    <slot>Default text</slot>
+</section>

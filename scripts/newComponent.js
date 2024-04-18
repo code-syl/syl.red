@@ -1,22 +1,14 @@
-function newComponent(
-    componentName,
-    componentTemplate,
-    containerQuerySelectorString
-) {
+function newComponent(componentName, componentTemplate) {
+    const template = document.createElement("template");
+    template.innerHTML = componentTemplate;
+
     customElements.define(
         componentName,
         class extends HTMLElement {
-            connectedCallback() {
-                const content = this.innerHTML;
-                this.innerHTML = "";
-
+            constructor() {
+                super();
                 this.attachShadow({ mode: "open" });
-
-                this.shadowRoot.innerHTML = componentTemplate;
-                const section = this.shadowRoot.querySelector(
-                    containerQuerySelectorString
-                );
-                if (section) section.innerHTML = content;
+                this.shadowRoot.appendChild(template.content.cloneNode(true));
             }
         }
     );
@@ -61,5 +53,5 @@ export function getHTML(componentName, subfolders) {
 
     fetch(path)
         .then((response) => response.text())
-        .then((data) => newComponent(componentName, data, "." + componentName));
+        .then((data) => newComponent(componentName, data));
 }
