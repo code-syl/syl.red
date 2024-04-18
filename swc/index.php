@@ -57,6 +57,21 @@
 
         <h2 id="characters"><a href="#top">Characters</a></h2>
 
+        <div class="row">
+            <a href="http://holocron.swcombine.com/wiki/Alani_Myrtel" target="_blank">
+                <swc-menu-item>
+                    <img slot="image" src="/assets/swc-alani-myrtel-banner.jpg" alt="Alani Myrtel" />
+                    <span slot="title">Alani Myrtel</span>
+                </swc-menu-item>
+            </a>
+            <a href="http://holocron.swcombine.com/wiki/Niera_Crukx" target="_blank">
+                <swc-menu-item>
+                    <img slot="image" src="/assets/swc-niera-crukx-banner.jpg" alt="Niera Crukx" />
+                    <span slot="title">Niera Crukx</span>
+                </swc-menu-item>
+            </a>
+        </div>
+
         <h2 id="tools"><a href="#top">Tools</a></h2>
 
         <div class="row">
