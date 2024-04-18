@@ -1,2 +1,2 @@
-import { getHTML } from "/scripts/newComponent.js";
-getHTML("main-content");
+import { setHTML } from "/scripts/newComponent.js";
+await setHTML("main-content");

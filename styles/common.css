@@ -80,6 +80,32 @@ a:active {
     max-width: 100%;
 }
 
+.justified-text {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.horizontal-ulist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.horizontal-ulist ul li {
+    display: inline;
+}
+
+.horizontal-ulist ul li:not(#dot) {
+    font-family: "Courier New", Courier, monospace, sans-serif;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+}
+
+.horizontal-ulist ul li:hover:not(#dot) {
+    text-decoration-color: var(--white);
+    transition: background-color 0.5s ease, text-decoration-color 0.5s ease;
+}
+
 /* larger than mobile */
 @media only screen and (min-width: 600px) {
     main-content {

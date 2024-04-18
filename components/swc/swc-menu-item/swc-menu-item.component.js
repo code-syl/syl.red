@@ -1,2 +1,2 @@
-import { getHTML } from "/scripts/newComponent.js";
-getHTML("swc-menu-item", "swc");
+import { setHTML } from "/scripts/newComponent.js";
+setHTML("swc-menu-item", "swc");
