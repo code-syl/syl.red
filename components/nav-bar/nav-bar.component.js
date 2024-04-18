@@ -1,2 +1,2 @@
-import { getHTML } from "/scripts/newComponent.js";
-getHTML("nav-bar");
+import { setHTML } from "/scripts/newComponent.js";
+await setHTML("nav-bar");

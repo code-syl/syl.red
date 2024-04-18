@@ -44,7 +44,7 @@ function toPath(folderNames) {
  * @param {string} componentName - The name of the component
  * @param {string[] | null | undefined} subfolders - Any extra sub folders that append the `/components` folder
  */
-export function getHTML(componentName, subfolders) {
+export async function setHTML(componentName, subfolders) {
     subfolders = subfolders || [];
     subfolders = ["components"].concat(subfolders);
     const path = toPath(

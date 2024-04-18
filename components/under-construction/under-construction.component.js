@@ -1,2 +1,2 @@
-import { getHTML } from "/scripts/newComponent.js";
-getHTML("under-construction");
+import { setHTML } from "/scripts/newComponent.js";
+await setHTML("under-construction");
