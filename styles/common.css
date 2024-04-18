@@ -42,6 +42,10 @@ body {
     justify-content: center;
 }
 
+.grey-header {
+    color: #aaaaaa;
+}
+
 .flex-center {
     display: flex;
     align-items: center;
@@ -70,22 +74,6 @@ a:hover,
 a:active {
     color: var(--white);
     text-decoration: none;
-}
-
-.card {
-    box-sizing: border-box;
-    padding: 1em;
-    height: 10em;
-    width: 15em;
-
-    background: var(--grey);
-}
-
-.card:hover {
-    background-color: var(--white-backdrop);
-    text-decoration-color: var(--white-backdrop);
-
-    transition: background-color 0.5s ease, text-decoration-color 0.5s ease;
 }
 
 * {

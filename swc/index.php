@@ -23,6 +23,11 @@
     </script>
 
     <main-content>
+        <h1>
+            S<span class="grey-header">tar</span>
+            W<span class="grey-header">ars</span>
+            C<span class="grey-header">ombine</span>
+        </h1>
         <div class="row">
             <swc-menu-item>
                 <span slot="title">Character</span>
