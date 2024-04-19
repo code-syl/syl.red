@@ -3,10 +3,10 @@
 <html lang="en">
 
 <head>
-    <title>SWC Tools by Code-Syl</title>
+    <title>SWC Vision Simulator -- Syl.red</title>
     <meta charset="UTF-8">
     <meta name="author" content="Code-Syl" />
-    <meta name="description" content="Tools for the browser game Star Wars Combine, by Code-Syl" />
+    <meta name="description" content="A simulator simulating the vision system in SWC, by Code-Syl" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/styles/common.css" type="text/css" media="screen" />
