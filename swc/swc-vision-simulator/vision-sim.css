@@ -7,22 +7,35 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 0.25em;
     width: 100%;
 }
 
 #vision-sim .canvas .row {
     min-width: 100%;
     flex-basis: 100%;
-    gap: 0.25em;
+    gap: 0;
 }
 
 #vision-sim .canvas .row .tile {
-    min-width: calc(100% / 20 - 0.25em);
+    min-width: calc(100% / 20);
     aspect-ratio: 1 / 1;
     background-color: var(--white-backdrop);
+    outline: 1px solid var(--black);
 }
 
 #vision-sim .canvas .row .tile:hover {
     background-color: var(--white);
+}
+
+/* larger than mobile */
+@media only screen and (min-width: 600px) {
+    #vision-sim .canvas,
+    #vision-sim .canvas .row {
+        gap: 0.25em;
+    }
+
+    #vision-sim .canvas .row .tile {
+        outline: none;
+        min-width: calc(100% / 20 - 0.25em);
+    }
 }
