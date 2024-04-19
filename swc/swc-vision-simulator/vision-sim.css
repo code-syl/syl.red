@@ -1,0 +1,28 @@
+#vision-sim {
+    flex-grow: 1;
+    width: 100%;
+}
+
+#vision-sim .canvas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25em;
+    width: 100%;
+}
+
+#vision-sim .canvas .row {
+    min-width: 100%;
+    flex-basis: 100%;
+    gap: 0.25em;
+}
+
+#vision-sim .canvas .row .tile {
+    min-width: calc(100% / 20 - 0.25em);
+    aspect-ratio: 1 / 1;
+    background-color: var(--white-backdrop);
+}
+
+#vision-sim .canvas .row .tile:hover {
+    background-color: var(--white);
+}
