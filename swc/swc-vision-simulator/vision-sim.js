@@ -8,7 +8,7 @@ function visionSim_header() {
     let description = document.createElement("p");
     description.classList.add("justified-text");
     description.innerText =
-        "A tool to simulate the vision of a ship with a given range.";
+        "A tool to simulate the vision of a ship with a given range. This tool is currently a work in progress and may not be fully functional.";
     headerItems.push(description);
 
     return headerItems;
