@@ -1,4 +1,10 @@
 let visionSimRangeValue = 10;
+const mode = {
+    Add: "Add",
+    Remove: "Remove",
+};
+Object.freeze(mode);
+let currentMode = mode.Add;
 
 function visionSim_header_init() {
     let headerItems = [];
@@ -25,16 +31,30 @@ function visionSim_controls_init() {
     let btnReset = document.createElement("div");
     btnReset.classList.add("btn");
     btnReset.innerText = "\u21bb";
+    btnReset.addEventListener("click", () => {
+        currentMode = mode.Add;
+        console.log("Received command to: reset.");
+    });
     row.appendChild(btnReset);
 
     let btnAdd = document.createElement("div");
     btnAdd.classList.add("btn");
     btnAdd.innerText = "Add";
+    btnAdd.addEventListener("click", () => {
+        if (currentMode === mode.Add) return;
+        currentMode = mode.Add;
+        console.log("Received command to change mode to: add.");
+    });
     row.appendChild(btnAdd);
 
     let btnRemove = document.createElement("div");
     btnRemove.classList.add("btn");
     btnRemove.innerText = "Remove";
+    btnRemove.addEventListener("click", () => {
+        if (currentMode === mode.Remove) return;
+        currentMode = mode.Remove;
+        console.log("Received command to change mode to: remove.");
+    });
     row.appendChild(btnRemove);
 
     let rangeTitle = document.createElement("div");
@@ -45,21 +65,22 @@ function visionSim_controls_init() {
     rangeSlider.classList.add("slider");
     rangeSlider.id = "range";
     rangeSlider.type = "range";
-    rangeSlider.min = 0;
+    rangeSlider.min = 1;
     rangeSlider.max = 20;
-    rangeSlider.value = this.visionSimRangeValue;
+    rangeSlider.value = visionSimRangeValue;
     rangeSlider.step = 1;
     row.appendChild(rangeSlider);
 
     let rangeLabel = document.createElement("label");
     rangeLabel.htmlFor = "range";
-    this.visionSimRangeValue = rangeSlider.value;
-    rangeLabel.innerText = this.visionSimRangeValue;
+    visionSimRangeValue = rangeSlider.value;
+    rangeLabel.innerText = visionSimRangeValue;
     row.appendChild(rangeLabel);
 
     rangeSlider.addEventListener("input", () => {
-        this.visionSimRangeValue = rangeSlider.value;
-        rangeLabel.innerText = this.visionSimRangeValue;
+        visionSimRangeValue = rangeSlider.value;
+        rangeLabel.innerText = visionSimRangeValue;
+        console.log("Range:", visionSimRangeValue);
     });
 
     return [row];
@@ -81,6 +102,7 @@ function visionSim_canvas_init(width, height) {
             tile.classList.add("tile");
             tile.dataset.x = x;
             tile.dataset.y = y;
+            tile.addEventListener("click", tile_onClick());
             row.appendChild(tile);
         }
 
@@ -90,6 +112,22 @@ function visionSim_canvas_init(width, height) {
     visionSim.appendChild(canvas);
 
     return visionSim;
+}
+
+function tile_onClick() {
+    return () => {
+        switch (currentMode) {
+            case mode.Add:
+                console.log("I am on add mode");
+                break;
+            case mode.Remove:
+                console.log("I am on remove mode");
+                break;
+            default:
+                console.log("Help! I am lost!");
+                break;
+        }
+    };
 }
 
 // https://stackoverflow.com/a/51468627
