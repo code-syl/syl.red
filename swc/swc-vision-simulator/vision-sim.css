@@ -26,16 +26,3 @@
 #vision-sim .canvas .row .tile:hover {
     background-color: var(--white);
 }
-
-/* larger than mobile */
-@media only screen and (min-width: 600px) {
-    #vision-sim .canvas,
-    #vision-sim .canvas .row {
-        gap: 0.25em;
-    }
-
-    #vision-sim .canvas .row .tile {
-        outline: none;
-        min-width: calc(100% / 20 - 0.25em);
-    }
-}
