@@ -5,6 +5,7 @@ const mode = {
 };
 Object.freeze(mode);
 let currentMode = mode.Add;
+const canvasSize = 20;
 
 function visionSim_header_init() {
     let headerItems = [];
@@ -115,10 +116,19 @@ function visionSim_canvas_init(width, height) {
 }
 
 function tile_onClick() {
-    return () => {
+    return (tile) => {
         switch (currentMode) {
             case mode.Add:
                 console.log("I am on add mode");
+                console.log(
+                    "Tile:",
+                    tile.target.dataset.x,
+                    tile.target.dataset.y
+                );
+                visionSim_drawVisionCircle(
+                    parseInt(tile.target.dataset.x),
+                    parseInt(tile.target.dataset.y)
+                );
                 break;
             case mode.Remove:
                 console.log("I am on remove mode");
@@ -128,6 +138,36 @@ function tile_onClick() {
                 break;
         }
     };
+}
+
+function visionSim_drawVisionCircle(originX, originY) {
+    const xMin = Math.max(0, originX - visionSimRangeValue);
+    const xMax = Math.min(canvasSize, originX + visionSimRangeValue);
+    const yMin = Math.max(0, originY - visionSimRangeValue);
+    const yMax = Math.min(canvasSize, originY + visionSimRangeValue);
+
+    for (let y = yMin; y <= yMax && y < canvasSize; y++) {
+        for (let x = xMin; x <= xMax && x < canvasSize; x++) {
+            if (x < 0 || y < 0) continue;
+            const inRange =
+                Math.sqrt(
+                    Math.pow(x - originX, 2) + Math.pow(y - originY, 2)
+                ) <= visionSimRangeValue;
+            if (inRange) {
+                visionSim_drawSingleActive(x, y);
+            }
+        }
+    }
+
+    document
+        .querySelector(`.tile[data-x="${originX}"][data-y="${originY}"]`)
+        .classList.add("origin");
+}
+
+function visionSim_drawSingleActive(x, y) {
+    let tile = document.querySelector(`.tile[data-x="${x}"][data-y="${y}"]`);
+    console.log("Drawing at:", x, y);
+    tile.classList.add("active");
 }
 
 // https://stackoverflow.com/a/51468627
@@ -143,5 +183,8 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const control of controls) {
         container.insertAdjacentElement("beforeend", control);
     }
-    container.insertAdjacentElement("beforeend", visionSim_canvas_init(20, 20));
+    container.insertAdjacentElement(
+        "beforeend",
+        visionSim_canvas_init(canvasSize, canvasSize)
+    );
 });

@@ -23,6 +23,14 @@
     outline: 1px solid var(--black);
 }
 
+#vision-sim .canvas .row .tile.active {
+    background-color: green;
+}
+
+#vision-sim .canvas .row .tile.origin {
+    background-color: brown;
+}
+
 #vision-sim .canvas .row .tile:hover,
 #controls > .btn:hover {
     background-color: var(--white);
