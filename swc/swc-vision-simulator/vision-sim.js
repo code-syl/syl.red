@@ -34,6 +34,7 @@ function visionSim_controls_init() {
     btnReset.innerText = "\u21bb";
     btnReset.addEventListener("click", () => {
         currentMode = mode.Add;
+        visionSim_clearVision();
         console.log("Received command to: reset.");
     });
     row.appendChild(btnReset);
@@ -173,6 +174,14 @@ function visionSim_drawSingleActive(x, y) {
     let tile = document.querySelector(`.tile[data-x="${x}"][data-y="${y}"]`);
     console.log("Drawing at:", x, y);
     tile.classList.add("active");
+}
+
+function visionSim_clearVision() {
+    let tiles = document.querySelectorAll(".tile");
+    for (let tile of tiles) {
+        tile.classList.remove("active");
+        tile.classList.remove("origin");
+    }
 }
 
 // https://stackoverflow.com/a/51468627
