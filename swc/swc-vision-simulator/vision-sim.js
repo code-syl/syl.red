@@ -34,7 +34,8 @@ function visionSim_controls_init() {
     btnReset.innerText = "\u21bb";
     btnReset.addEventListener("click", () => {
         currentMode = mode.Add;
-        console.log("Received command to: reset.");
+        visionSim_clearVision();
+        console.info("Received command to: reset.");
     });
     row.appendChild(btnReset);
 
@@ -44,7 +45,7 @@ function visionSim_controls_init() {
     btnAdd.addEventListener("click", () => {
         if (currentMode === mode.Add) return;
         currentMode = mode.Add;
-        console.log("Received command to change mode to: add.");
+        console.info("Received command to change mode to: add.");
     });
     row.appendChild(btnAdd);
 
@@ -54,13 +55,16 @@ function visionSim_controls_init() {
     btnRemove.addEventListener("click", () => {
         if (currentMode === mode.Remove) return;
         currentMode = mode.Remove;
-        console.log("Received command to change mode to: remove.");
+        console.info("Received command to change mode to: remove.");
     });
     row.appendChild(btnRemove);
 
-    let rangeTitle = document.createElement("div");
+    let rangeContainer = document.createElement("div");
+    rangeContainer.classList.add("range-container");
+
+    let rangeTitle = document.createElement("span");
     rangeTitle.innerText = "Range:";
-    row.appendChild(rangeTitle);
+    rangeContainer.appendChild(rangeTitle);
 
     let rangeSlider = document.createElement("input");
     rangeSlider.classList.add("slider");
@@ -70,19 +74,21 @@ function visionSim_controls_init() {
     rangeSlider.max = 20;
     rangeSlider.value = visionSimRangeValue;
     rangeSlider.step = 1;
-    row.appendChild(rangeSlider);
+    rangeContainer.appendChild(rangeSlider);
 
     let rangeLabel = document.createElement("label");
     rangeLabel.htmlFor = "range";
     visionSimRangeValue = rangeSlider.value;
     rangeLabel.innerText = visionSimRangeValue;
-    row.appendChild(rangeLabel);
+    rangeContainer.appendChild(rangeLabel);
 
     rangeSlider.addEventListener("input", () => {
         visionSimRangeValue = rangeSlider.value;
         rangeLabel.innerText = visionSimRangeValue;
-        console.log("Range:", visionSimRangeValue);
+        console.info("New Range Value:", visionSimRangeValue);
     });
+
+    row.appendChild(rangeContainer);
 
     return [row];
 }
@@ -119,8 +125,7 @@ function tile_onClick() {
     return (tile) => {
         switch (currentMode) {
             case mode.Add:
-                console.log("I am on add mode");
-                console.log(
+                console.info(
                     "Tile:",
                     tile.target.dataset.x,
                     tile.target.dataset.y
@@ -134,7 +139,7 @@ function tile_onClick() {
                 console.log("I am on remove mode");
                 break;
             default:
-                console.log("Help! I am lost!");
+                console.warn("Help! I am lost!");
                 break;
         }
     };
@@ -168,6 +173,14 @@ function visionSim_drawSingleActive(x, y) {
     let tile = document.querySelector(`.tile[data-x="${x}"][data-y="${y}"]`);
     console.log("Drawing at:", x, y);
     tile.classList.add("active");
+}
+
+function visionSim_clearVision() {
+    let tiles = document.querySelectorAll(".tile");
+    for (let tile of tiles) {
+        tile.classList.remove("active");
+        tile.classList.remove("origin");
+    }
 }
 
 // https://stackoverflow.com/a/51468627
