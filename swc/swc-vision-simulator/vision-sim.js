@@ -35,7 +35,7 @@ function visionSim_controls_init() {
     btnReset.addEventListener("click", () => {
         currentMode = mode.Add;
         visionSim_clearVision();
-        console.log("Received command to: reset.");
+        console.info("Received command to: reset.");
     });
     row.appendChild(btnReset);
 
@@ -45,7 +45,7 @@ function visionSim_controls_init() {
     btnAdd.addEventListener("click", () => {
         if (currentMode === mode.Add) return;
         currentMode = mode.Add;
-        console.log("Received command to change mode to: add.");
+        console.info("Received command to change mode to: add.");
     });
     row.appendChild(btnAdd);
 
@@ -55,7 +55,7 @@ function visionSim_controls_init() {
     btnRemove.addEventListener("click", () => {
         if (currentMode === mode.Remove) return;
         currentMode = mode.Remove;
-        console.log("Received command to change mode to: remove.");
+        console.info("Received command to change mode to: remove.");
     });
     row.appendChild(btnRemove);
 
@@ -85,7 +85,7 @@ function visionSim_controls_init() {
     rangeSlider.addEventListener("input", () => {
         visionSimRangeValue = rangeSlider.value;
         rangeLabel.innerText = visionSimRangeValue;
-        console.log("New Range Value:", visionSimRangeValue);
+        console.info("New Range Value:", visionSimRangeValue);
     });
 
     row.appendChild(rangeContainer);
@@ -125,8 +125,7 @@ function tile_onClick() {
     return (tile) => {
         switch (currentMode) {
             case mode.Add:
-                console.log("I am on add mode");
-                console.log(
+                console.info(
                     "Tile:",
                     tile.target.dataset.x,
                     tile.target.dataset.y
@@ -140,7 +139,7 @@ function tile_onClick() {
                 console.log("I am on remove mode");
                 break;
             default:
-                console.log("Help! I am lost!");
+                console.warn("Help! I am lost!");
                 break;
         }
     };
