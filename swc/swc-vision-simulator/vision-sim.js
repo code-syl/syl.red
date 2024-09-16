@@ -58,9 +58,12 @@ function visionSim_controls_init() {
     });
     row.appendChild(btnRemove);
 
-    let rangeTitle = document.createElement("div");
+    let rangeContainer = document.createElement("div");
+    rangeContainer.classList.add("range-container");
+
+    let rangeTitle = document.createElement("span");
     rangeTitle.innerText = "Range:";
-    row.appendChild(rangeTitle);
+    rangeContainer.appendChild(rangeTitle);
 
     let rangeSlider = document.createElement("input");
     rangeSlider.classList.add("slider");
@@ -70,19 +73,21 @@ function visionSim_controls_init() {
     rangeSlider.max = 20;
     rangeSlider.value = visionSimRangeValue;
     rangeSlider.step = 1;
-    row.appendChild(rangeSlider);
+    rangeContainer.appendChild(rangeSlider);
 
     let rangeLabel = document.createElement("label");
     rangeLabel.htmlFor = "range";
     visionSimRangeValue = rangeSlider.value;
     rangeLabel.innerText = visionSimRangeValue;
-    row.appendChild(rangeLabel);
+    rangeContainer.appendChild(rangeLabel);
 
     rangeSlider.addEventListener("input", () => {
         visionSimRangeValue = rangeSlider.value;
         rangeLabel.innerText = visionSimRangeValue;
-        console.log("Range:", visionSimRangeValue);
+        console.log("New Range Value:", visionSimRangeValue);
     });
+
+    row.appendChild(rangeContainer);
 
     return [row];
 }
