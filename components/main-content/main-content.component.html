@@ -1,0 +1,17 @@
+<style>
+    @import url("/styles/common.css");
+
+    .main-content {
+        background-color: var(--dark-grey);
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+<nav-bar></nav-bar>
+<section class="main-content">
+    <slot></slot>
+</section>

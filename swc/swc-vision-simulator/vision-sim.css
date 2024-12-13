@@ -1,0 +1,93 @@
+#vision-sim {
+    flex-grow: 1;
+    width: 100%;
+}
+
+#vision-sim .canvas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+#vision-sim .canvas .row {
+    min-width: 100%;
+    flex-basis: 100%;
+    gap: 0;
+}
+
+#vision-sim .canvas .row .tile {
+    min-width: calc(100% / 20);
+    aspect-ratio: 1 / 1;
+    background-color: var(--white-backdrop);
+    outline: 1px solid var(--black);
+}
+
+#vision-sim .canvas .row .tile.active {
+    background-color: green;
+}
+
+#vision-sim .canvas .row .tile.origin {
+    background-color: brown;
+}
+
+#vision-sim .canvas .row .tile:hover,
+#controls > .btn:hover {
+    background-color: var(--white);
+    color: var(--black);
+    cursor: pointer;
+}
+
+#controls {
+    margin-bottom: 1em;
+    height: auto;
+    width: 100%;
+}
+
+#controls > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    margin: 0;
+    min-width: 2em;
+}
+
+#controls > .btn {
+    background-color: var(--white-backdrop);
+    padding: 0 1em 0 1em;
+}
+
+#controls .slider {
+    appearance: none;
+    background: none;
+    cursor: pointer;
+}
+
+#controls .slider::-webkit-slider-runnable-track,
+#controls .slider::-moz-range-track {
+    background: var(--white-backdrop);
+    height: 0.35em;
+    border-radius: 0.4em;
+}
+
+#controls .slider::-webkit-slider-thumb,
+#controls .slider::-moz-range-thumb {
+    appearance: none;
+    height: 85%;
+    width: 0.6em;
+    background-color: var(--grey);
+    border-radius: 0.15em;
+}
+
+#controls .slider:hover::-webkit-slider-thumb,
+#controls .slider:hover::-moz-range-thumb {
+    background-color: var(--white);
+    transition: background-color 0.2s ease;
+}
+
+.range-container {
+    gap: 0.25em;
+}

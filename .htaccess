@@ -1,0 +1,32 @@
+# src: https://github.com/phanan/htaccess Edited.
+
+# Rewrites and Redirects
+RewriteEngine On
+
+# Security
+
+## Deny access to hidden (dot) files
+RewriteCond %{SCRIPT_FILENAME} -d [OR]
+RewriteCond %{SCRIPT_FILENAME} -f
+RewriteRule "(^|/)\." - [F]
+
+## Deny access to backup and src Files
+<FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp|md)|~)$">
+    Require all denied
+</FilesMatch>
+
+## Disable directory browsing
+Options All -Indexes
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/png "access 1 day"
+    ExpiresByType image/gif "access 1 day"
+    ExpiresByType image/jpeg "access 1 day"
+    ExpiresByType image/jpg "access 1 day"
+    ExpiresByType text/javascript "access 1 hour"
+    ExpiresByType application/javascript "access 1 hour"
+    ExpiresByType text/css "access 1 hour"
+    ExpiresByType text/html "modification 1 hour"
+    ExpiresDefault "access 2 days"
+</IfModule>

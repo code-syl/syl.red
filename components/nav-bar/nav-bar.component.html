@@ -1,0 +1,91 @@
+<style>
+    @import url("/styles/common.css");
+
+    .nav-container {
+        font: normal 100% / normal Arial, Helvetica, sans-serif;
+        font-size: 18pt;
+        text-transform: uppercase;
+        letter-spacing: var(--nav-letter-spacing);
+        background-color: var(--dark-grey);
+
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 0.25em;
+
+        min-height: var(--nav-height);
+        width: 100%;
+        margin-top: var(--nav-margin);
+        margin-bottom: var(--nav-margin);
+    }
+
+    .nav-container a {
+        padding-left: var(--nav-letter-spacing);
+        min-width: 15%;
+        min-height: 2em;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+
+        text-decoration: underline;
+        text-decoration-color: transparent;
+
+        background-color: transparent;
+        transition: background-color 0.5s ease, text-decoration-color 0.25s ease;
+    }
+
+    .nav-container > * {
+        cursor: pointer;
+    }
+
+    .nav-container a:hover {
+        background-color: var(--white-backdrop);
+
+        text-decoration-color: var(--white-backdrop);
+        transition: background-color 0.5s ease, text-decoration-color 0.5s ease;
+    }
+
+    /* stupid extra underline with letter spacing applied */
+    .nav-container a:hover span {
+        clip-path: inset(0 var(--nav-letter-spacing) 0 0);
+    }
+</style>
+
+<nav class="row">
+    <div class="nav-container row">
+        <a
+            id="home-button"
+            class="col"
+            href="/"
+        >
+            <span>Home</span>
+        </a>
+        <a
+            id="projects-button"
+            class="col"
+            href="/"
+        >
+            <span>Projects</span>
+        </a>
+        <a
+            id="swc-button"
+            class="col"
+            href="/swc/"
+        >
+            <span>SWC</span>
+        </a>
+        <a
+            id="other-button"
+            class="col"
+            href="/"
+        >
+            <span>Other</span>
+        </a>
+        <a
+            id="about-button"
+            class="col"
+            href="/"
+        >
+            <span>About</span>
+        </a>
+    </div>
+</nav>
