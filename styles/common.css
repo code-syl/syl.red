@@ -13,6 +13,11 @@
     --win95-bg: #008080;
 }
 
+@font-face {
+    font-family: "W95FA";
+    src: url("../assets/fonts/w95fa/w95fa.woff2");
+}
+
 html,
 body {
     min-height: 100%;

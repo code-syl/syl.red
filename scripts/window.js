@@ -9,6 +9,7 @@ let _main_window_draggable_header = document.getElementById(
 _main_window_draggable_header.addEventListener("mousedown", _drag);
 
 function _create(element) {
+    // window
     element.style.position = "absolute";
     element.style.left = "calc(50% - 100px)";
     element.style.top = "calc(50% - 175px)";
@@ -17,14 +18,51 @@ function _create(element) {
     element.style.background = "lightgrey";
     element.style.zIndex = "1000";
 
+    // header
     let header = document.createElement("div");
-    header.className = "header";
+    header.className = "main_window_header";
     header.id = element.id + "_header";
     header.style.width = "100%";
     header.style.height = "20px";
+    header.style.display = "flex";
+    header.style.flexDirection = "row";
+    header.style.justifyContent = "space-between";
     header.style.background = "darkblue";
-    header.innerHTML = "&nbsp;Header";
     header.style.cursor = "move";
+
+    // header text
+    let headerText = document.createElement("div");
+    headerText.className = "header_text_container";
+    headerText.style.height = "100%";
+    headerText.style.fontSize = "12px";
+    headerText.style.fontWeight = "bold";
+    headerText.style.lineHeight = "24px";
+    headerText.innerHTML = "&nbsp;&nbsp;&nbsp;Welcome!";
+    headerText.style.fontFamily = "W95FA";
+    headerText.style.display = "flex";
+    headerText.style.alignContent = "center";
+
+    // header controls
+    let headerControlsContainer = document.createElement("div");
+    headerControlsContainer.className = "header_controls_container";
+    headerControlsContainer.style.height = "100%";
+    headerControlsContainer.style.display = "flex";
+    headerControlsContainer.style.flexDirection = "row";
+    headerControlsContainer.style.alignItems = "center";
+    headerControlsContainer.style.gap = "3px";
+    headerControlsContainer.style.paddingRight = "3px";
+    let cross = document.createElement("div");
+    cross.className = "header_control_cross";
+    cross.style.width = "14px";
+    cross.style.height = "14px";
+    cross.style.background = "red";
+    cross.style.cursor = "pointer";
+    cross.style.textAlign = "center";
+    cross.style.lineHeight = "16px";
+    cross.style.fontFamily = "W95FA";
+    cross.innerHTML = "&times;";
+    headerControlsContainer.appendChild(cross);
+    headerControlsContainer.appendChild(cross);
 
     // shadows
     element.style.boxShadow =
@@ -32,6 +70,8 @@ function _create(element) {
     header.style.boxShadow =
         "inset -1px 0px 0px 0px black, inset -2px 0px 0px 0px darkgrey, inset -3px 0px 0px 0px lightgrey, inset 1px 0px 0px 0px lightgrey, inset 1px 1px 0px 0px lightgrey, inset 2px 2px 0px 0px white, inset 3px 3px 0px 0px lightgrey";
 
+    header.appendChild(headerText);
+    header.appendChild(headerControlsContainer);
     element.appendChild(header);
 }
 
