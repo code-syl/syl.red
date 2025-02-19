@@ -10,11 +10,11 @@ _main_window_draggable_header.addEventListener("mousedown", _drag);
 
 function _create(element) {
     element.style.position = "absolute";
-    element.style.left = "calc(50% - 250px)";
-    element.style.top = "calc(50% - 350px)";
-    element.style.width = "500px";
-    element.style.height = "700px";
-    element.style.background = "red";
+    element.style.left = "calc(50% - 100px)";
+    element.style.top = "calc(50% - 175px)";
+    element.style.width = "200px";
+    element.style.height = "350px";
+    element.style.background = "lightgrey";
     element.style.zIndex = "1000";
 
     let header = document.createElement("div");
@@ -22,9 +22,15 @@ function _create(element) {
     header.id = element.id + "_header";
     header.style.width = "100%";
     header.style.height = "20px";
-    header.style.background = "blue";
-    header.innerHTML = "Header";
+    header.style.background = "darkblue";
+    header.innerHTML = "&nbsp;Header";
     header.style.cursor = "move";
+
+    // shadows
+    element.style.boxShadow =
+        "inset -1px -1px 0px 0px black, inset -2px -2px 0px 0px darkgrey, inset 1px 1px 0px 0px lightgrey, inset 2px 2px 0px 0px white";
+    header.style.boxShadow =
+        "inset -1px 0px 0px 0px black, inset -2px 0px 0px 0px darkgrey, inset -3px 0px 0px 0px lightgrey, inset 1px 0px 0px 0px lightgrey, inset 1px 1px 0px 0px lightgrey, inset 2px 2px 0px 0px white, inset 3px 3px 0px 0px lightgrey";
 
     element.appendChild(header);
 }
