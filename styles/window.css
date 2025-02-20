@@ -1,0 +1,174 @@
+:root {
+    --win95-window-bg-color: lightgrey;
+    --win95-window-header-bg-color: darkblue;
+    --win95-window-shadow-black: black;
+    --win95-window-shadow-dark: darkgrey;
+    --win95-window-shadow-light: lightgrey;
+    --win95-window-shadow-lighter: #e8e8e8;
+    --win95-window-shadow-white: white;
+    --win95-text-color-normal: black;
+    --win95-text-color-unavailable: grey;
+
+    --win95-header-height: 20px;
+    --win95-windows-shadow-width: 3px;
+}
+
+.win95_window {
+    /* dimensions and positioning */
+    position: absolute;
+
+    /* appearance */
+    background-color: var(--win95-window-bg-color);
+    box-shadow: inset -1px -1px 0px 0px var(--win95-window-shadow-black),
+        inset -2px -2px 0px 0px var(--win95-window-shadow-dark),
+        inset 1px 1px 0px 0px var(--win95-window-shadow-light),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-white);
+}
+
+.win95_header {
+    /* dimensions and positioning */
+    height: var(--win95-header-height);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    /* appearance */
+    background-color: var(--win95-window-header-bg-color);
+    color: white;
+    cursor: move;
+    box-shadow: inset -1px 0px 0px 0px var(--win95-window-shadow-black),
+        inset -2px 0px 0px 0px var(--win95-window-shadow-dark),
+        inset -3px 0px 0px 0px var(--win95-window-shadow-light),
+        inset 1px 0px 0px 0px var(--win95-window-shadow-light),
+        inset 1px 1px 0px 0px var(--win95-window-shadow-light),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-white),
+        inset 3px 3px 0px 0px var(--win95-window-shadow-light);
+}
+
+.win95_header_text {
+    /* dimensions and positioning */
+    height: 100%;
+    line-height: 24px;
+    padding-left: 6px;
+
+    /* appearance */
+    font-family: "W95FA";
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.win95_header_controls {
+    /* dimensions and positioning */
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    margin-top: calc(var(--win95-windows-shadow-width) + 2px);
+    margin-right: calc(var(--win95-windows-shadow-width) + 2px);
+}
+
+.win95_header_control {
+    /* dimensions and positioning */
+    height: calc(
+        var(--win95-header-height) - 3px - var(--win95-windows-shadow-width)
+    );
+    width: calc(
+        var(--win95-header-height) - 1px - var(--win95-windows-shadow-width)
+    );
+
+    /* appearance */
+    background-color: var(--win95-window-bg-color);
+    box-shadow: inset -1px -1px 0px 0px var(--win95-window-shadow-black),
+        inset -2px -2px 0px 0px var(--win95-window-shadow-dark),
+        inset 1px 1px 0px 0px var(--win95-window-shadow-white),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-lighter);
+}
+
+.win95_header_control_question {
+    /* dimensions and positioning */
+    height: 1px;
+    width: 1px;
+
+    /* appearance */
+    background-color: transparent;
+    box-shadow: 6px 2px var(--win95-text-color-normal),
+        7px 2px var(--win95-text-color-normal),
+        8px 2px var(--win95-text-color-normal),
+        9px 2px var(--win95-text-color-normal),
+        5px 3px var(--win95-text-color-normal),
+        6px 3px var(--win95-text-color-normal),
+        9px 3px var(--win95-text-color-normal),
+        10px 3px var(--win95-text-color-normal),
+        5px 4px var(--win95-text-color-normal),
+        6px 4px var(--win95-text-color-normal),
+        9px 4px var(--win95-text-color-normal),
+        10px 3px var(--win95-text-color-normal),
+        10px 4px var(--win95-text-color-normal),
+        8px 5px var(--win95-text-color-normal),
+        9px 5px var(--win95-text-color-normal),
+        7px 6px var(--win95-text-color-normal),
+        8px 6px var(--win95-text-color-normal),
+        7px 7px var(--win95-text-color-normal),
+        8px 7px var(--win95-text-color-normal),
+        7px 9px var(--win95-text-color-normal),
+        8px 9px var(--win95-text-color-normal),
+        7px 10px var(--win95-text-color-normal),
+        8px 10px var(--win95-text-color-normal);
+}
+
+.win95_header_control_cross {
+    /* dimensions and positioning */
+    height: 1px;
+    width: 1px;
+
+    /* appearance */
+    background-color: transparent;
+    box-shadow: 3px 3px var(--win95-text-color-unavailable),
+        4px 3px var(--win95-text-color-unavailable),
+        9px 3px var(--win95-text-color-unavailable),
+        10px 3px var(--win95-text-color-unavailable),
+        4px 4px var(--win95-text-color-unavailable),
+        5px 4px var(--win95-text-color-unavailable),
+        8px 4px var(--win95-text-color-unavailable),
+        9px 4px var(--win95-text-color-unavailable),
+        5px 5px var(--win95-text-color-unavailable),
+        6px 5px var(--win95-text-color-unavailable),
+        7px 5px var(--win95-text-color-unavailable),
+        8px 5px var(--win95-text-color-unavailable),
+        6px 6px var(--win95-text-color-unavailable),
+        7px 6px var(--win95-text-color-unavailable),
+        5px 7px var(--win95-text-color-unavailable),
+        6px 7px var(--win95-text-color-unavailable),
+        7px 7px var(--win95-text-color-unavailable),
+        8px 7px var(--win95-text-color-unavailable),
+        4px 8px var(--win95-text-color-unavailable),
+        5px 8px var(--win95-text-color-unavailable),
+        8px 8px var(--win95-text-color-unavailable),
+        9px 8px var(--win95-text-color-unavailable),
+        3px 9px var(--win95-text-color-unavailable),
+        4px 9px var(--win95-text-color-unavailable),
+        9px 9px var(--win95-text-color-unavailable),
+        10px 9px var(--win95-text-color-unavailable),
+        10px 4px var(--win95-window-shadow-white),
+        11px 4px var(--win95-window-shadow-white),
+        9px 5px var(--win95-window-shadow-white),
+        10px 5px var(--win95-window-shadow-white),
+        8px 6px var(--win95-window-shadow-white),
+        9px 6px var(--win95-window-shadow-white),
+        6px 8px var(--win95-window-shadow-white),
+        5px 9px var(--win95-window-shadow-white),
+        6px 9px var(--win95-window-shadow-white),
+        4px 10px var(--win95-window-shadow-white),
+        5px 10px var(--win95-window-shadow-white),
+        10px 10px var(--win95-window-shadow-white),
+        11px 10px var(--win95-window-shadow-white);
+}
+
+#main_window {
+    /* dimensions and positioning */
+    width: 200px;
+    height: 100px;
+    left: calc(50% - (200px / 2)); /* starting position */
+    top: calc(50% - (100px / 2)); /* starting position */
+    z-index: 1000;
+}
