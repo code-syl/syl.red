@@ -28,7 +28,7 @@
             <div class="win95_header" id="main_window_header">
                 <span class="win95_header_text">Welcome!</span>
                 <div class="win95_header_controls">
-                    <div class="win95_header_control">
+                    <div class="win95_header_control clickable">
                         <div class="win95_header_control_question"></div>
                     </div>
                     <div class="win95_header_control">
@@ -36,7 +36,10 @@
                     </div>
                 </div>
             </div>
-
+            <div id="main_window_canvas">
+                Hello world!<br />
+                <a href="https://google.com" target="_blank">Click here to go to Google!</a>
+            </div>
         </div>
     </div>
 

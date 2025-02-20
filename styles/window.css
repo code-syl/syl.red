@@ -13,9 +13,17 @@
     --win95-windows-shadow-width: 3px;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 .win95_window {
     /* dimensions and positioning */
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    justify-content: space-between;
 
     /* appearance */
     background-color: var(--win95-window-bg-color);
@@ -23,6 +31,8 @@
         inset -2px -2px 0px 0px var(--win95-window-shadow-dark),
         inset 1px 1px 0px 0px var(--win95-window-shadow-light),
         inset 2px 2px 0px 0px var(--win95-window-shadow-white);
+    font-family: "W95FA";
+    color: var(--win95-text-color-normal);
 }
 
 .win95_header {
@@ -171,4 +181,14 @@
     left: calc(50% - (200px / 2)); /* starting position */
     top: calc(50% - (100px / 2)); /* starting position */
     z-index: 1000;
+}
+
+#main_window_canvas {
+    /* dimensions and positioning */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.25em;
+
+    /* appearance */
 }
