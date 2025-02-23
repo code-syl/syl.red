@@ -11,9 +11,10 @@
 
     <link rel="stylesheet" href="/styles/common.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/styles/window.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/styles/main_window.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/styles/homepage.css" type="text/css" media="screen" />
 
-    <script src="/scripts/window.js" type="text/javascript" defer></script>
+    <script src="/scripts/window.js" type="module" defer></script>
+    <script src="/scripts/homepage.js" type="module" defer></script>
 
 </head>
 
@@ -25,11 +26,11 @@
     </script>
 
     <div class="canvas">
-        <div class="win95_window" id="main_window">
-            <div class="win95_header" id="main_window_header">
+        <div class="win95_window win95_window_visible " id="main_window">
+            <div class="win95_header win95_header_focused" id="main_window_header">
                 <span class="win95_header_text">Welcome!</span>
                 <div class="win95_header_controls">
-                    <div class="win95_header_control clickable">
+                    <div class="win95_header_control clickable" id="about">
                         <div class="win95_header_control_question"></div>
                     </div>
                     <div class="win95_header_control">
@@ -40,6 +41,23 @@
             <div id="main_window_canvas">
                 Hello world!<br />
                 <a href="https://google.com" target="_blank">Click here to go to Google!</a>
+            </div>
+        </div>
+        <div class="win95_window win95_window_hidden" id="about_window">
+            <div class="win95_header" id="about_window_header">
+                <span class="win95_header_text">About</span>
+                <div class="win95_header_controls">
+                    <div class="win95_header_control clickable" id="close">
+                        <div class="win95_header_control_cross"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="about_window_canvas">
+                This site has been developed in pure HTML, CSS, and JavaScript. I took inspiration from Windows 95 and the many Strawpages floating about on the internet.<br />
+                I hope you enjoy your stay!
+                <div class="win95_dashed_box" id="about_window_github_box">
+                    Hello
+                </div>
             </div>
         </div>
     </div>

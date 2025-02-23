@@ -30,7 +30,7 @@
 
     /* appearance */
     background-color: var(--win95-window-header-bg-color);
-    color: white;
+    color: var(--win95-window-header-text-color);
     cursor: move;
     box-shadow: inset -2px 0px 0px 0px var(--win95-window-shadow-black),
         inset -4px 0px 0px 0px var(--win95-window-shadow-dark),
@@ -39,6 +39,28 @@
         inset 2px 2px 0px 0px var(--win95-window-shadow-light),
         inset 4px 4px 0px 0px var(--win95-window-shadow-white),
         inset 6px 6px 0px 0px var(--win95-window-shadow-light);
+}
+
+.win95_header_unfocused {
+    /* appearance */
+    background-color: var(--win95-window-header-bg-color-unavailable);
+    color: var(--win95-window-header-text-color-unavailable);
+}
+
+.win95_header_focused {
+    /* appearance */
+    background-color: var(--win95-window-header-bg-color);
+    color: var(--win95-window-header-text-color);
+}
+
+.win95_window_hidden {
+    /* dimensions and positioning */
+    display: none;
+}
+
+.win95_window_visible {
+    /* dimensions and positioning */
+    display: flex;
 }
 
 .win95_header_text {
@@ -186,4 +208,8 @@
         10px 20px var(--win95-window-shadow-white),
         20px 20px var(--win95-window-shadow-white),
         22px 20px var(--win95-window-shadow-white);
+}
+
+.win95_dashed_box {
+    border: 2px dashed var(--win95-text-color-unavailable);
 }
