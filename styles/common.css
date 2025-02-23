@@ -11,6 +11,19 @@
     --nav-letter-spacing: 4px;
 
     --win95-bg: #008080;
+
+    --win95-window-bg-color: lightgrey;
+    --win95-window-header-bg-color: darkblue;
+    --win95-window-shadow-black: black;
+    --win95-window-shadow-dark: darkgrey;
+    --win95-window-shadow-light: lightgrey;
+    --win95-window-shadow-lighter: #e8e8e8;
+    --win95-window-shadow-white: white;
+    --win95-text-color-normal: black;
+    --win95-text-color-unavailable: grey;
+
+    --win95-header-height: 40px;
+    --win95-windows-shadow-width: 6px;
 }
 
 @font-face {

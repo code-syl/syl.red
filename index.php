@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="/styles/common.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/styles/window.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/styles/main_window.css" type="text/css" media="screen" />
 
     <script src="/scripts/window.js" type="text/javascript" defer></script>
 
@@ -32,7 +33,7 @@
                         <div class="win95_header_control_question"></div>
                     </div>
                     <div class="win95_header_control">
-                        <div class="win95_header_control_cross"></div>
+                        <div class="win95_header_control_cross disabled"></div>
                     </div>
                 </div>
             </div>

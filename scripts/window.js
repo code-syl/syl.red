@@ -5,44 +5,48 @@ let _main_window_draggable_header = document.getElementById(
     _identifier + "_header"
 );
 _main_window_draggable_header.addEventListener("mousedown", _drag);
+_main_window_draggable_header.addEventListener("touchstart", _drag, {
+    passive: false,
+});
 
 // derived from https://infinitejs.com/posts/keep-dragged-elements-within-parent/
 function _drag(event) {
     event.preventDefault();
 
-    let offsetX =
-        event.clientX - _main_window_draggable.getBoundingClientRect().left;
-    let offsetY =
-        event.clientY - _main_window_draggable.getBoundingClientRect().top;
+    let clientX = event.clientX || event.touches[0].clientX;
+    let clientY = event.clientY || event.touches[0].clientY;
 
-    document.addEventListener("mousemove", _onMouseMove);
+    let offsetX = clientX - _main_window_draggable.getBoundingClientRect().left;
+    let offsetY = clientY - _main_window_draggable.getBoundingClientRect().top;
+
+    document.addEventListener("mousemove", _onMove);
     document.addEventListener("mouseup", _stop);
     document.body.addEventListener("mouseleave", _stop);
 
-    function _onMouseMove(event) {
-        let newX = event.clientX - offsetX;
-        let newY = event.clientY - offsetY;
+    document.addEventListener("touchmove", _onMove, { passive: false });
+    document.addEventListener("touchend", _stop);
+
+    function _onMove(event) {
+        event.preventDefault();
+
+        let clientX = event.clientX || event.touches[0].clientX;
+        let clientY = event.clientY || event.touches[0].clientY;
+
+        let newX = clientX - offsetX;
+        let newY = clientY - offsetY;
 
         const containerRectangle = _container.getBoundingClientRect();
         const elementRectangle = _main_window_draggable.getBoundingClientRect();
 
         // restrict movement within the container
-        if (newX < containerRectangle.left) {
-            newX = containerRectangle.left;
-            offsetX = event.clientX - newX;
-        }
-        if (newX + elementRectangle.width > containerRectangle.right) {
-            newX = containerRectangle.right - elementRectangle.width;
-            offsetX = event.clientX - newX;
-        }
-        if (newY < containerRectangle.top) {
-            newY = containerRectangle.top;
-            offsetY = event.clientY - newY;
-        }
-        if (newY + elementRectangle.height > containerRectangle.bottom) {
-            newY = containerRectangle.bottom - elementRectangle.height;
-            offsetY = event.clientY - newY;
-        }
+        newX = Math.max(
+            containerRectangle.left,
+            Math.min(newX, containerRectangle.right - elementRectangle.width)
+        );
+        newY = Math.max(
+            containerRectangle.top,
+            Math.min(newY, containerRectangle.bottom - elementRectangle.height)
+        );
 
         _main_window_draggable.style.left =
             newX - containerRectangle.left + "px";
@@ -50,8 +54,11 @@ function _drag(event) {
     }
 
     function _stop() {
-        document.removeEventListener("mousemove", _onMouseMove);
+        document.removeEventListener("mousemove", _onMove);
         document.removeEventListener("mouseup", _stop);
         document.body.removeEventListener("mouseleave", _stop);
+
+        document.removeEventListener("touchmove", _onMove);
+        document.removeEventListener("touchend", _stop);
     }
 }
