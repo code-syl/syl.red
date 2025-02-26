@@ -49,6 +49,10 @@ let _about_button = document.querySelector(
         _about_window.classList.add("win95_window_visible");
         _main_window_draggable_header.classList.remove("win95_header_focused");
         _main_window_draggable_header.classList.add("win95_header_unfocused");
+        _about_window_draggable_header.classList.remove(
+            "win95_header_unfocused"
+        );
+        _about_window_draggable_header.classList.add("win95_header_focused");
         _about_window.style.zIndex = "2001";
         _main_window.style.zIndex = "2000";
     });
