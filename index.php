@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/styles/common.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/styles/window.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/styles/homepage.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/styles/desktopicon.css" type="text/css" media="screen" />
 
     <script src="/scripts/window.js" type="module" defer></script>
     <script src="/scripts/homepage.js" type="module" defer></script>
@@ -26,6 +27,20 @@
     </script>
 
     <div class="canvas">
+        <div class="win95_desktop_icon_container">
+            <div class="win95_desktop_icon clickable">
+                <div class="win95_desktop_icon_image" id="internet">
+                    <div class="win95_pixel"></div>
+                </div>
+                <span class="win95_desktop_icon_text">This is a long string</span>
+            </div>
+            <div class="win95_desktop_icon clickable">
+                <div class="win95_desktop_icon_image" id="github">
+                    <div class="win95_pixel"></div>
+                </div>
+                <span class="win95_desktop_icon_text">GitHub</span>
+            </div>
+        </div>
         <div class="win95_window win95_window_visible " id="main_window">
             <div class="win95_header win95_header_focused" id="main_window_header">
                 <span class="win95_header_text">Welcome!</span>

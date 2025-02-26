@@ -23,9 +23,10 @@
     --win95-window-shadow-white: white;
     --win95-text-color-normal: black;
     --win95-text-color-unavailable: grey;
+    --win95-text-color-white: white;
 
     --win95-header-height: 40px;
-    --win95-windows-shadow-width: 6px;
+    --win95-window-shadow-width: 6px;
 }
 
 @font-face {

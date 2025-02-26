@@ -1,0 +1,175 @@
+.win95_desktop_icon {
+    /* dimensions and positioning */
+    width: calc(2 * 48px);
+    height: calc(2 * 48px + 24px + 0.15em);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+
+    /* appearance */
+}
+
+.win95_desktop_icon_image {
+    /* dimensions and positioning */
+    width: 100%;
+    height: calc(2 * 48px);
+
+    /* appearance */
+    outline: 1px solid black;
+}
+
+span.win95_desktop_icon_text {
+    /* dimensions and positioning */
+    width: calc((2 * 48px) - (2 * 0.15em));
+    padding: 0.15em;
+
+    /* appearance */
+    color: var(--win95-text-color-white);
+    font-family: "W95FA";
+    font-size: 24px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* internet icon with magnifying glass */
+.win95_desktop_icon_image#internet .win95_pixel {
+    /* dimensions and positioning */
+    width: 2px;
+    height: 2px;
+
+    /* appearance W x H */
+    box-shadow: /*1*/ calc(8px * 2 + 12px * 2) calc(8px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 13px * 2) calc(8px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 14px * 2) calc(8px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 15px * 2) calc(8px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 16px * 2) calc(8px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 17px * 2) calc(8px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 18px * 2) calc(8px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 19px * 2) calc(8px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 20px * 2) calc(8px * 2 + 0px * 2) gray,
+        /*2*/ calc(8px * 2 + 10px * 2) calc(9px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 11px * 2) calc(9px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 12px * 2) calc(9px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 13px * 2) calc(9px * 2 + 0px * 2) white,
+        calc(8px * 2 + 14px * 2) calc(9px * 2 + 0px * 2) white,
+        calc(8px * 2 + 15px * 2) calc(9px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 16px * 2) calc(9px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 17px * 2) calc(9px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 18px * 2) calc(9px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 19px * 2) calc(9px * 2 + 0px * 2) green,
+        calc(8px * 2 + 20px * 2) calc(9px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 21px * 2) calc(9px * 2 + 0px * 2) green,
+        calc(8px * 2 + 22px * 2) calc(9px * 2 + 0px * 2) green,
+        calc(8px * 2 + 23px * 2) calc(9px * 2 + 0px * 2) green,
+        /*3*/ calc(8px * 2 + 8px * 2) calc(10px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 9px * 2) calc(10px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 10px * 2) calc(10px * 2 + 0px * 2) white,
+        calc(8px * 2 + 11px * 2) calc(10px * 2 + 0px * 2) white,
+        calc(8px * 2 + 12px * 2) calc(10px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 13px * 2) calc(10px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 14px * 2) calc(10px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 15px * 2) calc(10px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 16px * 2) calc(10px * 2 + 0px * 2) darkgrey,
+        calc(8px * 2 + 17px * 2) calc(10px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 18px * 2) calc(10px * 2 + 0px * 2) green,
+        calc(8px * 2 + 19px * 2) calc(10px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 20px * 2) calc(10px * 2 + 0px * 2) green,
+        calc(8px * 2 + 21px * 2) calc(10px * 2 + 0px * 2) green,
+        calc(8px * 2 + 22px * 2) calc(10px * 2 + 0px * 2) green,
+        calc(8px * 2 + 23px * 2) calc(10px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 24px * 2) calc(10px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 25px * 2) calc(10px * 2 + 0px * 2) darkblue,
+        /*4*/ calc(8px * 2 + 7px * 2) calc(11px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 8px * 2) calc(11px * 2 + 0px * 2) white,
+        calc(8px * 2 + 9px * 2) calc(11px * 2 + 0px * 2) white,
+        calc(8px * 2 + 10px * 2) calc(11px * 2 + 0px * 2) white,
+        calc(8px * 2 + 11px * 2) calc(11px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 12px * 2) calc(11px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 13px * 2) calc(11px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 14px * 2) calc(11px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 15px * 2) calc(11px * 2 + 0px * 2) green,
+        calc(8px * 2 + 16px * 2) calc(11px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 17px * 2) calc(11px * 2 + 0px * 2) green,
+        calc(8px * 2 + 18px * 2) calc(11px * 2 + 0px * 2) green,
+        calc(8px * 2 + 19px * 2) calc(11px * 2 + 0px * 2) green,
+        calc(8px * 2 + 20px * 2) calc(11px * 2 + 0px * 2) green,
+        calc(8px * 2 + 21px * 2) calc(11px * 2 + 0px * 2) green,
+        calc(8px * 2 + 22px * 2) calc(11px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 23px * 2) calc(11px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 24px * 2) calc(11px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 25px * 2) calc(11px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 26px * 2) calc(11px * 2 + 0px * 2) darkblue,
+        /*5*/ calc(8px * 2 + 6px * 2) calc(12px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 7px * 2) calc(12px * 2 + 0px * 2) white,
+        calc(8px * 2 + 8px * 2) calc(12px * 2 + 0px * 2) white,
+        calc(8px * 2 + 9px * 2) calc(12px * 2 + 0px * 2) darkgrey,
+        calc(8px * 2 + 10px * 2) calc(12px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 11px * 2) calc(12px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 12px * 2) calc(12px * 2 + 0px * 2) green,
+        calc(8px * 2 + 13px * 2) calc(12px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 14px * 2) calc(12px * 2 + 0px * 2) green,
+        calc(8px * 2 + 15px * 2) calc(12px * 2 + 0px * 2) green,
+        calc(8px * 2 + 16px * 2) calc(12px * 2 + 0px * 2) green,
+        calc(8px * 2 + 17px * 2) calc(12px * 2 + 0px * 2) green,
+        calc(8px * 2 + 18px * 2) calc(12px * 2 + 0px * 2) green,
+        calc(8px * 2 + 19px * 2) calc(12px * 2 + 0px * 2) green,
+        calc(8px * 2 + 20px * 2) calc(12px * 2 + 0px * 2) green,
+        calc(8px * 2 + 21px * 2) calc(12px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 22px * 2) calc(12px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 23px * 2) calc(12px * 2 + 0px * 2) turquoise,
+        calc(8px * 2 + 24px * 2) calc(12px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 25px * 2) calc(12px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 26px * 2) calc(12px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 27px * 2) calc(12px * 2 + 0px * 2) black,
+        /*6*/ calc(8px * 2 + 5px * 2) calc(13px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 6px * 2) calc(13px * 2 + 0px * 2) white,
+        calc(8px * 2 + 7px * 2) calc(13px * 2 + 0px * 2) white,
+        calc(8px * 2 + 8px * 2) calc(13px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 9px * 2) calc(13px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 10px * 2) calc(13px * 2 + 0px * 2) green,
+        calc(8px * 2 + 11px * 2) calc(13px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 12px * 2) calc(13px * 2 + 0px * 2) green,
+        calc(8px * 2 + 13px * 2) calc(13px * 2 + 0px * 2) green,
+        calc(8px * 2 + 14px * 2) calc(13px * 2 + 0px * 2) green,
+        calc(8px * 2 + 15px * 2) calc(13px * 2 + 0px * 2) green,
+        calc(8px * 2 + 16px * 2) calc(13px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 17px * 2) calc(13px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 18px * 2) calc(13px * 2 + 0px * 2) green,
+        calc(8px * 2 + 19px * 2) calc(13px * 2 + 0px * 2) green,
+        calc(8px * 2 + 20px * 2) calc(13px * 2 + 0px * 2) turquoise,
+        calc(8px * 2 + 21px * 2) calc(13px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 22px * 2) calc(13px * 2 + 0px * 2) turquoise,
+        calc(8px * 2 + 23px * 2) calc(13px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 24px * 2) calc(13px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 25px * 2) calc(13px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 26px * 2) calc(13px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 27px * 2) calc(13px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 28px * 2) calc(13px * 2 + 0px * 2) black,
+        /*7*/ calc(8px * 2 + 4px * 2) calc(14px * 2 + 0px * 2) gray,
+        calc(8px * 2 + 5px * 2) calc(14px * 2 + 0px * 2) white,
+        calc(8px * 2 + 6px * 2) calc(14px * 2 + 0px * 2) white,
+        calc(8px * 2 + 7px * 2) calc(14px * 2 + 0px * 2) darkgray,
+        calc(8px * 2 + 8px * 2) calc(14px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 9px * 2) calc(14px * 2 + 0px * 2) green,
+        calc(8px * 2 + 10px * 2) calc(14px * 2 + 0px * 2) lime,
+        calc(8px * 2 + 11px * 2) calc(14px * 2 + 0px * 2) green,
+        calc(8px * 2 + 12px * 2) calc(14px * 2 + 0px * 2) green,
+        calc(8px * 2 + 13px * 2) calc(14px * 2 + 0px * 2) green,
+        calc(8px * 2 + 14px * 2) calc(14px * 2 + 0px * 2) green,
+        calc(8px * 2 + 15px * 2) calc(14px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 16px * 2) calc(14px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 17px * 2) calc(14px * 2 + 0px * 2) turquoise,
+        calc(8px * 2 + 18px * 2) calc(14px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 19px * 2) calc(14px * 2 + 0px * 2) turquoise,
+        calc(8px * 2 + 20px * 2) calc(14px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 21px * 2) calc(14px * 2 + 0px * 2) turquoise,
+        calc(8px * 2 + 22px * 2) calc(14px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 23px * 2) calc(14px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 24px * 2) calc(14px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 25px * 2) calc(14px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 26px * 2) calc(14px * 2 + 0px * 2) blue,
+        calc(8px * 2 + 27px * 2) calc(14px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 28px * 2) calc(14px * 2 + 0px * 2) darkblue,
+        calc(8px * 2 + 29px * 2) calc(14px * 2 + 0px * 2) black;
+}

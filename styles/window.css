@@ -80,17 +80,17 @@
     display: flex;
     flex-direction: row;
     gap: 4px;
-    margin-top: calc(var(--win95-windows-shadow-width) + 4px);
-    margin-right: calc(var(--win95-windows-shadow-width) + 4px);
+    margin-top: calc(var(--win95-window-shadow-width) + 4px);
+    margin-right: calc(var(--win95-window-shadow-width) + 4px);
 }
 
 .win95_header_control {
     /* dimensions and positioning */
     height: calc(
-        var(--win95-header-height) - 6px - var(--win95-windows-shadow-width)
+        var(--win95-header-height) - 6px - var(--win95-window-shadow-width)
     );
     width: calc(
-        var(--win95-header-height) - 2px - var(--win95-windows-shadow-width)
+        var(--win95-header-height) - 2px - var(--win95-window-shadow-width)
     );
 
     /* appearance */
@@ -169,6 +169,7 @@
 }
 
 .win95_header_control_cross.disabled {
+    /* appearance */
     box-shadow: 6px 6px var(--win95-text-color-unavailable),
         8px 6px var(--win95-text-color-unavailable),
         18px 6px var(--win95-text-color-unavailable),
