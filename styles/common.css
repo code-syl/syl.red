@@ -24,6 +24,7 @@
     --win95-text-color-normal: black;
     --win95-text-color-unavailable: grey;
     --win95-text-color-white: white;
+    --win95-text-background-unavailable: #c3c3c3;
 
     --win95-header-height: 40px;
     --win95-window-shadow-width: 6px;

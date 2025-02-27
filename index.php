@@ -32,13 +32,7 @@
                 <div class="win95_desktop_icon_image" id="internet">
                     <div class="win95_pixel"></div>
                 </div>
-                <span class="win95_desktop_icon_text">This is a long string</span>
-            </div>
-            <div class="win95_desktop_icon clickable">
-                <div class="win95_desktop_icon_image" id="github">
-                    <div class="win95_pixel"></div>
-                </div>
-                <span class="win95_desktop_icon_text">GitHub</span>
+                <span class="win95_desktop_icon_text"><mark class="win95_desktop_icon_text">GitHub</mark></span>
             </div>
         </div>
         <div class="win95_window win95_window_visible " id="main_window">
