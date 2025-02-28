@@ -31,7 +31,7 @@
 #about_window {
     /* dimensions and positioning */
     width: 500px;
-    height: 325px;
+    height: 250px;
     left: calc(50% - (500px / 2)); /* starting position */
     top: calc(50% - (325px / 2)); /* starting position */
 }
