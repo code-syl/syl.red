@@ -28,7 +28,7 @@
 
     <div class="canvas">
         <div class="win95_desktop_icon_container">
-            <div class="win95_desktop_icon clickable" onclick="window.open(`http://github.com/code-syl/`, `_blank`)">
+            <div class="win95_desktop_icon clickable" onclick="window.open(`https://github.com/code-syl/`, `_blank`)">
                 <div class="win95_desktop_icon_image" id="internet">
                     <div class="win95_pixel"></div>
                 </div>
