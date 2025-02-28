@@ -28,7 +28,7 @@
 
     <div class="canvas">
         <div class="win95_desktop_icon_container">
-            <div class="win95_desktop_icon clickable">
+            <div class="win95_desktop_icon clickable" onclick="window.open(`http://github.com/code-syl/`, `_blank`)">
                 <div class="win95_desktop_icon_image" id="internet">
                     <div class="win95_pixel"></div>
                 </div>
@@ -63,10 +63,8 @@
             </div>
             <div id="about_window_canvas">
                 This site has been developed in pure HTML, CSS, and JavaScript. I took inspiration from Windows 95 and the many Strawpages floating about on the internet.<br />
-                I hope you enjoy your stay!
-                <div class="win95_dashed_box" id="about_window_github_box">
-                    Hello
-                </div>
+                I hope you enjoy your stay!<br />
+                <span>- <a href="https://github.com/code-syl/">code-syl</a></span>
             </div>
         </div>
     </div>
