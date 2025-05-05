@@ -37,7 +37,7 @@
         </div>
         <div class="win95_window win95_window_visible " id="main_window">
             <div class="win95_header win95_header_focused" id="main_window_header">
-                <span class="win95_header_text">Welcome!</span>
+                <span class="win95_header_text">Hi!</span>
                 <div class="win95_header_controls">
                     <div class="win95_header_control clickable" id="about">
                         <div class="win95_header_control_question"></div>
@@ -48,8 +48,20 @@
                 </div>
             </div>
             <div id="main_window_canvas">
-                Hello world!<br />
-                <a href="https://google.com" target="_blank">Click here to go to Google!</a>
+                Welcome to this corner of the internet!<br />
+                This is my personal website and portfolio. Here is where I try out all sorts of wacky stuff when I feel like it.<br />
+                Please feel free to navigate through this 'forever W.I.P.':<br />
+
+                <ul>
+                    <li><a href="/nav/swc/">Star Wars</a></li>
+                    <li>Check back another time!</li>
+                </ul>
+
+                <span class="signature">~<a href="https://github.com/code-syl" target="_blank">code-syl</a></span>
+            </div>
+
+            <div class="homepage_welcome_image_container">
+                <img src="/assets/homepage_welcome_image.png" alt="A woman wearing a black t-shirt and a blue denim pair of paints. She is smiling and looking at the camera. Her right hand is raised in a waving position. Her hair is crimson red, and her eyes are amber. Her skin is fair. The art style is pixel art and the opacity of the image is slightly reduced to make it act as a background image." />
             </div>
         </div>
         <div class="win95_window win95_window_hidden" id="about_window">

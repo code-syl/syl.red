@@ -22,10 +22,10 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding: 0.5em;
+    padding: 0.6em;
 
     /* appearance */
-    font-size: 24px;
+    font-size: 20px;
 }
 
 #about_window {
@@ -53,4 +53,23 @@
     margin-top: auto;
     height: 100px;
     padding: 0.25em;
+}
+
+.homepage_welcome_image_container {
+    /* dimensions and positioning */
+    right: 5px;
+    bottom: -2px;
+    position: absolute;
+}
+
+.homepage_welcome_image_container img {
+    /* appearance */
+    filter: opacity(0.5);
+}
+
+#main_window_canvas .signature {
+    /* dimensions and positioning */
+    margin-top: auto;
+    margin-bottom: 1em;
+    margin-left: 0.25em;
 }

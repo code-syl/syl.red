@@ -49,6 +49,7 @@ mark.win95_desktop_icon_text {
     margin-top: -2px; /* ...before I did all 800 lines below... */
     /* note to self: make a script to automate this */
 
+    /* appearance */
     /*// prettier-ignore */
     box-shadow: calc(8px * 2 + 12px * 2) calc(8px * 2) gray,
         calc(8px * 2 + 13px * 2) calc(8px * 2) gray,

@@ -1,0 +1,274 @@
+/* this is ported from an older version of the site. I just chucked all the css in here, and this will be cleaned up later. I hope. */
+
+:root {
+    --dark-red: #a50000;
+    --dark-grey: #161616;
+    --grey: #242424;
+    --black: #101010;
+    --white: #eeeeee;
+    --white-backdrop: #eeeeee33;
+
+    --nav-height: 2em;
+    --nav-margin: 0.5em;
+    --nav-letter-spacing: 4px;
+}
+
+html,
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+}
+
+body {
+    background-color: var(--black);
+    color: var(--white);
+
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+span.col {
+    cursor: default !important;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.grey-header {
+    color: #aaaaaa;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content {
+    width: 100%;
+    background-color: var(--dark-grey);
+    min-height: calc(100% - 1em);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1em 1em 1em;
+    box-sizing: border-box;
+}
+
+.nav-bar,
+nav {
+    width: 100%;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: var(--white);
+    text-decoration: none;
+}
+
+* {
+    max-width: 100%;
+}
+
+.justified-text {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.horizontal-ulist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.horizontal-ulist ul li {
+    display: inline;
+}
+
+.horizontal-ulist ul li:not(#dot) {
+    font-family: "Courier New", Courier, monospace, sans-serif;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+}
+
+.horizontal-ulist ul li:hover:not(#dot) {
+    text-decoration-color: var(--white);
+    transition: background-color 0.5s ease, text-decoration-color 0.5s ease;
+}
+
+/* larger than mobile */
+@media only screen and (min-width: 600px) {
+    .main-content {
+        max-width: 600px;
+    }
+}
+
+.main-content {
+    background-color: var(--dark-grey);
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-container {
+    font: normal 100% / normal Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+    text-transform: uppercase;
+    letter-spacing: var(--nav-letter-spacing);
+    background-color: var(--dark-grey);
+
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 0.25em;
+
+    min-height: var(--nav-height);
+    width: 100%;
+    margin-top: var(--nav-margin);
+    margin-bottom: var(--nav-margin);
+}
+
+.nav-container a {
+    padding-left: var(--nav-letter-spacing);
+    min-width: 15%;
+    min-height: 2em;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+
+    text-decoration: underline;
+    text-decoration-color: transparent;
+
+    background-color: transparent;
+    transition: background-color 0.5s ease, text-decoration-color 0.25s ease;
+}
+
+.nav-container > * {
+    cursor: pointer;
+}
+
+.nav-container a:hover {
+    background-color: var(--white-backdrop);
+
+    text-decoration-color: var(--white-backdrop);
+    transition: background-color 0.5s ease, text-decoration-color 0.5s ease;
+}
+
+/* stupid extra underline with letter spacing applied */
+.nav-container a:hover span {
+    clip-path: inset(0 var(--nav-letter-spacing) 0 0);
+}
+
+.card {
+    box-sizing: border-box;
+    padding: 0.75em 0 0 0;
+    height: 10em;
+    width: 15em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--grey);
+}
+
+.card:hover {
+    background-color: var(--white-backdrop);
+    text-decoration-color: var(--white-backdrop);
+
+    transition: background-color 0.5s ease, text-decoration-color 0.5s ease;
+}
+
+.card > * {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card .top {
+    height: 80%;
+    overflow: hidden;
+}
+
+.top img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.card .bottom {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 0 0.5em 0 0.5em;
+}
+
+/* ========================================================================== */
+/* To combat FOUC */
+
+body {
+    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1s; /* Firefox < 16 */
+    -ms-animation: fadein 1s; /* Internet Explorer */
+    -o-animation: fadein 1s; /* Opera < 12.1 */
+    animation: fadein 1s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
