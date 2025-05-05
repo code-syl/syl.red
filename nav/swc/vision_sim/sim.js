@@ -186,7 +186,7 @@ function visionSim_clearVision() {
 // https://stackoverflow.com/a/51468627
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
 document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector("main-content");
+    const container = document.querySelector(".main-content");
     const header = visionSim_header_init();
     const controls = visionSim_controls_init();
 

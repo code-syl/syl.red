@@ -1,0 +1,216 @@
+.clickable {
+    cursor: pointer;
+}
+
+.win95_window {
+    /* dimensions and positioning */
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: space-between;
+
+    /* appearance */
+    background-color: var(--win95-window-bg-color);
+    box-shadow: inset -2px -2px 0px 0px var(--win95-window-shadow-black),
+        inset -4px -4px 0px 0px var(--win95-window-shadow-dark),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-light),
+        inset 4px 4px 0px 0px var(--win95-window-shadow-white);
+    font-family: "W95FA";
+    color: var(--win95-text-color-normal);
+}
+
+.win95_header {
+    /* dimensions and positioning */
+    height: var(--win95-header-height);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    /* appearance */
+    background-color: var(--win95-window-header-bg-color);
+    color: var(--win95-window-header-text-color);
+    cursor: move;
+    box-shadow: inset -2px 0px 0px 0px var(--win95-window-shadow-black),
+        inset -4px 0px 0px 0px var(--win95-window-shadow-dark),
+        inset -6px 0px 0px 0px var(--win95-window-shadow-light),
+        inset 2px 0px 0px 0px var(--win95-window-shadow-light),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-light),
+        inset 4px 4px 0px 0px var(--win95-window-shadow-white),
+        inset 6px 6px 0px 0px var(--win95-window-shadow-light);
+}
+
+.win95_header_unfocused {
+    /* appearance */
+    background-color: var(--win95-window-header-bg-color-unavailable);
+    color: var(--win95-window-header-text-color-unavailable);
+}
+
+.win95_header_focused {
+    /* appearance */
+    background-color: var(--win95-window-header-bg-color);
+    color: var(--win95-window-header-text-color);
+}
+
+.win95_window_hidden {
+    /* dimensions and positioning */
+    display: none;
+}
+
+.win95_window_visible {
+    /* dimensions and positioning */
+    display: flex;
+}
+
+.win95_header_text {
+    /* dimensions and positioning */
+    height: 100%;
+    line-height: 48px;
+    padding-left: 12px;
+
+    /* appearance */
+    font-family: "W95FA";
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.win95_header_controls {
+    /* dimensions and positioning */
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    margin-top: calc(var(--win95-window-shadow-width) + 4px);
+    margin-right: calc(var(--win95-window-shadow-width) + 4px);
+}
+
+.win95_header_control {
+    /* dimensions and positioning */
+    height: calc(
+        var(--win95-header-height) - 6px - var(--win95-window-shadow-width)
+    );
+    width: calc(
+        var(--win95-header-height) - 2px - var(--win95-window-shadow-width)
+    );
+
+    /* appearance */
+    background-color: var(--win95-window-bg-color);
+    box-shadow: inset -2px -2px 0px 0px var(--win95-window-shadow-black),
+        inset -4px -4px 0px 0px var(--win95-window-shadow-dark),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-white),
+        inset 4px 4px 0px 0px var(--win95-window-shadow-lighter);
+}
+
+.win95_header_control_question {
+    /* dimensions and positioning */
+    height: 2px;
+    width: 2px;
+
+    /* appearance */
+    background-color: transparent;
+    box-shadow: 12px 4px var(--win95-text-color-normal),
+        14px 4px var(--win95-text-color-normal),
+        16px 4px var(--win95-text-color-normal),
+        18px 4px var(--win95-text-color-normal),
+        10px 6px var(--win95-text-color-normal),
+        12px 6px var(--win95-text-color-normal),
+        18px 6px var(--win95-text-color-normal),
+        20px 6px var(--win95-text-color-normal),
+        10px 8px var(--win95-text-color-normal),
+        12px 8px var(--win95-text-color-normal),
+        18px 8px var(--win95-text-color-normal),
+        20px 6px var(--win95-text-color-normal),
+        20px 8px var(--win95-text-color-normal),
+        16px 10px var(--win95-text-color-normal),
+        18px 10px var(--win95-text-color-normal),
+        14px 12px var(--win95-text-color-normal),
+        16px 12px var(--win95-text-color-normal),
+        14px 14px var(--win95-text-color-normal),
+        16px 14px var(--win95-text-color-normal),
+        14px 18px var(--win95-text-color-normal),
+        16px 18px var(--win95-text-color-normal),
+        14px 20px var(--win95-text-color-normal),
+        16px 20px var(--win95-text-color-normal);
+}
+
+.win95_header_control_cross {
+    /* dimensions and positioning */
+    height: 2px;
+    width: 2px;
+
+    /* appearance */
+    background-color: transparent;
+    box-shadow: 7px 6px var(--win95-text-color-normal),
+        9px 6px var(--win95-text-color-normal),
+        19px 6px var(--win95-text-color-normal),
+        21px 6px var(--win95-text-color-normal),
+        9px 8px var(--win95-text-color-normal),
+        11px 8px var(--win95-text-color-normal),
+        17px 8px var(--win95-text-color-normal),
+        19px 8px var(--win95-text-color-normal),
+        11px 10px var(--win95-text-color-normal),
+        13px 10px var(--win95-text-color-normal),
+        15px 10px var(--win95-text-color-normal),
+        17px 10px var(--win95-text-color-normal),
+        13px 12px var(--win95-text-color-normal),
+        15px 12px var(--win95-text-color-normal),
+        11px 14px var(--win95-text-color-normal),
+        13px 14px var(--win95-text-color-normal),
+        15px 14px var(--win95-text-color-normal),
+        17px 14px var(--win95-text-color-normal),
+        9px 16px var(--win95-text-color-normal),
+        11px 16px var(--win95-text-color-normal),
+        17px 16px var(--win95-text-color-normal),
+        19px 16px var(--win95-text-color-normal),
+        7px 18px var(--win95-text-color-normal),
+        9px 18px var(--win95-text-color-normal),
+        19px 18px var(--win95-text-color-normal),
+        21px 18px var(--win95-text-color-normal);
+}
+
+.win95_header_control_cross.disabled {
+    /* appearance */
+    box-shadow: 6px 6px var(--win95-text-color-unavailable),
+        8px 6px var(--win95-text-color-unavailable),
+        18px 6px var(--win95-text-color-unavailable),
+        20px 6px var(--win95-text-color-unavailable),
+        8px 8px var(--win95-text-color-unavailable),
+        10px 8px var(--win95-text-color-unavailable),
+        16px 8px var(--win95-text-color-unavailable),
+        18px 8px var(--win95-text-color-unavailable),
+        10px 10px var(--win95-text-color-unavailable),
+        12px 10px var(--win95-text-color-unavailable),
+        14px 10px var(--win95-text-color-unavailable),
+        16px 10px var(--win95-text-color-unavailable),
+        12px 12px var(--win95-text-color-unavailable),
+        14px 12px var(--win95-text-color-unavailable),
+        10px 14px var(--win95-text-color-unavailable),
+        12px 14px var(--win95-text-color-unavailable),
+        14px 14px var(--win95-text-color-unavailable),
+        16px 14px var(--win95-text-color-unavailable),
+        8px 16px var(--win95-text-color-unavailable),
+        10px 16px var(--win95-text-color-unavailable),
+        16px 16px var(--win95-text-color-unavailable),
+        18px 16px var(--win95-text-color-unavailable),
+        6px 18px var(--win95-text-color-unavailable),
+        8px 18px var(--win95-text-color-unavailable),
+        18px 18px var(--win95-text-color-unavailable),
+        20px 18px var(--win95-text-color-unavailable),
+        20px 8px var(--win95-window-shadow-white),
+        22px 8px var(--win95-window-shadow-white),
+        18px 10px var(--win95-window-shadow-white),
+        20px 10px var(--win95-window-shadow-white),
+        16px 12px var(--win95-window-shadow-white),
+        18px 12px var(--win95-window-shadow-white),
+        12px 16px var(--win95-window-shadow-white),
+        10px 18px var(--win95-window-shadow-white),
+        12px 18px var(--win95-window-shadow-white),
+        8px 20px var(--win95-window-shadow-white),
+        10px 20px var(--win95-window-shadow-white),
+        20px 20px var(--win95-window-shadow-white),
+        22px 20px var(--win95-window-shadow-white);
+}
+
+.win95_dashed_box {
+    border: 2px dashed var(--win95-text-color-unavailable);
+}
