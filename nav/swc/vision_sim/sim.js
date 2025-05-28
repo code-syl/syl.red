@@ -5,7 +5,7 @@ const mode = {
 };
 Object.freeze(mode);
 let currentMode = mode.Add;
-const canvasSize = 20;
+const canvasSize = 22;
 
 function visionSim_header_init() {
     let headerItems = [];
