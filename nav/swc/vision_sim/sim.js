@@ -17,7 +17,7 @@ function visionSim_header_init() {
     let description = document.createElement("p");
     description.classList.add("justified-text");
     description.innerText =
-        "A tool to simulate the vision of a ship with a given range. This tool is currently a work in progress and may not be fully functional.";
+        "A tool to simulate the vision of a ground trooper with a given range. This tool is currently a work in progress and may not be fully functional.";
     headerItems.push(description);
 
     return headerItems;
@@ -146,10 +146,10 @@ function tile_onClick() {
 }
 
 function visionSim_drawVisionCircle(originX, originY) {
-    const xMin = Math.max(0, originX - visionSimRangeValue);
-    const xMax = Math.min(canvasSize, originX + visionSimRangeValue);
-    const yMin = Math.max(0, originY - visionSimRangeValue);
-    const yMax = Math.min(canvasSize, originY + visionSimRangeValue);
+    const xMin = Math.max(0, originX - visionSimRangeValue - 1);
+    const xMax = Math.min(canvasSize, originX + visionSimRangeValue - 1);
+    const yMin = Math.max(0, originY - visionSimRangeValue - 1);
+    const yMax = Math.min(canvasSize, originY + visionSimRangeValue - 1);
 
     for (let y = yMin; y <= yMax && y < canvasSize; y++) {
         for (let x = xMin; x <= xMax && x < canvasSize; x++) {
@@ -157,7 +157,7 @@ function visionSim_drawVisionCircle(originX, originY) {
             const inRange =
                 Math.sqrt(
                     Math.pow(x - originX, 2) + Math.pow(y - originY, 2)
-                ) <= visionSimRangeValue;
+                ) <= visionSimRangeValue - 1;
             if (inRange) {
                 visionSim_drawSingleActive(x, y);
             }
