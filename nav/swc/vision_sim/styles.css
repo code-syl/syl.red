@@ -17,7 +17,7 @@
 }
 
 #vision-sim .canvas .row .tile {
-    min-width: calc(100% / 20);
+    min-width: calc(100% / 22);
     aspect-ratio: 1 / 1;
     background-color: var(--white-backdrop);
     outline: 1px solid var(--black);
