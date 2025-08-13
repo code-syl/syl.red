@@ -1,4 +1,4 @@
-# src: https://github.com/phanan/htaccess Edited.
+Header always set Strict-Transport-Security "max-age=31536000"
 
 # Rewrites and Redirects
 RewriteEngine On
