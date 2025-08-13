@@ -16,7 +16,7 @@ RewriteRule "(^|/)\." - [F]
 </FilesMatch>
 
 ## Disable directory browsing
-Options All -Indexes
+Options -Indexes
 
 <IfModule mod_expires.c>
     ExpiresActive On
