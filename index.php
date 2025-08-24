@@ -19,13 +19,8 @@
 
 </head>
 
-<!-- thanks to https://stackoverflow.com/a/5983338 for the FOUC test fix -->
-
-<body onload="document.body.style.visibility=`visible`;">
-    <script>
-        document.body.style.visibility = `hidden`;
-    </script>
-
+<body>
+    
     <div class="canvas">
         <div class="win95_desktop_icon_container">
             <div class="win95_desktop_icon clickable" onclick="window.open(`https://github.com/code-syl/`, `_blank`)">
@@ -35,7 +30,7 @@
                 <span class="win95_desktop_icon_text"><mark class="win95_desktop_icon_text">GitHub</mark></span>
             </div>
         </div>
-        <div class="win95_window win95_window_visible " id="main_window">
+        <div class="win95_window win95_window_visible" id="main_window">
             <div class="win95_header win95_header_focused" id="main_window_header">
                 <span class="win95_header_text">Hi!</span>
                 <div class="win95_header_controls">
