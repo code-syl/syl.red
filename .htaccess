@@ -8,8 +8,8 @@ Header always set Referrer-Policy "same-origin"
 RewriteEngine On
 
 ## Allow access to the .well-known directory itself
-RewriteCond %{REQUEST_URI} ^/\.well-known/?$ [NC]
-RewriteRule ^ - [L]
+RewriteRule ^\.well-known/?$ - [L]
+RewriteRule ^\.well-known/(?!\.)(?!.*\/\.).* - [L]
 
 ## Deny access to hidden (dot) files and folders (including inside .well-known)
 RewriteCond %{SCRIPT_FILENAME} -d [OR]
