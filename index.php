@@ -20,16 +20,19 @@
 </head>
 
 <body>
-    
+
     <div class="canvas">
         <div class="win95_desktop_icon_container">
-            <div class="win95_desktop_icon clickable" onclick="window.open(`https://github.com/code-syl/`, `_blank`)">
-                <div class="win95_desktop_icon_image" id="internet">
-                    <div class="win95_pixel"></div>
+            <a href="https://github.com/code-syl/" target="_blank">
+                <div class="win95_desktop_icon clickable">
+                    <div class="win95_desktop_icon_image" id="internet">
+                        <div class="win95_pixel"></div>
+                    </div>
+                    <span class="win95_desktop_icon_text"><mark class="win95_desktop_icon_text">GitHub</mark></span>
                 </div>
-                <span class="win95_desktop_icon_text"><mark class="win95_desktop_icon_text">GitHub</mark></span>
-            </div>
+            </a>
         </div>
+
         <div class="win95_window win95_window_visible" id="main_window">
             <div class="win95_header win95_header_focused" id="main_window_header">
                 <span class="win95_header_text">Hi!</span>
@@ -59,6 +62,7 @@
                 <img src="/assets/homepage_welcome_image.png" alt="A woman wearing a black t-shirt and a blue denim pair of paints. She is smiling and looking at the camera. Her right hand is raised in a waving position. Her hair is crimson red, and her eyes are amber. Her skin is fair. The art style is pixel art and the opacity of the image is slightly reduced to make it act as a background image." />
             </div>
         </div>
+
         <div class="win95_window win95_window_hidden" id="about_window">
             <div class="win95_header" id="about_window_header">
                 <span class="win95_header_text">About</span>
@@ -71,7 +75,7 @@
             <div id="about_window_canvas">
                 This site has been developed in pure HTML, CSS, and JavaScript. I took inspiration from Windows 95 and the many Strawpages floating about on the internet.<br />
                 I hope you enjoy your stay!<br />
-                <span>- <a href="https://github.com/code-syl/">code-syl</a></span>
+                <span>- <a href="https://github.com/code-syl/" target="_blank">code-syl</a></span>
             </div>
         </div>
     </div>
