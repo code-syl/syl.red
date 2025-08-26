@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="/nav/swc/styles.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/nav/swc/vision_sim/styles.css" type="text/css" media="screen" />
 
-    <script src="/components/main-content/main-content.component.js" type="module" defer></script>
-    <script src="/components/nav-bar/nav-bar.component.js" type="module" defer></script>
-
     <script src="/nav/swc/vision_sim/sim.js" defer></script>
 </head>
 
