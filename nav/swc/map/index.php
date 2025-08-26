@@ -11,10 +11,11 @@
 
     <link rel="stylesheet" href="/nav/swc/map/styles.css" type="text/css" media="screen" />
 
-    <script src="/nav/swc/vision_sim/map.js" defer></script>
+    <script src="/nav/swc/map/map.js" defer></script>
 </head>
 
 <body>
 
+    <canvas id="map">Sorry, your browser does not support canvas.</canvas>
 
 </body>
