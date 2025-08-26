@@ -21,10 +21,7 @@
 
 <!-- thanks to https://stackoverflow.com/a/5983338 for the FOUC test fix -->
 
-<body onload="document.body.style.visibility=`visible`;">
-    <script>
-        document.body.style.visibility = `hidden`;
-    </script>
+<body>
 
     <section class="main-content">
 
