@@ -115,6 +115,17 @@
                     </div>
                 </div>
             </a>
+
+            <a href="/nav/swc/map/">
+                <div class="card">
+                    <div class="top">
+                        <!-- <img src="/assets/swc_vision_simulator_menu_banner.jpg" alt="Vision Simulator" /> -->
+                    </div>
+                    <div class="bottom">
+                        <span>Map Test</span>
+                    </div>
+                </div>
+            </a>
         </div>
 
     </section>
