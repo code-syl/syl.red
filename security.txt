@@ -1,0 +1,9 @@
+# Thank you for trying to reach out to me to report a security issue. <3
+# This website is a static website that should by no means store data,
+# or act as a dynamic web page.
+# Nonetheless, your concerns can be raised at the GitHub repository
+# for this website, by raising an issue.
+
+Contact: https://github.com/code-syl/syl.red/issues
+Expires: 2026-05-31T23:59:59.000Z
+Acknowledgements: https://syl.red/thanks.txt
