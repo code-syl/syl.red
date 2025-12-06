@@ -1,0 +1,47 @@
+.win95_taskbar {
+    /* dimensions and positioning */
+    height: var(--win95-taskbar-height);
+    width: 100%;
+    z-index: 9999;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    /* appearance */
+    background-color: var(--win95-window-bg-color);
+    box-shadow: inset 0px 4px 0px 0px var(--win95-window-shadow-white);
+    font-family: "W95FA";
+    color: var(--win95-text-color-normal);
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+.win95_startbutton {
+    /* dimension and positioning */
+    height: calc(100% - 12px);
+    width: 3.25em;
+    margin-top: 2px;
+    margin-left: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    /* appearance */
+    cursor: pointer;
+    box-shadow: 
+        inset -2px -2px 0px 0px var(--win95-window-shadow-black),
+        inset -4px -4px 0px 0px var(--win95-window-shadow-dark),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-white);
+}
+
+.win95_startbutton span {
+    width: calc((100% / 3) * 2);
+}
+
+.win95_startbutton .win95_minilogo {
+    height: calc(100% - 6px);
+    aspect-ratio: 1 / 1;
+}
