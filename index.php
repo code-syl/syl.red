@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/styles/window.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/styles/homepage.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/styles/desktopicon.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/styles/taskbar.css" type="text/css" media="screen" />
 
     <script src="/scripts/window.js" type="module" defer></script>
     <script src="/scripts/homepage.js" type="module" defer></script>
@@ -78,6 +79,13 @@
                 <span>- <a href="https://github.com/code-syl/" target="_blank">code-syl</a></span>
             </div>
         </div>
+
+        <div class="win95_taskbar">
+            <div class="win95_startbutton">
+                <div class="win95_minilogo"></div>
+                <span>Start</span>
+            </div>
+        </div>  
     </div>
 
 </body>
