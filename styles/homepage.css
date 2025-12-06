@@ -7,6 +7,9 @@
     width: calc(100% - 2 * 24px);
     height: calc(100% - 2 * 24px);
 }
+ .win95_desktop_icon_container a {
+    height: calc(2 * 48px + 24px + 0.15em);
+ }
 
 #main_window {
     /* dimensions and positioning */
