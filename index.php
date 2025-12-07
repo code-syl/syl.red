@@ -81,11 +81,16 @@
         </div>
 
         <div class="win95_taskbar">
-            <div class="win95_startbutton">
-                <div class="win95_minilogo"></div>
+            <div class="win95_startbutton inactive">
+                <div class="win95_minilogo">
+                    <div class="win95_pixel"></div>
+                </div>
                 <span>Start</span>
             </div>
-        </div>  
+        </div>
+        <div class="win95_startmenu inactive">
+            <img id="rick" src="/assets/rick.gif" alt="Rick Astley dancing."/>
+        </div>
     </div>
 
 </body>

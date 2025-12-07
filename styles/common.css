@@ -27,7 +27,8 @@
     --win95-text-background-unavailable: #c3c3c3;
 
     --win95-header-height: 40px;
-    --win95-taskbar-height: 45px;
+    --win95-taskbar-height: 50px;
+    --win95-taskbar-pixel-size: 2px;
     --win95-window-shadow-width: 6px;
 }
 

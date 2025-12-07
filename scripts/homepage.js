@@ -74,7 +74,6 @@ let _about_window_close_button = document.querySelector(
     });
 });
 
-/* NEEDS TO BE ON BOTTOM */
 /* moving focus from one window to another */
 let _all_windows = document.querySelectorAll(".win95_window");
 
@@ -99,5 +98,26 @@ let _all_windows = document.querySelectorAll(".win95_window");
                 }
             });
         });
+    });
+});
+
+/* start button click */
+let _start_button = document.querySelector(".win95_startbutton");
+let _start_menu = document.querySelector(".win95_startmenu");
+["click", "touchstart"].forEach((event) => {
+    _start_button.addEventListener(event, (e) => {
+        e.stopPropagation();
+        if (_start_button.classList.contains("inactive")) {
+            _start_button.classList.remove("inactive");
+            _start_button.classList.add("active");
+            _start_menu.classList.remove("inactive");
+            _start_menu.classList.add("active");
+        }
+        else if (_start_button.classList.contains("active")) {
+            _start_button.classList.remove("active");
+            _start_button.classList.add("inactive");
+            _start_menu.classList.remove("active");
+            _start_menu.classList.add("inactive");
+        }
     });
 });

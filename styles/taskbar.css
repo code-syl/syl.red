@@ -2,7 +2,7 @@
     /* dimensions and positioning */
     height: var(--win95-taskbar-height);
     width: 100%;
-    z-index: 9999;
+    z-index: 9998;
     position: absolute;
     bottom: 0;
     display: flex;
@@ -19,11 +19,42 @@
     font-weight: bold;
 }
 
+.win95_startmenu {
+    /* dimensions and positioning */
+    width: 250px;
+    height: 400px;
+    z-index: 9999;
+    position: absolute;
+    bottom: calc(var(--win95-taskbar-height) - 6px);
+    left: 4px;
+    visibility: hidden;
+
+    /* appearance */
+    background-color: var(--win95-window-bg-color);
+    box-shadow: 
+        inset -2px -2px 0px 0px var(--win95-window-shadow-black),
+        inset -4px -4px 0px 0px var(--win95-window-shadow-dark),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-white);
+}
+
+.win95_startmenu.active {
+    /* dimensions and positioning */
+    visibility: visible;
+}
+
+.win95_startmenu img#rick {
+    /* dimensions and positioning */
+    width: 240px;
+    height: 390px;
+    margin-left: 4px;
+    margin-top: 4px;
+}
+
 .win95_startbutton {
     /* dimension and positioning */
-    height: calc(100% - 12px);
-    width: 3.25em;
-    margin-top: 2px;
+    height: calc(100% - 10px);
+    width: 4em;
+    margin-top: 4px;
     margin-left: 4px;
     display: flex;
     flex-direction: row;
@@ -37,11 +68,205 @@
         inset 2px 2px 0px 0px var(--win95-window-shadow-white);
 }
 
+.win95_startbutton.active {
+    /* dimensions and positioning */
+    padding-top: 2px;
+    
+    /* appearance */
+    box-shadow: 
+        inset -2px -2px 0px 0px var(--win95-window-shadow-white),
+        inset 2px 2px 0px 0px var(--win95-window-shadow-black),
+        inset 4px 4px 0px 0px var(--win95-window-shadow-dark);
+    outline: 2px dotted black;
+    outline-offset: -7px;
+}
+
 .win95_startbutton span {
-    width: calc((100% / 3) * 2);
+    /* dimension and positioning */
+    margin-left: 0.4em;
 }
 
 .win95_startbutton .win95_minilogo {
+    /* dimension and positioning */
     height: calc(100% - 6px);
-    aspect-ratio: 1 / 1;
+    width: calc(100% / 3);
+}
+
+.win95_startbutton .win95_minilogo .win95_pixel {
+    /* dimension and positioning */
+    width: var(--win95-taskbar-pixel-size);
+    height: var(--win95-taskbar-pixel-size);
+    margin-left: 3px;
+    
+    /* appearance */
+    box-shadow: 
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(1 * var(--win95-taskbar-pixel-size)) black,
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(1 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(1 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(1 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(2 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(2 * var(--win95-taskbar-pixel-size)) black,
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(2 * var(--win95-taskbar-pixel-size)) black,
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(2 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(2 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(2 * var(--win95-taskbar-pixel-size)) black,
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(2 * var(--win95-taskbar-pixel-size)) black,
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(2 * var(--win95-taskbar-pixel-size)) black,
+        calc(1 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) rgb(0 255 0),
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(3 * var(--win95-taskbar-pixel-size)) black,
+        calc(1 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(3 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(5 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(6 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) rgb(0 255 0),
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) rgb(0 255 0),
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(4 * var(--win95-taskbar-pixel-size)) black,
+        calc(3 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(4 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(5 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(6 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) rgb(0 255 0),
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) rgb(0 255 0),
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(5 * var(--win95-taskbar-pixel-size)) black,
+        calc(1 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) black,
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) black,
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) rgb(0 255 0),
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(6 * var(--win95-taskbar-pixel-size)) black,
+        calc(1 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(3 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(5 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(6 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(7 * var(--win95-taskbar-pixel-size)) black,
+        calc(3 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(4 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(5 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(6 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) rgb(255 0 0),
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) black,
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) rgb(255 255 0),
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) black,
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(8 * var(--win95-taskbar-pixel-size)) black,
+        calc(1 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) rgb(255 255 0),
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) rgb(255 255 0),
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(9 * var(--win95-taskbar-pixel-size)) black,
+        calc(1 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(3 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(5 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(6 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) rgb(255 255 0),
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) rgb(255 255 0),
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(10 * var(--win95-taskbar-pixel-size)) black,
+        calc(3 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(4 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(5 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(6 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) rgb(0 0 255),
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) black,
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) black,
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) rgb(255 255 0),
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(11 * var(--win95-taskbar-pixel-size)) black,
+        calc(1 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(10 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(11 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(12 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(13 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(12 * var(--win95-taskbar-pixel-size)) black,
+        calc(1 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(3 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(5 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(6 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(8 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(9 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(14 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(15 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(13 * var(--win95-taskbar-pixel-size)) black,
+        calc(2 * var(--win95-taskbar-pixel-size)) calc(14 * var(--win95-taskbar-pixel-size)) black,
+        calc(3 * var(--win95-taskbar-pixel-size)) calc(14 * var(--win95-taskbar-pixel-size)) black,
+        calc(4 * var(--win95-taskbar-pixel-size)) calc(14 * var(--win95-taskbar-pixel-size)) black,
+        calc(5 * var(--win95-taskbar-pixel-size)) calc(14 * var(--win95-taskbar-pixel-size)) black,
+        calc(6 * var(--win95-taskbar-pixel-size)) calc(14 * var(--win95-taskbar-pixel-size)) black,
+        calc(7 * var(--win95-taskbar-pixel-size)) calc(14 * var(--win95-taskbar-pixel-size)) black,
+        calc(16 * var(--win95-taskbar-pixel-size)) calc(14 * var(--win95-taskbar-pixel-size)) black;
+
+
+
+
+
+
+
+
+
+
+
+
 }
