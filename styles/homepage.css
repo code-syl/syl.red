@@ -14,9 +14,11 @@
 #main_window {
     /* dimensions and positioning */
     width: 400px;
-    height: 600px;
-    left: calc(50% - (400px / 2)); /* starting position */
-    top: calc(50% - (600px / 2)); /* starting position */
+    max-width: 100%;
+    min-height: 600px;
+    max-height: 100%;
+    left: calc(50% - (min(100%, 400px) / 2)); /* starting position */
+    top: calc(50% - (min(100%, 600px) / 2)); /* starting position */
     z-index: 1000;
 }
 
@@ -34,9 +36,11 @@
 #about_window {
     /* dimensions and positioning */
     width: 500px;
-    height: 250px;
-    left: calc(50% - (500px / 2)); /* starting position */
-    top: calc(50% - (325px / 2)); /* starting position */
+    max-width: 100%;
+    min-height: 250px;
+    max-height: 100%;
+    left: calc(50% - (min(100%, 500px) / 2)); /* starting position */
+    top: calc(50% - (min(100%, 325px) / 2)); /* starting position */
 }
 
 #about_window_canvas {
