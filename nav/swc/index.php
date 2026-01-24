@@ -61,8 +61,7 @@
 
         <p class="justified-text">
             The Star Wars Combine is a browser-based MMO that was released
-            around December 1998. Now, of course given my age, I did not start
-            playing this game at that time. According to my profile, I joined
+            around December 1998. According to my profile, I joined
             the Combine around March 2020. I can thank Arturia Paorach for
             dragging me into this mess.
             This weird little Star Wars-themed corner of the internet did keep
@@ -105,6 +104,16 @@
         <h2 id="tools"><a href="#top">Tools</a></h2>
 
         <div class="row">
+            <a href="/nav/swc/galaxy-map/">
+                <div class="card">
+                    <div class="top">
+                    </div>
+                    <div class="bottom">
+                        <span>Galaxy Map</span>
+                    </div>
+                </div>
+            </a>
+
             <a href="/nav/swc/vision_sim/">
                 <div class="card">
                     <div class="top">
@@ -119,7 +128,6 @@
             <a href="/nav/swc/map/">
                 <div class="card">
                     <div class="top">
-                        <!-- <img src="/assets/swc_vision_simulator_menu_banner.jpg" alt="Vision Simulator" /> -->
                     </div>
                     <div class="bottom">
                         <span>Map Test</span>
