@@ -17,7 +17,7 @@
 <body>
 
     <div class="galaxy-map">
-        
+        <img alt="A vector graphic of the map of Star Wars Combine" src="/nav/swc/galaxy-map/sectors.svg" class="sectors" />
     </div>
 
 </body>
