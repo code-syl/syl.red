@@ -38,8 +38,7 @@ for n in range(pages):
             x = p["attributes"]["x"]
             y = p["attributes"]["y"]
             points.append({"x": x, "y": y})
-            # +500 to avoid negative coordinates
-            points_string_svg = points_string_svg + str(x+500) + "," + str(y+500) + " "
+            points_string_svg = points_string_svg + str(x) + "," + str(y) + " "
 
         points_string_svg = points_string_svg[:-1] # remove trailing space
             
