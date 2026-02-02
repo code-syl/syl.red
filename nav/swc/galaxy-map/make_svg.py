@@ -11,12 +11,12 @@ with open("sectors.svg", "w") as file:
     svg += "\t<g transform=\"scale(1,-1) translate(500,-500)\">\n"
     for s in sectors:
         svg += '\t\t'
-        svg += "<polygon style=\"stroke:lime;stroke-width:0.75;\" points=\""
-        svg += s["points_string_svg"]
-        svg += "\" data-name=\""
+        svg += "<polygon data-name=\""
         svg += s["name"]
         svg += "\" data-uid=\""
         svg += s["uid"]
+        svg += "\" points=\""
+        svg += s["points_string_svg"]
         svg += "\" />\n"
     svg += "\t</g>\n"
     svg += "</svg>"

@@ -53,6 +53,15 @@ body {
     display: block;
 }
 
+.sectors polygon {
+    /* appearance */
+    fill: black;
+    stroke: lime;
+    stroke-width: 0.75;
+
+    /* dimensions and positioning */
+}
+
 .sectors polygon:hover {
     /* appearance */
     fill: lime;
