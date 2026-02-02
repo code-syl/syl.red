@@ -13,6 +13,10 @@ with open("sectors.svg", "w") as file:
         svg += '\t\t'
         svg += "<polygon style=\"stroke:lime;stroke-width:0.75;\" points=\""
         svg += s["points_string_svg"]
+        svg += "\" data-name=\""
+        svg += s["name"]
+        svg += "\" data-uid=\""
+        svg += s["uid"]
         svg += "\" />\n"
     svg += "\t</g>\n"
     svg += "</svg>"
