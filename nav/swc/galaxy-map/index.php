@@ -26,4 +26,10 @@
 
         </div>
     </div>
+    <div class="alphabet-selectors">
+        The selectors need JavaScript to be enabled to load.
+    </div>
+    <div class="sector-selectors">
+        The selectors need JavaScript to be enabled to load.
+    </div>
 </body>

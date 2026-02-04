@@ -10,7 +10,7 @@ body, html {
 
 body {
     /* appearance */
-    background: grey;
+    background: black;
     color: lime;
 
     /* dimensions and positioning */
@@ -26,22 +26,24 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    aspect-ratio: 1 / 1;
 }
 
 .galaxy-map {
     /* appearance */
 
     /* dimensions and positioning */
-    height: calc(100% - 5%);
+    max-width: 100%;
     aspect-ratio: 1 / 1;
 }
 
 .galaxy-map-visual-choice {
     /* appearance */
     border-top: 1px solid lime;
+    background-color: black;
 
     /* dimensions and positioning */
-    height: 5%;
+    height: auto;
 }
 
 .sectors {
@@ -59,6 +61,7 @@ body {
     stroke: lime;
     stroke-width: 2;
     paint-order: stroke fill;
+    transition: 0.5s;
 
     /* dimensions and positioning */
 }
@@ -69,6 +72,94 @@ body {
     cursor: crosshair;
 
     /* dimensions and positioning */
+}
+
+.sectors polygon[data-checked="true"] {
+    /* appearance */
+    fill: magenta;
+    cursor: crosshair;
+
+    /* dimensions and positioning */
+}
+
+.alphabet-selectors {
+    /* appearance */
+    background-color: black;
+    border-left: 1px solid lime;
+    border-right: 1px solid lime;
+
+    /* dimensions and positioning */
+    width: 3em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.alphabet-selectors > input[type="radio"],
+.sector-selectors > input[type="radio"] {
+    /* appearance */
+    visibility: hidden;
+
+    /* dimensions and positioning */
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.alphabet-selectors > label,
+.sector-selectors > label {
+    /* appearance */
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    transition: 0.5s;
+    font-size: 150%;
+
+    /* dimensions and positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: calc(100% / 26);
+    box-sizing: border-box;
+}
+
+.alphabet-selectors > label:hover,
+.alphabet-selectors input[type="radio"]:checked+label,
+.sector-selectors > label:hover, 
+.sector-selectors input[type="radio"]:checked+label {
+    /* appearance */
+    color: black;
+    background-color: lime;
+
+    /* dimensions and positioning */
+}
+
+.sector-selectors {
+    /* appearance */
+    background-color: black;
+
+    /* dimensions and positioning */
+    padding: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.sector-selectors > label {
+    /* appearance */
+
+    /* dimensions and positioning */
+    padding-left: 0.25em;
+    padding-right: 1em;
+    justify-content: flex-start;
 }
 
 .mouse-tooltip {

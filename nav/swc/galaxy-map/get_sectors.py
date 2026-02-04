@@ -41,13 +41,33 @@ for n in range(pages):
             points_string_svg = points_string_svg + str(x) + "," + str(y) + " "
 
         points_string_svg = points_string_svg[:-1] # remove trailing space
+
+        systems = []
+        try:
+            for s in json["swcapi"]["sector"]["systems"]["system"]:
+                system_uid = s["attributes"]["uid"]
+                system_name = s["attributes"]["name"]
+                system_url = s["attributes"]["href"]
+                system_response = requests.get(system_url, headers=headers)
+                system_json = system_response.json()
+                system = {
+                    "name" : system_name,
+                    "uid" : system_uid,
+                    "url" : system_url,
+                    "x" : system_json["swcapi"]["system"]["location"]["coordinates"]["galaxy"]["attributes"]["x"],
+                    "y" : system_json["swcapi"]["system"]["location"]["coordinates"]["galaxy"]["attributes"]["y"]
+                }
+                systems.append(system)
+        except KeyError:
+            systems = [] # do nothing if there are no systems
             
         sector = {
             "name" : sector_name,
             "uid" : sector_uid,
-            "sector_url": sector_url,
+            "url": sector_url,
             "points" : points,
-            "points_string_svg" : points_string_svg
+            "points_string_svg" : points_string_svg,
+            "systems" : systems
         }
 
         results.append(sector)
