@@ -57,7 +57,8 @@ body {
     /* appearance */
     fill: black;
     stroke: lime;
-    stroke-width: 0.75;
+    stroke-width: 2;
+    paint-order: stroke fill;
 
     /* dimensions and positioning */
 }

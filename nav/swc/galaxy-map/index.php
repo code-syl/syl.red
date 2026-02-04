@@ -19,11 +19,11 @@
         Placeholder
     </div>
     <div class="map-container">
-        <div class="galaxy-map">
+        <figure class="galaxy-map">
             The map needs JavaScript to be enabled to load.
-        </div>
+        </figure>
         <div class="galaxy-map-visual-choice">
 
         </div>
-    </div>  
+    </div>
 </body>

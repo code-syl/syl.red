@@ -9,7 +9,7 @@ const svgPath = "/nav/swc/galaxy-map/sectors.svg";
 fetch(svgPath)
     .then(response => response.text())
     .then(svgText => {
-        const container = document.querySelector("div.galaxy-map");
+        const container = document.querySelector("figure.galaxy-map");
         container.innerHTML = svgText;
         let mouseTooltip = document.querySelector("div.mouse-tooltip");
 
