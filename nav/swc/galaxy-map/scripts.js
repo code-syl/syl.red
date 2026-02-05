@@ -13,14 +13,13 @@ fetch(sectorDataPath)
         _loadWebpage();
     })
     .catch(e =>  {
-        console.error("Failed to fetch the JSON data!", e);
-        document.body.innerHTML = "The JSON data couldn't be loaded.";
+        console.error("Failed to load the webpage!", e);
+        document.body.innerHTML = "The webpage couldn't be loaded.";
         document.body.style["color"] = "red";
     });
 
 // if the data is loaded, continue loading the website
 function _loadWebpage() {
-
     // prepare and add the galaxy map SVG
     const galaxyMapSvgText = _createGalaxyMapSvg(sectors);
     let galaxyMap = document.querySelector("figure.galaxy-map");

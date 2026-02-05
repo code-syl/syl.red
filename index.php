@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div id="about_window_canvas">
-                This site has been developed in pure HTML, CSS, and JavaScript. I took inspiration from Windows 95 and the many Strawpages floating about on the internet.<br />
+                This site has been developed in pure HTML, CSS, and JavaScript. Some of the JSON data was generated beforehand with Python. I took inspiration from Windows 95 and the many Strawpages floating about on the internet.<br />
                 I hope you enjoy your stay!<br />
                 <span>- <a href="https://github.com/code-syl/" target="_blank">code-syl</a></span>
             </div>
