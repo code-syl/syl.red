@@ -99,7 +99,8 @@ body {
 }
 
 .alphabet-selectors > input[type="radio"],
-.sector-selectors > input[type="radio"] {
+.sector-selectors > input[type="radio"], 
+.system-selectors > input[type="radio"]{
     /* appearance */
     visibility: hidden;
 
@@ -111,7 +112,8 @@ body {
 }
 
 .alphabet-selectors > label,
-.sector-selectors > label {
+.sector-selectors > label,
+.system-selectors > label {
     /* appearance */
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
@@ -133,7 +135,9 @@ body {
 .alphabet-selectors > label:hover,
 .alphabet-selectors input[type="radio"]:checked+label,
 .sector-selectors > label:hover, 
-.sector-selectors input[type="radio"]:checked+label {
+.sector-selectors input[type="radio"]:checked+label,
+.system-selectors > label:hover, 
+.system-selectors input[type="radio"]:checked+label {
     /* appearance */
     color: black;
     background-color: lime;
@@ -141,9 +145,11 @@ body {
     /* dimensions and positioning */
 }
 
-.sector-selectors {
+.sector-selectors,
+.system-selectors {
     /* appearance */
     background-color: black;
+    border-right: 1px solid lime;
 
     /* dimensions and positioning */
     padding: 0;
@@ -153,16 +159,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0;
-    align-items: flex-start;
     justify-content: flex-start;
 }
 
-.sector-selectors > label {
+.sector-selectors > label,
+.system-selectors > label {
     /* appearance */
 
     /* dimensions and positioning */
     padding-left: 0.25em;
-    padding-right: 1em;
+    padding-right: 0.25em;
     justify-content: flex-start;
 }
 
@@ -171,6 +177,7 @@ body {
     border: 1px solid lime;
     background: black;
     visibility: hidden;
+    font-family: 'Courier New', Courier, monospace;
 
     /* dimensions and positioning */
     width: auto;

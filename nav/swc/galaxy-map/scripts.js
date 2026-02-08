@@ -35,6 +35,31 @@ function _loadWebpage() {
         polygon.addEventListener("mouseleave", () => {
             mouseTooltip.classList.remove("visible");
         });
+
+        polygon.addEventListener("click", () => {
+            document
+                .querySelector(`div.alphabet-selectors > input[type="radio"]:checked`)
+                .checked = false;
+            document
+                .querySelector(`div.alphabet-selectors > input#${polygon.dataset["name"][0].toUpperCase()}`)
+                .checked = true;
+            _prepareSectorSelector( 
+                polygon.dataset["name"][0].toUpperCase()
+            );
+            let sectorSelector = document
+                .querySelector(`div.sector-selectors > input[id="${polygon.dataset["name"]}_sector"]`);
+            sectorSelector.checked = true;
+            sectorSelector.scrollIntoView();
+            document
+                .querySelector(`polygon[data-checked="true"]`)
+                .dataset["checked"] = false;
+            document
+                .querySelector(`polygon[data-name="${polygon.dataset["name"]}"]`)
+                .dataset["checked"] = true;
+            _prepareSystemSelector( 
+                polygon.dataset["name"]
+            );
+        });
     });
 
     // prepare mouse tooltip
@@ -52,15 +77,23 @@ function _loadWebpage() {
         elements.input.addEventListener("change", () => {
             _prepareSectorSelector(elements.input.value);
         });
-        if (c == 65)
+        if (c == 67 /* C */)
             elements.input.checked = true;
+        
         alphabetSelector.appendChild(elements.input);
         alphabetSelector.appendChild(elements.label);
     }
 
     // prepare the sector selector for the first time
     _prepareSectorSelector( 
-        alphabetSelector.querySelector("input[type=\"radio\"]:checked").value
+        alphabetSelector.querySelector("input[type=\"radio\"]:checked").value,
+        "Coruscant"
+    );
+
+    // prepare the system selector for the first time
+    let sectorSelector = document.querySelector("div.sector-selectors");
+    _prepareSystemSelector(
+        sectorSelector.querySelector("input[type=\"radio\"]:checked").value
     );
 }
 
@@ -68,7 +101,7 @@ function _createGalaxyMapSvg() {
     let galaxyMapSvg  = "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 1000 1000\" xmlns=\"http://www.w3.org/2000/svg\" class=\"sectors\">\n";
         galaxyMapSvg += "\t<g transform=\"scale(1,-1) translate(500,-500)\">\n";
     sectors.forEach((sector) => {
-        galaxyMapSvg += `\t\t<polygon data-name=\"${sector.name}\" data-uid=\"${sector.uid}\" data-checked=\"false\" points=\"${sector.points_string_svg}\" />\n`;
+        galaxyMapSvg += `\t\t<polygon data-name=\"${sector.name}\" data-uid=\"${sector.uid}\" data-checked=\"false\" points=\"${sector.points_string_svg}\" />\n`;        
     });
         galaxyMapSvg += "\t</g>\n";
         galaxyMapSvg += "</svg>";
@@ -76,27 +109,27 @@ function _createGalaxyMapSvg() {
     return galaxyMapSvg;
 }
 
-function _createSelector(name, id, value) {
+function _createSelector(name, id, value, suffix = "") {
     let input = document.createElement("input");
     input.setAttribute("type", "radio");
     input.setAttribute("name", name);
-    input.setAttribute("id", id);
+    input.setAttribute("id", id + suffix);
     input.setAttribute("value", value);
 
     if (value == "A")
         input.checked = true;
 
     let label = document.createElement("label");
-    label.setAttribute("for", id);
+    label.setAttribute("for", id + suffix);
     label.innerText = value;
 
     return { "input" : input, "label" : label };
 }
 
-function _prepareSectorSelector(selectedLetter) {
+function _prepareSectorSelector(selectedLetter, selectedSectorName) {
     let sectorSelector = document.querySelector("div.sector-selectors");
-    sectorSelector.innerHTML = ""; // remove JS warning and previous data
     
+    sectorSelector.innerHTML = ""; // remove JS warning and previous data    
     sectors
         .reduce((output, sector) => (
             sector.name.startsWith(selectedLetter) && output.push(sector.name),
@@ -104,8 +137,8 @@ function _prepareSectorSelector(selectedLetter) {
         ), [])
         .sort()
         .forEach((sector, index) => {
-            let elements = _createSelector("sector", sector, sector);
-            if (index == 0) {
+            let elements = _createSelector("sector", sector, sector, "_sector");
+            if ((!selectedSectorName && index == 0) || (sector == selectedSectorName)) {
                 elements.input.checked = true;
                 document
                     .querySelectorAll("polygon[data-checked=\"true\"]")
@@ -113,6 +146,8 @@ function _prepareSectorSelector(selectedLetter) {
                 document
                     .querySelector(`polygon[data-name="${elements.input.value}"]`)
                     .dataset["checked"] = true;
+
+                _prepareSystemSelector(elements.input.value);
             }
 
             elements.input.addEventListener("change", () => {
@@ -122,10 +157,29 @@ function _prepareSectorSelector(selectedLetter) {
 
                 // add new checked mark
                 document.querySelector(`polygon[data-name="${elements.input.value}"]`).dataset["checked"] = true;
+
+                // make new systems list
+                _prepareSystemSelector(elements.input.value);
             });
             sectorSelector.appendChild(elements.input);
             sectorSelector.appendChild(elements.label);
         });    
+}
+
+function _prepareSystemSelector(selectedSector) {
+    let systemSelector = document.querySelector("div.system-selectors");
+    const systems = sectors.find(sector => sector.name === selectedSector)["systems"];
+
+    systemSelector.innerHTML = ""; // remove JS warning and previous data    
+    systems.forEach((system, index) => {
+        let elements = _createSelector("system", system.name, system.name, "_system");
+        if (index == 0) {
+            elements.input.checked = true;
+        }
+
+        systemSelector.appendChild(elements.input);
+        systemSelector.appendChild(elements.label);
+    });
 }
 
 function _tooltipMove(event, element) {
