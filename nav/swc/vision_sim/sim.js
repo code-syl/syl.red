@@ -5,7 +5,7 @@ const mode = {
 };
 Object.freeze(mode);
 let currentMode = mode.Add;
-const canvasSize = 22;
+const canvasSize = 24;
 
 function visionSim_header_init() {
     let headerItems = [];
@@ -99,18 +99,37 @@ function visionSim_canvas_init(width, height) {
 
     let canvas = document.createElement("div");
     canvas.classList.add("canvas");
-    for (let y = 0; y < height; y++) {
+    for (let y = -1 ; y < height - 1; y++) {
         let row = document.createElement("div");
         row.classList.add("row");
         row.dataset.y = y;
 
-        for (let x = 0; x < width; x++) {
+        for (let x = -1; x < width - 1; x++) {
             let tile = document.createElement("div");
-            tile.classList.add("tile");
-            tile.dataset.x = x;
-            tile.dataset.y = y;
-            tile.addEventListener("click", tile_onClick());
-            row.appendChild(tile);
+
+            if ((x == -1 && y > -1 && y < height - 2) ||
+                (x == width - 2 && y > -1 && y < height - 2)) {
+                tile.classList.add("axis");
+                tile.innerHTML = y;
+            } else if ((y == -1 && x > -1 && x < width - 2) ||
+                        y == height - 2 && x > -1 && x < width - 2) {
+                tile.classList.add("axis");
+                tile.innerHTML = x;
+            } else if ( x == -1 && y == -1 ||
+                        x == -1 && y == height - 2 ||
+                        y == -1 && x == width - 2 ||
+                        y == height - 2 && x == width - 2) {
+                tile.classList.add("corner");
+            } else {
+                tile.classList.add("tile");
+                tile.dataset.x = x;
+                tile.dataset.y = y;
+                tile.addEventListener("click", tile_onClick());
+            }
+
+            // tile.innerHTML = y;
+
+            row.appendChild(tile);            
         }
 
         canvas.appendChild(row);

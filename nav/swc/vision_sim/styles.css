@@ -17,10 +17,20 @@
 }
 
 #vision-sim .canvas .row .tile {
-    min-width: calc(100% / 22);
+    min-width: calc(100% / 24);
     aspect-ratio: 1 / 1;
     background-color: var(--white-backdrop);
     outline: 1px solid var(--black);
+}
+
+#vision-sim .canvas .row .axis {
+    min-width: calc(100% / 24);
+    aspect-ratio: 1 / 1;
+    background-color: transparent;
+    outline: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #vision-sim .canvas .row .tile.active {
