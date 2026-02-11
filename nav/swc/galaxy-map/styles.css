@@ -45,7 +45,7 @@ body {
     background-color: black;
 
     /* dimensions and positioning */
-    height: auto;
+    min-height: calc(100% / 26);
 }
 
 .sectors {
@@ -78,7 +78,7 @@ body {
 
 .sectors polygon[data-checked="true"] {
     /* appearance */
-    fill: magenta;
+    fill: red;
     cursor: crosshair;
 
     /* dimensions and positioning */
@@ -170,6 +170,67 @@ body {
     padding-left: 0.25em;
     padding-right: 0.25em;
     justify-content: flex-start;
+}
+
+.sector-details {
+    /* appearance */
+
+    /* dimensions and positioning */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 600px;
+}
+
+.sector-map {
+    /* appearance */
+    outline: 1px solid lime;
+
+    /* dimensions and positioning */
+    height: 100%;
+    width: auto;
+    margin: 0.5em;
+    padding: auto;
+    max-height: calc(100% - ((100% / 26) * 4));;
+}
+
+.sector-map polygon {
+    /* appearance */
+    fill: black;
+    stroke: lime;
+    stroke-width: 2;
+    paint-order: stroke fill;
+    transition: 0.5s;
+    cursor: crosshair;
+
+    /* dimensions and positioning */
+}
+
+.sector-map rect {
+    /* appearance */
+    fill: red;
+    cursor: crosshair;
+
+    /* dimensions and positioning */
+    width: 1px;
+    height: 1px;
+}
+
+.sector-map rect.system-hitbox {
+    /* appearance */
+    fill: transparent;
+
+    /* dimensions and positioning */
+    width: 1.5px;
+    height: 1.5px;
+}
+
+.sector-map-controls {
+    /* appearance */
+
+    /* dimensions and positioning */
+    min-height: calc((100% / 26) * 4);
 }
 
 .mouse-tooltip {

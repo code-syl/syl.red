@@ -35,4 +35,11 @@
     <div class="system-selectors">
         The selectors need JavaScript to be enabled to load.
     </div>
+    <div class="sector-details">
+        <figure class="sector-map">
+            The map needs JavaScript to be enabled to load.
+        </figure>
+        <div class="sector-map-controls">
+        </div>
+    </div>
 </body>
