@@ -164,6 +164,8 @@ function _prepareSectorSelector(selectedLetter, selectedSectorName) {
             sectorSelector.appendChild(elements.input);
             sectorSelector.appendChild(elements.label);
         });    
+    
+    document.querySelector("div.sector-selectors input:checked").scrollIntoView();
 }
 
 function _prepareSystemSelector(selectedSector) {
@@ -173,9 +175,6 @@ function _prepareSystemSelector(selectedSector) {
     systemSelector.innerHTML = ""; // remove JS warning and previous data    
     systems.forEach((system, index) => {
         let elements = _createSelector("system", system.name, system.name, "_system");
-        if (index == 0) {
-            elements.input.checked = true;
-        }
 
         systemSelector.appendChild(elements.input);
         systemSelector.appendChild(elements.label);
