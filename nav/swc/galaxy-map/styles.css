@@ -137,7 +137,8 @@ body {
 .sector-selectors > label:hover, 
 .sector-selectors input[type="radio"]:checked+label,
 .system-selectors > label:hover, 
-.system-selectors input[type="radio"]:checked+label {
+.system-selectors input[type="radio"]:checked+label,
+#floppy:hover {
     /* appearance */
     color: black;
     background-color: lime;
@@ -191,7 +192,6 @@ body {
     height: 100%;
     width: auto;
     margin: 0.5em;
-    padding: auto;
     max-height: calc(100% - ((100% / 26) * 4));;
 }
 
@@ -231,6 +231,36 @@ body {
 
     /* dimensions and positioning */
     min-height: calc((100% / 26) * 4);
+    margin: 0 0.5em 0.5em 0.5em;
+    padding: 0;
+}
+
+.sector-map-controls .square-control {
+    /* appearance */
+    outline: 1px solid lime;
+    
+    /* dimensions and positioning */
+    height: 3em;
+    aspect-ratio: 1 / 1;
+    position: relative;
+}
+
+#floppy::before {
+    /* appearance */
+    mask: url("./assets/floppy.svg") center / contain no-repeat;
+    -webkit-mask: url("./assets/floppy.svg") center / contain no-repeat;
+    background-color: lime;
+    content: "";
+
+    /* dimensions and positioning */
+    position: absolute;
+    inset: 0;
+}
+
+#floppy:hover::before {
+    /* appearance */
+    background-color: black;
+    cursor: pointer;
 }
 
 .mouse-tooltip {
@@ -245,14 +275,11 @@ body {
     height: auto;
     position: absolute;
     padding: .25em;
+    z-index: 9000;
 }
-
-
 
 /* helper classes, should be at bottom */
 .visible {
     /* appearance */
     visibility: visible;
-
-    /* dimensions and positioning */
 }

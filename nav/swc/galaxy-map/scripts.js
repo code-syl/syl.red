@@ -101,6 +101,19 @@ function _loadWebpage() {
     _prepareSectorMap(
         sectorSelector.querySelector("input[type=\"radio\"]:checked").value
     );
+
+    // prepare the controls
+    let controls = document.querySelector(".sector-map-controls");
+    let floppy = controls.querySelector("#floppy");
+    floppy.onclick = () => _saveCurrentSectorToImage();
+    floppy.onmouseenter = () => {
+        mouseTooltip.classList.add("visible");
+        mouseTooltip.innerHTML = "Save to PNG";
+    };
+
+    floppy.onmouseleave = () => {
+        mouseTooltip.classList.remove("visible");
+    };
 }
 
 function _createGalaxyMapSvg() {
@@ -312,4 +325,102 @@ function _createSectorMapSvg(sectorName) {
 function _tooltipMove(event, element) {
     element.style.left = (event.clientX + 5) + "px";
     element.style.top = (event.clientY + 5) + "px";
+}
+
+function _saveCurrentSectorToImage() {
+    // * get the figure with the sector map
+    // * draw it to a canvas
+    // * get the blob of the canvas
+    // * download
+    // sources:
+    // * https://stackoverflow.com/questions/12652769/rendering-html-elements-to-canvas
+    // * https://stackoverflow.com/questions/11112321/how-to-save-canvas-as-png-image
+
+    const sectorElement = document.querySelector("figure.sector-map svg");
+    if (!sectorElement) {
+        console.error("No SVG found inside igure.sector-map.");
+        return;
+    }
+    
+    let width = sectorElement.clientWidth;
+    let height =  sectorElement.clientHeight;
+
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    context.canvas.width = width;
+    context.canvas.height = height;
+
+    const clonedElement = sectorElement.cloneNode(true);
+    clonedElement.setAttribute("width", width);
+    clonedElement.setAttribute("height", height);
+    if (sectorElement.hasAttribute("viewBox")) {
+        clonedElement.setAttribute("viewBox", sectorElement.getAttribute("viewBox"));
+    }
+
+    // get the computed style because the SVG itself depends on styles defined in a CSS stylesheet
+    _copyComputedStyles(sectorElement, clonedElement);
+
+    const serializer = new XMLSerializer();
+    const svg = serializer.serializeToString(clonedElement);
+
+    const blob = new Blob(
+        [svg], 
+        {type: 'image/svg+xml;charset=utf-8'}
+    );
+
+    const objectUrl = URL.createObjectURL(blob);
+    const temporaryImage = new Image();
+    temporaryImage.onload = () => {
+        context.drawImage( temporaryImage, 0, 0 );
+        URL.revokeObjectURL( objectUrl );
+
+        canvas.toBlob((png) => {
+            if (!png) {
+                console.error("Couldn't create PNG blob.");
+                return;
+            }
+
+            const downloadUrl = URL.createObjectURL(png);
+            const link = document.createElement("a");
+            link.href = downloadUrl;
+            link.download = "sector-map.png";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            URL.revokeObjectURL(downloadUrl);
+        }, "image/png");
+    };
+
+    temporaryImage.onerror = () => {
+        console.error("Failed to load SVG into image.");
+        URL.revokeObjectURL(objectUrl);
+        return;
+    };
+
+    temporaryImage.src = objectUrl;
+}
+
+function _copyComputedStyles(sourceNode, targetNode) {
+    // check if both are elements
+    // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+    if (sourceNode.nodeType !== 1 || targetNode.nodeType !== 1) 
+        return;
+
+    const computedStyle = window.getComputedStyle(sourceNode);
+    let inlineStyle = "";
+
+    for (const prop of computedStyle) {
+        inlineStyle += `${prop}: ${computedStyle.getPropertyValue(prop)}; `;
+    }
+
+    targetNode.setAttribute("style", inlineStyle);
+
+    const sourceChildren = sourceNode.children;
+    const targetChildren = targetNode.children;
+
+    // recursively to get all children and their computed styles (<g> elements etc..)
+    for (let i = 0; i < sourceChildren.length; i++) {
+        _copyComputedStyles(sourceChildren[i], targetChildren[i]);
+    }
 }

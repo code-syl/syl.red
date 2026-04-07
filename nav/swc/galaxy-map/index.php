@@ -40,6 +40,7 @@
             The map needs JavaScript to be enabled to load.
         </figure>
         <div class="sector-map-controls">
+            <div class="square-control" id="floppy"></div>
         </div>
     </div>
 </body>
