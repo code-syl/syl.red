@@ -1,0 +1,103 @@
+:root {
+    --main-page-background: #0F141C;
+    --main-page-backdrop: #0B0F15;
+
+    --card-background: #131820;
+    --card-border: #191E26;
+
+    --highlight-border: #5C4A78;
+    --highlight-border-75o: #5C4A784B;
+    --highlight-background: #2C2839;
+
+    --font: #B6B9BE;
+    --font-muted: #373D44;
+    --font-header: #8E6EA8;
+    --font-title: var(--font);
+    --font-title-accent: #C03938;
+
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("/assets/fonts/jetbrains-mono/JetBrainsMono-Bold.woff2") format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("/assets/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2") format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+html, body {
+    min-width: 1100px;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: "JetBrains Mono", 'Courier New', Courier, monospace;
+    background-color: var(--main-page-backdrop);
+    color: var(--font);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+header.banner {
+    height: 5em;
+    position: absolute;
+    width: 1100px;
+    max-width: 1100px;
+    left: calc(50% - (1100px / 2));
+    top: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--highlight-border);
+    margin-bottom: -1px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.banner-avatar-left {
+    height: calc(100% - 5px);
+    aspect-ratio: 1 / 1;
+    /* outline: 1px solid white; */
+    margin-right: 10px;
+}
+
+.banner-avatar-left img {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-bottom: 1px solid var(--highlight-border-75o);
+    margin-bottom: -1px;
+}
+
+.banner-title-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.banner-title-box .banner-title {
+    font-size: 20pt;
+    margin-left: -1px;
+}
+
+.banner-title-box .banner-subtitle {
+    color: var(--font-header);
+    font-size: 10pt;
+}
+
+main.main-content {
+    width: 1100px;
+    max-width: 1100px;
+    background-color: var(--main-page-background);
+    height: 100%;
+}
