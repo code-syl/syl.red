@@ -9,7 +9,7 @@
     <meta name="description" content="WIP mock site for notes" />
     <meta name="viewport" content="width=1100">
 
-    <link rel="stylesheet" href="./notes/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/styles.css" type="text/css" media="screen" />
 
 </head>
 
