@@ -9,18 +9,22 @@
     <meta name="description" content="WIP mock site for notes" />
     <meta name="viewport" content="width=1100">
 
-    <link rel="stylesheet" href="/styles.css" type="text/css" media="screen" />
-
+    <base href="/nav/notes/">
+    <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
 </head>
 
 <body>
     <header class="banner">
         <div class="banner-avatar-left">
-            <img src="/assets/logo64.png" />
+            <img src="./assets/logo64.png" />
         </div>
         <div class="banner-title-box">
             <span class="banner-title">code-syl</span>
             <span class="banner-subtitle">hacking &middot; learning &middot; sharing</span>
+        </div>
+        <div class="flex-fill"></div>
+        <div class="banner-avatar-right">
+            <img src="./assets/logo64_2.png" />
         </div>
     </header>
     <main class="main-content">

@@ -69,11 +69,17 @@ header.banner {
 .banner-avatar-left {
     height: calc(100% - 5px);
     aspect-ratio: 1 / 1;
-    /* outline: 1px solid white; */
     margin-right: 10px;
 }
 
-.banner-avatar-left img {
+.banner-avatar-right {
+    height: calc(100% - 5px);
+    aspect-ratio: 1 / 1;
+    margin-left: 10px;
+}
+
+.banner-avatar-left img,
+.banner-avatar-right img {
     height: 100%;
     aspect-ratio: 1 / 1;
     border-bottom: 1px solid var(--highlight-border-75o);
@@ -93,6 +99,10 @@ header.banner {
 .banner-title-box .banner-subtitle {
     color: var(--font-header);
     font-size: 10pt;
+}
+
+.flex-fill {
+    flex-grow: 1;
 }
 
 main.main-content {
