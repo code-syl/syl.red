@@ -165,13 +165,15 @@ function tile_onClick() {
 }
 
 function visionSim_drawVisionCircle(originX, originY) {
+    const maxIndex = canvasSize - 3;
+    
     const xMin = Math.max(0, originX - visionSimRangeValue);
-    const xMax = Math.min(canvasSize, originX + visionSimRangeValue);
+    const xMax = Math.min(maxIndex, originX + visionSimRangeValue);
     const yMin = Math.max(0, originY - visionSimRangeValue);
-    const yMax = Math.min(canvasSize, originY + visionSimRangeValue);
+    const yMax = Math.min(maxIndex, originY + visionSimRangeValue);
 
-    for (let y = yMin; y <= yMax && y < canvasSize; y++) {
-        for (let x = xMin; x <= xMax && x < canvasSize; x++) {
+    for (let y = yMin; y <= yMax; y++) {
+        for (let x = xMin; x <= xMax; x++) {
             if (x < 0 || y < 0) continue;
             const inRange =
                 Math.sqrt(
@@ -190,6 +192,8 @@ function visionSim_drawVisionCircle(originX, originY) {
 
 function visionSim_drawSingleActive(x, y) {
     let tile = document.querySelector(`.tile[data-x="${x}"][data-y="${y}"]`);
+    if (!tile) return;
+    
     console.log("Drawing at:", x, y);
     tile.classList.add("active");
 }
