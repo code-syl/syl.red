@@ -13,7 +13,6 @@
     <meta name="description" content="Portfolio and website of Code-Syl" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <base href="/nav/swc/">
     <link rel="stylesheet" href="/styles.css" type="text/css" media="screen" />
 
 
