@@ -9,10 +9,11 @@
     <meta name="description" content="A simulator simulating the vision system in SWC, by Code-Syl" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="/nav/swc/styles.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/nav/swc/vision_sim/styles.css" type="text/css" media="screen" />
+    <base href="/nav/swc/">
+    <link rel="stylesheet" href="/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/vision_sim/styles.css" type="text/css" media="screen" />
 
-    <script src="/nav/swc/vision_sim/sim.js" defer></script>
+    <script src="/vision_sim/sim.js" defer></script>
 </head>
 
 <!-- thanks to https://stackoverflow.com/a/5983338 for the FOUC test fix -->
