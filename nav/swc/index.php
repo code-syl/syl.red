@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <link rel="stylesheet" href="/nav/swc/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
 
 
 </head>
@@ -82,7 +82,7 @@
             <a href="https://holocron.swcombine.com/wiki/Alani_Myrtel" target="_blank">
                 <div class="card">
                     <div class="top">
-                        <img src="/assets/swc_alani_myrtel_banner.jpg" alt="Alani Myrtel" />
+                        <img src="./assets/swc_alani_myrtel_banner.jpg" alt="Alani Myrtel" />
                     </div>
                     <div class="bottom">
                         <span>Alani Myrtel</span>
@@ -92,7 +92,7 @@
             <a href="https://holocron.swcombine.com/wiki/Niera_Crukx" target="_blank">
                 <div class="card">
                     <div class="top">
-                        <img src="/assets/swc_niera_crukx_banner.jpg" alt="Niera Crukx" />
+                        <img src="./assets/swc_niera_crukx_banner.jpg" alt="Niera Crukx" />
                     </div>
                     <div class="bottom">
                         <span>Niera Crukx</span>
@@ -117,7 +117,7 @@
             <a href="/nav/swc/vision_sim/">
                 <div class="card">
                     <div class="top">
-                        <img src="/assets/swc_vision_simulator_menu_banner.jpg" alt="Vision Simulator" />
+                        <img src="./assets/swc_vision_simulator_menu_banner.jpg" alt="Vision Simulator" />
                     </div>
                     <div class="bottom">
                         <span>Vision Simulator</span>
