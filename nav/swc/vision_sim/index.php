@@ -27,7 +27,7 @@
                 <a
                     id="home-button"
                     class="col"
-                    href="/">
+                    href="https://syl.red/">
                     <span>Home</span>
                 </a>
                 <span class="col">
@@ -36,7 +36,7 @@
                 <a
                     id="swc-button"
                     class="col"
-                    href="/nav/swc/">
+                    href="/">
                     <span>SWC</span>
                 </a>
             </div>

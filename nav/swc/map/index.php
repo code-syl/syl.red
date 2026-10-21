@@ -10,9 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/map/styles.css" type="text/css" media="screen" />
 
-    <script src="./map.js" defer></script>
+    <script src="/map/map.js" defer></script>
 </head>
 
 <body>

@@ -1,5 +1,5 @@
 // get the data
-const sectorDataPath = "/nav/swc/galaxy-map/sectors.json";
+const sectorDataPath = "/galaxy-map/sectors.json";
 let sectors = {};
 fetch(sectorDataPath)
     .then(response => {

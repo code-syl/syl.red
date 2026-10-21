@@ -9,7 +9,6 @@
     <meta name="description" content="WIP mock site for notes" />
     <meta name="viewport" content="width=1100">
 
-    <base href="/nav/notes/">
     <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
 </head>
 

@@ -9,9 +9,9 @@
     <meta name="description" content="A test to draw a galaxy map for SWC, by Code-Syl" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="/nav/swc/galaxy-map/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/galaxy-map/styles.css" type="text/css" media="screen" />
 
-    <script src="/nav/swc/galaxy-map/scripts.js" defer></script>
+    <script src="/galaxy-map/scripts.js" defer></script>
 </head>
 
 <body>

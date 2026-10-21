@@ -29,7 +29,7 @@
                 <a
                     id="home-button"
                     class="col"
-                    href="/">
+                    href="https://syl.red/">
                     <span>Home</span>
                 </a>
                 <span class="col">
@@ -38,7 +38,7 @@
                 <a
                     id="swc-button"
                     class="col"
-                    href="/nav/swc/">
+                    href="/">
                     <span>SWC</span>
                 </a>
             </div>
@@ -81,7 +81,7 @@
             <a href="https://holocron.swcombine.com/wiki/Alani_Myrtel" target="_blank">
                 <div class="card">
                     <div class="top">
-                        <img src="./assets/swc_alani_myrtel_banner.jpg" alt="Alani Myrtel" />
+                        <img src="/assets/swc_alani_myrtel_banner.jpg" alt="Alani Myrtel" />
                     </div>
                     <div class="bottom">
                         <span>Alani Myrtel</span>
@@ -91,7 +91,7 @@
             <a href="https://holocron.swcombine.com/wiki/Niera_Crukx" target="_blank">
                 <div class="card">
                     <div class="top">
-                        <img src="./assets/swc_niera_crukx_banner.jpg" alt="Niera Crukx" />
+                        <img src="/assets/swc_niera_crukx_banner.jpg" alt="Niera Crukx" />
                     </div>
                     <div class="bottom">
                         <span>Niera Crukx</span>
@@ -103,7 +103,7 @@
         <h2 id="tools"><a href="#top">Tools</a></h2>
 
         <div class="row">
-            <a href="/nav/swc/galaxy-map/">
+            <a href="/galaxy-map/">
                 <div class="card">
                     <div class="top">
                     </div>
@@ -113,10 +113,10 @@
                 </div>
             </a>
 
-            <a href="/nav/swc/vision_sim/">
+            <a href="/vision_sim/">
                 <div class="card">
                     <div class="top">
-                        <img src="./assets/swc_vision_simulator_menu_banner.jpg" alt="Vision Simulator" />
+                        <img src="/assets/swc_vision_simulator_menu_banner.jpg" alt="Vision Simulator" />
                     </div>
                     <div class="bottom">
                         <span>Vision Simulator</span>
@@ -124,7 +124,7 @@
                 </div>
             </a>
 
-            <a href="/nav/swc/map/">
+            <a href="/map/">
                 <div class="card">
                     <div class="top">
                     </div>
