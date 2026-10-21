@@ -9,7 +9,7 @@
     <meta name="description" content="A simulator simulating the vision system in SWC, by Code-Syl" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <base href="/nav/swc/">
+
     <link rel="stylesheet" href="/styles.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/vision_sim/styles.css" type="text/css" media="screen" />
 
