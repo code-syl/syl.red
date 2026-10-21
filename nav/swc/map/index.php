@@ -9,9 +9,10 @@
     <meta name="description" content="A test to draw a map for SWC, by Code-Syl" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="/nav/swc/map/styles.css" type="text/css" media="screen" />
+    <base href="/nav/swc/">
+    <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
 
-    <script src="/nav/swc/map/map.js" defer></script>
+    <script src="./map.js" defer></script>
 </head>
 
 <body>
