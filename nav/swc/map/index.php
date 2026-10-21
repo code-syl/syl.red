@@ -9,7 +9,7 @@
     <meta name="description" content="A test to draw a map for SWC, by Code-Syl" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <base href="/nav/swc/">
+
     <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
 
     <script src="./map.js" defer></script>
