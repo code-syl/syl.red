@@ -135,3 +135,77 @@ All JSON. Writes need the `X-CSRF-Token` header from `GET /api/session`.
 `GET /api/export` · `POST /api/import/preview` · `POST /api/import/merge|replace`
 
 Fonts: Nunito and Playfair Display, SIL Open Font License (see `public/assets/fonts/`).
+
+## Cron backup
+* SQLite3 needs to be installed.
+```bash
+sudo apt install sqlite3
+```
+
+* Create the backup script.
+```bash
+sudo tee /usr/local/bin/cute-backup > /dev/null <<'EOF'
+#!/usr/bin/env bash
+# Daily backup of the cute.syl.red database. Runs as www-data (see /etc/cron.d/cute-backup).
+set -euo pipefail
+
+DB=/var/lib/cute/cute.sqlite
+DEST=/var/backups/cute
+KEEP_DAYS=30
+
+OUT="$DEST/cute-$(date +%F).sqlite"
+
+# Consistent copy, even while the app is writing
+sqlite3 "$DB" ".backup '$OUT'"
+
+# Only keep it if the copy is healthy
+if [ "$(sqlite3 "$OUT" 'PRAGMA integrity_check;')" != "ok" ]; then
+    echo "integrity check FAILED for $OUT" >&2
+    rm -f "$OUT"
+    exit 1
+fi
+
+gzip -f "$OUT"
+chmod 600 "$OUT.gz"
+
+# Remove backups older than KEEP_DAYS
+find "$DEST" -name 'cute-*.sqlite.gz' -mtime +"$KEEP_DAYS" -delete
+
+echo "backup ok: $OUT.gz ($(du -h "$OUT.gz" | cut -f1))"
+EOF
+
+sudo chmod 755 /usr/local/bin/cute-backup
+```
+
+* Create the backup folder and test.
+```bash
+sudo mkdir -p /var/backups/cute
+sudo chown www-data:www-data /var/backups/cute
+sudo chmod 700 /var/backups/cute
+
+sudo -u www-data /usr/local/bin/cute-backup
+sudo ls -lh /var/backups/cute
+```
+
+* Create a schedule of it. Example is 3:15AM. Daily.
+```bash
+echo '15 3 * * * www-data /usr/local/bin/cute-backup 2>&1 | /usr/bin/logger -t cute-backup' | sudo tee /etc/cron.d/cute-backup
+sudo chmod 644 /etc/cron.d/cute-backup
+```
+* Check if it ran.
+```bash
+journalctl -t cute-backup --since yesterday
+```
+
+### Restore the backup
+The easiest restore to do with only one user is to restore a manual export from the app itself. If that is not possible:
+CHECK THE PHP VERSION, this assumes 8.3.
+Modify the sqlite.gz file name to the backup you want to restore.
+```bash
+sudo systemctl stop php8.3-fpm
+sudo -u www-data gunzip -c /var/backups/cute/cute-2026-11-23.sqlite.gz > /tmp/cute-restore.sqlite
+sudo rm -f /var/lib/cute/cute.sqlite-wal /var/lib/cute/cute.sqlite-shm
+sudo mv /tmp/cute-restore.sqlite /var/lib/cute/cute.sqlite
+sudo chown www-data:www-data /var/lib/cute/cute.sqlite
+sudo systemctl start php8.3-fpm
+```
