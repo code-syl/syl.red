@@ -22,6 +22,8 @@ cute/
 Requirements: PHP 8.3+ with `pdo_sqlite` (Debian/Ubuntu: `apt install php8.3-fpm php8.3-sqlite3`), nginx.
 For restoring big backups, allow larger request bodies in `/etc/php/8.3/fpm/php.ini`: `post_max_size = 25M` (then `systemctl reload php8.3-fpm`).
 
+Additional requirement: `php8.5-mbstring`.
+
 ```bash
 # 1. Code goes next to your other subdomains (only public/ will be served, see step 5)
 sudo mkdir -p /var/www/html/syl.red/nav/cute
