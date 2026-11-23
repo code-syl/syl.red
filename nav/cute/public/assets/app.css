@@ -306,7 +306,7 @@ details.micros .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 1
 
 /* ---------- Motion ---------- */
 .pop { animation: pop .5s cubic-bezier(.34,1.56,.64,1) both; }
-.pop:nth-child(2) { animation-delay: .06s; } .pop:nth-child(3) { animation-delay: .12s; } .pop:nth-child(4) { animation-delay: .18s; } .pop:nth-child(5) { animation-delay: .24s; } .pop:nth-child(6) { animation-delay: .3s; }
+.pop:nth-child(2) { animation-delay: .06s; } .pop:nth-child(3) { animation-delay: .12s; } .pop:nth-child(4) { animation-delay: .18s; } .pop:nth-child(5) { animation-delay: .24s; } .pop:nth-child(6) { animation-delay: .3s; } .pop:nth-child(7) { animation-delay: .36s; } .pop:nth-child(n+8) { animation-delay: .42s; }
 @keyframes pop { 0% { transform: scale(.7); opacity: 0; } 70% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
 @keyframes grow { from { transform: scaleX(0); } }

@@ -445,7 +445,7 @@
         h('button', { type: 'button', 'aria-pressed': String(st.tab === k), text: l, onclick: () => { st.tab = k; draw(); } })));
       const q = st.q.toLowerCase();
       const shown = items.filter((i) => (st.tab === 'all' || i.type === st.tab) && (!q || i.name.toLowerCase().includes(q)));
-      list.replaceChildren(...(shown.length ? shown.map((i) => h('li', {},
+      list.replaceChildren(...(shown.length ? shown.map((i) => h('li', { class: S.addAnimated ? null : 'pop' },
         h('button', {
           class: 'pick', type: 'button', 'aria-pressed': String(i.key === st.sel),
           onclick: () => { st.sel = i.key; st.amt = i.def; draw(); panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); },
@@ -493,7 +493,9 @@
         tiles, addBtn));
     }
     search.addEventListener('input', () => { st.q = search.value; draw(); });
+    S.addAnimated = false;
     draw();
+    S.addAnimated = true;
     page('today', [
       h('header', { class: 'row' }, h('a', { class: 'icon-btn', href: backHref, 'aria-label': 'Back' }, icon('left', 20, 2.5)), h('h1', { text: 'Add to ' + (backHref === '#/today' ? 'today' : shortDate(date)) })),
       h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: 'q', text: 'Search your foods, meals and drinks' }), h('div', { class: 'search' }, icon('search', 20, 2.4), search)),
@@ -508,35 +510,37 @@
     let lib;
     try { lib = await loadLib(true); } catch (e) { return fail(e); }
     const st = { q: '' };
+    let firstDraw = true;   // bounce the list in once, not on every keystroke
     const search = h('input', { id: 'lq', class: 'input', type: 'search', placeholder: 'Search library', autocomplete: 'off' });
     const list = h('ul', { class: 'list' });
     const draw = () => {
       const q = st.q.toLowerCase();
       if (tab === 'foods') {
         const shown = lib.foods.filter((f) => !q || f.name.toLowerCase().includes(q));
-        list.replaceChildren(...(shown.length ? shown.map((f) => h('li', {}, h('a', { class: 'libitem', href: '#/foods/' + f.id },
+        list.replaceChildren(...(shown.length ? shown.map((f) => h('li', { class: firstDraw ? 'pop' : null }, h('a', { class: 'libitem', href: '#/foods/' + f.id },
           h('div', { class: 'row' }, h('span', { class: 'grow', style: { 'font-weight': '800' }, text: f.name }), h('span', { class: 'badge ' + f.kind, text: f.kind }), h('span', { class: 'tiny muted', text: `per 100 ${f.unit}` })),
           h('div', { class: 'chips' },
             h('span', { class: 'chip kcal', text: `${fmt(f.nutrients.kcal)} kcal` }),
             h('span', { class: 'chip p', text: `P ${fmt(f.nutrients.protein, 1)} g` }),
             h('span', { class: 'chip c', text: `C ${fmt(f.nutrients.carbs, 1)} g` }),
-            h('span', { class: 'chip f', text: `F ${fmt(f.nutrients.fat, 1)} g` }))))) : [h('li', { class: 'empty' }, lib.foods.length ? 'No matches.' : 'No foods yet. Add the things you eat often!')]));
+            h('span', { class: 'chip f', text: `F ${fmt(f.nutrients.fat, 1)} g` }))))) : [h('li', { class: 'card empty' + (firstDraw ? ' pop' : '') }, lib.foods.length ? 'No matches.' : 'No foods yet. Add the things you eat often!')]));
       } else {
         const shown = lib.meals.filter((m) => !q || m.name.toLowerCase().includes(q));
-        list.replaceChildren(...(shown.length ? shown.map((m) => h('li', {}, h('a', { class: 'libitem', href: '#/meals/' + m.id },
+        list.replaceChildren(...(shown.length ? shown.map((m) => h('li', { class: firstDraw ? 'pop' : null }, h('a', { class: 'libitem', href: '#/meals/' + m.id },
           h('div', { class: 'row between' }, h('span', { class: 'serif', style: { 'font-size': '19px', color: 'var(--wine)' }, text: m.name }), h('span', { class: 'small', style: { 'font-weight': '800' }, text: `${fmt(m.weight)} g · ${fmt(m.totals.kcal)} kcal` })),
-          h('div', { class: 'tiny muted', text: m.items.map((i) => `${i.name} ${fmt(i.amount)} ${i.unit}`).join(' · ') })))) : [h('li', { class: 'empty' }, lib.meals.length ? 'No matches.' : 'No meals yet. A meal is a saved combination of foods.')]));
+          h('div', { class: 'tiny muted', text: m.items.map((i) => `${i.name} ${fmt(i.amount)} ${i.unit}`).join(' · ') })))) : [h('li', { class: 'card empty' + (firstDraw ? ' pop' : '') }, lib.meals.length ? 'No matches.' : 'No meals yet. A meal is a saved combination of foods.')]));
       }
     };
     search.addEventListener('input', () => { st.q = search.value; draw(); });
     draw();
+    firstDraw = false;
     page('foods', [
       h('header', { class: 'row between' }, h('h1', { text: 'Food library' }),
         h('a', { class: 'btn btn-primary btn-small', href: tab === 'foods' ? '#/foods/new' : '#/meals/new' }, icon('plus', 16, 3), tab === 'foods' ? 'New item' : 'New meal')),
-      h('div', { class: 'seg', role: 'group', 'aria-label': 'Library section' },
+      h('div', { class: 'seg pop', role: 'group', 'aria-label': 'Library section' },
         h('a', { class: 'btn btn-small', href: '#/foods', style: tab === 'foods' ? { background: 'var(--rose)', color: 'var(--deeper)', flex: '1' } : { flex: '1', color: 'var(--muted)' }, 'aria-current': tab === 'foods' ? 'page' : null, text: 'Foods & drinks' }),
         h('a', { class: 'btn btn-small', href: '#/meals', style: tab === 'meals' ? { background: 'var(--rose)', color: 'var(--deeper)', flex: '1' } : { flex: '1', color: 'var(--muted)' }, 'aria-current': tab === 'meals' ? 'page' : null, text: 'Meals' })),
-      h('div', { class: 'search' }, h('label', { class: 'sr', for: 'lq', text: 'Search library' }), icon('search', 20, 2.4), search),
+      h('div', { class: 'search pop' }, h('label', { class: 'sr', for: 'lq', text: 'Search library' }), icon('search', 20, 2.4), search),
       list,
     ]);
   }
@@ -866,7 +870,7 @@
     const fromIn = h('input', { id: 'from', class: 'input', type: 'date', value: from, max: today });
     const toIn = h('input', { id: 'to', class: 'input', type: 'date', value: to, max: today });
     const custom = r === 'custom' ? h('form', {
-      class: 'card tight', onsubmit: (e) => { e.preventDefault(); if (fromIn.value && toIn.value) location.hash = `#/stats?r=custom&from=${fromIn.value}&to=${toIn.value}`; },
+      class: 'card tight pop', onsubmit: (e) => { e.preventDefault(); if (fromIn.value && toIn.value) location.hash = `#/stats?r=custom&from=${fromIn.value}&to=${toIn.value}`; },
     }, h('div', { class: 'grid2' },
       h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: 'from', text: 'From' }), fromIn),
       h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: 'to', text: 'To' }), toIn)),
@@ -879,7 +883,7 @@
       custom,
     ];
     if (!logged.length && !weights.length) {
-      page('stats', [...head, h('div', { class: 'card empty' }, h('div', { class: 'mascot small' }, h('img', { src: '/assets/img/mascot.png', alt: '' })), 'No data in this range yet. Close a few days and your charts appear here.')], { wide: true });
+      page('stats', [...head, h('div', { class: 'card empty pop' }, h('div', { class: 'mascot small' }, h('img', { src: '/assets/img/mascot.png', alt: '' })), 'No data in this range yet. Close a few days and your charts appear here.')], { wide: true });
       return;
     }
     const avgKcal = avg(closed.map((d) => d.totals.kcal));
