@@ -9,7 +9,7 @@ final class Foods
     public static function list(int $uid): array
     {
         $foods = array_map([self::class, 'foodOut'], Db::all(
-            'SELECT * FROM foods WHERE user_id = ? AND archived = 0 ORDER BY name COLLATE NOCASE', [$uid]
+            'SELECT * FROM foods WHERE user_id = ? AND archived = 0 ORDER BY name COLLATE NOCASE, brand COLLATE NOCASE', [$uid]
         ));
         $meals = array_map(fn ($m) => self::mealOut($uid, $m), Db::all(
             'SELECT * FROM meals WHERE user_id = ? AND archived = 0 ORDER BY name COLLATE NOCASE', [$uid]
@@ -23,6 +23,7 @@ final class Foods
         return [
             'id' => (int) $row['id'],
             'name' => $row['name'],
+            'brand' => $row['brand'] ?? '',
             'kind' => $row['kind'],
             'unit' => $row['kind'] === 'drink' ? 'mL' : 'g',
             'nutrients' => json_decode($row['nutrients'], true),
@@ -43,15 +44,17 @@ final class Foods
     public static function saveFood(int $uid, array $in, ?int $id = null): array
     {
         $name = Valid::str($in['name'] ?? null, 'name', 80);
-        $kind = in_array($in['kind'] ?? null, ['food', 'drink'], true) ? $in['kind'] : throw new HttpError(422, 'kind must be food or drink');
+        $brand = Valid::str($in['brand'] ?? '', 'brand', 60, true);
+        // The UI says solid/liquid, in the backend, the old naming is still used
+        $kind = in_array($in['kind'] ?? null, ['food', 'drink'], true) ? $in['kind'] : throw new HttpError(422, 'kind must be food (solid) or drink (liquid)');
         $nutrients = Valid::nutrients($in['nutrients'] ?? []);
         $json = json_encode($nutrients, JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION);
         if ($id === null) {
-            Db::run('INSERT INTO foods (user_id, name, kind, nutrients) VALUES (?, ?, ?, ?)', [$uid, $name, $kind, $json]);
+            Db::run('INSERT INTO foods (user_id, name, brand, kind, nutrients) VALUES (?, ?, ?, ?, ?)', [$uid, $name, $brand, $kind, $json]);
             $id = Db::lastId();
         } else {
             self::getFood($uid, $id, false);
-            Db::run("UPDATE foods SET name = ?, kind = ?, nutrients = ?, updated_at = datetime('now') WHERE id = ? AND user_id = ?", [$name, $kind, $json, $id, $uid]);
+            Db::run("UPDATE foods SET name = ?, brand = ?, kind = ?, nutrients = ?, updated_at = datetime('now') WHERE id = ? AND user_id = ?", [$name, $brand, $kind, $json, $id, $uid]);
         }
 
         return self::getFood($uid, $id);
@@ -66,7 +69,7 @@ final class Foods
     public static function mealOut(int $uid, array $meal): array
     {
         $items = Db::all(
-            'SELECT mi.food_id, mi.amount, f.name, f.kind, f.nutrients FROM meal_items mi JOIN foods f ON f.id = mi.food_id WHERE mi.meal_id = ? ORDER BY mi.id',
+            'SELECT mi.food_id, mi.amount, f.name, f.brand, f.kind, f.nutrients FROM meal_items mi JOIN foods f ON f.id = mi.food_id WHERE mi.meal_id = ? ORDER BY mi.id',
             [$meal['id']]
         );
         $total = Valid::zero();
@@ -77,7 +80,7 @@ final class Foods
             $total = Valid::add($total, Valid::scale($per100, (float) $it['amount']));
             $weight += (float) $it['amount'];
             $outItems[] = [
-                'food_id' => (int) $it['food_id'], 'name' => $it['name'],
+                'food_id' => (int) $it['food_id'], 'name' => $it['name'], 'brand' => $it['brand'],
                 'unit' => $it['kind'] === 'drink' ? 'mL' : 'g', 'amount' => (float) $it['amount'],
             ];
         }

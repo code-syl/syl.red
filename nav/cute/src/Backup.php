@@ -16,7 +16,7 @@ final class Backup
     {
         $foods = [];
         foreach (Db::all('SELECT * FROM foods WHERE user_id = ? ORDER BY id', [$uid]) as $f) {
-            $foods[] = ['ref' => (int) $f['id'], 'name' => $f['name'], 'kind' => $f['kind'],
+            $foods[] = ['ref' => (int) $f['id'], 'name' => $f['name'], 'brand' => $f['brand'], 'kind' => $f['kind'],
                 'nutrients' => json_decode($f['nutrients'], true), 'archived' => (bool) $f['archived']];
         }
 
@@ -30,7 +30,7 @@ final class Backup
         $entriesByDate = [];
         foreach (Db::all('SELECT * FROM entries WHERE user_id = ? ORDER BY date, id', [$uid]) as $e) {
             $entriesByDate[$e['date']][] = [
-                'kind' => $e['kind'], 'name' => $e['name'], 'unit' => $e['unit'], 'amount' => (float) $e['amount'],
+                'kind' => $e['kind'], 'name' => $e['name'], 'brand' => $e['brand'], 'unit' => $e['unit'], 'amount' => (float) $e['amount'],
                 'per100' => json_decode($e['per100'], true),
                 'food_ref' => $e['food_id'] !== null ? (int) $e['food_id'] : null,
                 'meal_ref' => $e['meal_id'] !== null ? (int) $e['meal_id'] : null,
@@ -80,7 +80,8 @@ final class Backup
             }
             $ref = Valid::int($f['ref'] ?? null, "food #$i ref");
             $kind = in_array($f['kind'] ?? null, ['food', 'drink'], true) ? $f['kind'] : throw new HttpError(422, "Food #$i has an unknown kind");
-            $out['foods'][] = ['ref' => $ref, 'name' => Valid::str($f['name'] ?? null, "food #$i name", 80), 'kind' => $kind,
+            $out['foods'][] = ['ref' => $ref, 'name' => Valid::str($f['name'] ?? null, "food #$i name", 80),
+                'brand' => Valid::str($f['brand'] ?? '', "food #$i brand", 60, true), 'kind' => $kind,
                 'nutrients' => Valid::nutrients($f['nutrients'] ?? []), 'archived' => !empty($f['archived'])];
             $foodRefs[$ref] = true;
         }
@@ -131,6 +132,7 @@ final class Backup
                 $entries[] = [
                     'kind' => in_array($e['kind'] ?? null, ['food', 'drink', 'meal'], true) ? $e['kind'] : throw new HttpError(422, "Day $date has an entry with an unknown kind"),
                     'name' => Valid::str($e['name'] ?? null, 'entry name', 80),
+                    'brand' => Valid::str($e['brand'] ?? '', 'entry brand', 60, true),
                     'unit' => in_array($e['unit'] ?? null, ['g', 'mL'], true) ? $e['unit'] : throw new HttpError(422, "Day $date has an entry with an unknown unit"),
                     'amount' => (float) Valid::num($e['amount'] ?? null, 'amount', 0.1, 10000),
                     'per100' => Valid::nutrients($e['per100'] ?? []),
@@ -155,18 +157,30 @@ final class Backup
         return $out;
     }
 
-    private static function foodKey(string $name, string $kind): string
+    /**
+     * Finds the existing food a backup food should update: same name, type and brand.
+     * Backups made before brands existed have no brand, so those also match an existing
+     * food with the same name and type whatever its brand is (no duplicates after you add brands).
+     */
+    private static function matchFood(int $uid, array $f): ?int
     {
-        return mb_strtolower(trim($name)) . '|' . $kind;
+        $row = Db::one(
+            'SELECT id FROM foods WHERE user_id = ? AND lower(name) = lower(?) AND kind = ? AND lower(brand) = lower(?) ORDER BY archived, id LIMIT 1',
+            [$uid, $f['name'], $f['kind'], $f['brand']]
+        );
+        if (!$row && $f['brand'] === '') {
+            $row = Db::one(
+                'SELECT id FROM foods WHERE user_id = ? AND lower(name) = lower(?) AND kind = ? ORDER BY archived, id LIMIT 1',
+                [$uid, $f['name'], $f['kind']]
+            );
+        }
+        return $row ? (int) $row['id'] : null;
     }
 
     public static function preview(int $uid, array $raw): array
     {
         $b = self::validate($raw);
-        $existingFoods = [];
-        foreach (Db::all('SELECT name, kind FROM foods WHERE user_id = ?', [$uid]) as $f) {
-            $existingFoods[self::foodKey($f['name'], $f['kind'])] = true;
-        }
+        $currentFoods = (int) Db::one('SELECT COUNT(*) c FROM foods WHERE user_id = ?', [$uid])['c'];
 
         $existingMeals = [];
         foreach (Db::all('SELECT name FROM meals WHERE user_id = ?', [$uid]) as $m) {
@@ -188,14 +202,14 @@ final class Backup
 
         return [
             'exported_at' => $b['exported_at'],
-            'foods' => $count($b['foods'], fn ($f) => self::foodKey($f['name'], $f['kind']), $existingFoods),
+            'foods' => ['total' => count($b['foods']), 'matching' => count(array_filter($b['foods'], fn ($f) => self::matchFood($uid, $f) !== null))],
             'meals' => $count($b['meals'], fn ($m) => mb_strtolower($m['name']), $existingMeals),
             'days' => $count($b['days'], fn ($d) => $d['date'], $existingDays) + [
                 'first' => $dates[0] ?? null, 'last' => $dates ? end($dates) : null,
                 'entries' => array_sum(array_map(fn ($d) => count($d['entries']), $b['days'])),
             ],
             'current' => [
-                'foods' => count($existingFoods), 'meals' => count($existingMeals), 'days' => count($existingDays),
+                'foods' => $currentFoods, 'meals' => count($existingMeals), 'days' => count($existingDays),
             ],
         ];
     }
@@ -219,12 +233,14 @@ final class Backup
             $foodIds = [];
             foreach ($b['foods'] as $f) {
                 $json = json_encode($f['nutrients'], JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION);
-                $existing = Db::one('SELECT id FROM foods WHERE user_id = ? AND lower(name) = lower(?) AND kind = ? ORDER BY archived, id LIMIT 1', [$uid, $f['name'], $f['kind']]);
-                if ($existing) {
-                    Db::run("UPDATE foods SET name = ?, nutrients = ?, archived = ?, updated_at = datetime('now') WHERE id = ?", [$f['name'], $json, $f['archived'] ? 1 : 0, $existing['id']]);
-                    $foodIds[$f['ref']] = (int) $existing['id'];
+                $existingId = self::matchFood($uid, $f);
+                if ($existingId !== null) {
+                    // A brandless (older) backup never wipes a brand you've added since.
+                    Db::run("UPDATE foods SET name = ?, brand = CASE WHEN ? = '' THEN brand ELSE ? END, nutrients = ?, archived = ?, updated_at = datetime('now') WHERE id = ?",
+                        [$f['name'], $f['brand'], $f['brand'], $json, $f['archived'] ? 1 : 0, $existingId]);
+                    $foodIds[$f['ref']] = $existingId;
                 } else {
-                    Db::run('INSERT INTO foods (user_id, name, kind, nutrients, archived) VALUES (?, ?, ?, ?, ?)', [$uid, $f['name'], $f['kind'], $json, $f['archived'] ? 1 : 0]);
+                    Db::run('INSERT INTO foods (user_id, name, brand, kind, nutrients, archived) VALUES (?, ?, ?, ?, ?, ?)', [$uid, $f['name'], $f['brand'], $f['kind'], $json, $f['archived'] ? 1 : 0]);
                     $foodIds[$f['ref']] = Db::lastId();
                 }
             }
@@ -257,9 +273,9 @@ final class Backup
                 
                 foreach ($d['entries'] as $e) {
                     Db::run(
-                        'INSERT INTO entries (user_id, date, kind, food_id, meal_id, name, unit, amount, per100) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                        'INSERT INTO entries (user_id, date, kind, food_id, meal_id, name, brand, unit, amount, per100) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                         [$uid, $d['date'], $e['kind'], $e['food_ref'] !== null ? $foodIds[$e['food_ref']] : null,
-                            $e['meal_ref'] !== null ? $mealIds[$e['meal_ref']] : null, $e['name'], $e['unit'], $e['amount'],
+                            $e['meal_ref'] !== null ? $mealIds[$e['meal_ref']] : null, $e['name'], $e['brand'], $e['unit'], $e['amount'],
                             json_encode($e['per100'], JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION)]
                     );
                 }

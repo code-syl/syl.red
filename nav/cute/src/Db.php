@@ -161,6 +161,25 @@ final class Db
             CREATE INDEX IF NOT EXISTS idx_entries_user_date ON entries(user_id, date);
             PRAGMA user_version = 1;
             SQL);
+            $version = 1;
+        }
+        if ($version < 2) {
+            // v2: optional brand on foods (and on the snapshot stored with each logged item).
+            // ADD COLUMN with a default is instant in SQLite and keeps all existing rows.
+            // BEGIN IMMEDIATE takes the write lock first, so two requests arriving at the same
+            // moment can't both run the migration; the second one re-checks and skips.
+            $pdo->exec('BEGIN IMMEDIATE');
+            try {
+                if ((int) $pdo->query('PRAGMA user_version')->fetchColumn() < 2) {
+                    $pdo->exec("ALTER TABLE foods ADD COLUMN brand TEXT NOT NULL DEFAULT ''");
+                    $pdo->exec("ALTER TABLE entries ADD COLUMN brand TEXT NOT NULL DEFAULT ''");
+                    $pdo->exec('PRAGMA user_version = 2');
+                }
+                $pdo->exec('COMMIT');
+            } catch (\Throwable $e) {
+                $pdo->exec('ROLLBACK');
+                throw $e;
+            }
         }
     }
 }

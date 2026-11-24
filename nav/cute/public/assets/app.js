@@ -78,6 +78,7 @@
 
   // ------------------------------------------------------------------ formatting
   const fmt = (v, d = 0) => (v === null || v === undefined || Number.isNaN(v)) ? '–' : Number(v).toLocaleString('en-GB', { maximumFractionDigits: d, minimumFractionDigits: 0 });
+  const fmtWater = (ml) => (ml / 1000).toLocaleString('en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 3 }) + ' L';
   const fmtL = (ml) => (ml / 1000).toLocaleString('en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
   const parseNum = (str) => { const n = parseFloat(String(str).replace(',', '.')); return Number.isFinite(n) ? n : null; };
   const toDate = (iso) => new Date(iso + 'T12:00:00Z');
@@ -90,6 +91,13 @@
   const localToday = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
   const bmiInfo = (b) => b === null ? null : b < 18.5 ? ['under range', 'warn'] : b < 25 ? ['in range', 'ok'] : b < 30 ? ['above range', 'warn'] : ['well above range', 'warn'];
   const STATUS_LABEL = { open: 'Day open', closed: 'Closed', skipped: 'Skipped', none: 'Not logged' };
+  // Stored kinds stay 'food' / 'drink' (so old data and backups keep working); the UI says solid / liquid.
+  const KIND_LABEL = { food: 'solid', drink: 'liquid', meal: 'meal' };
+  // Search matches every typed word against "name + brand", so "kikkoman soy" finds Soy sauce (Kikkoman).
+  const matchQ = (q, ...fields) => {
+    const hay = fields.filter(Boolean).join(' ').toLowerCase();
+    return q.trim().toLowerCase().split(/\s+/).filter(Boolean).every((w) => hay.includes(w));
+  };
 
   // ------------------------------------------------------------------ API
   class ApiError extends Error { constructor(msg, status) { super(msg); this.status = status; } }
@@ -143,6 +151,38 @@
   }
   const confirmBox = (title, text, yes = 'Yes', cls = 'btn-primary') =>
     modal(title, h('p', { class: 'muted', text }), [{ label: 'Cancel', value: false }, { label: yes, value: true, cls }]);
+
+  /** Searchable list of your foods in a sheet. Resolves with the chosen food, or null. */
+  function pickFood(foods, title = 'Choose an ingredient') {
+    return new Promise((resolve) => {
+      const back = h('div', { class: 'modal-back', onclick: (e) => { if (e.target === back) close(null); } });
+      const close = (v) => { back.remove(); document.removeEventListener('keydown', onKey); resolve(v); };
+      const onKey = (e) => { if (e.key === 'Escape') close(null); };
+      document.addEventListener('keydown', onKey);
+      const search = h('input', { id: 'pick-q', class: 'input', type: 'search', placeholder: 'Name or brand', autocomplete: 'off' });
+      const list = h('ul', { class: 'list picker-list' });
+      const draw = () => {
+        const shown = foods.filter((f) => matchQ(search.value, f.name, f.brand));
+        list.replaceChildren(...(shown.length ? shown.map((f) => h('li', {}, h('button', { class: 'pick', type: 'button', onclick: () => close(f) },
+          h('span', { class: 'badge ' + f.kind, text: KIND_LABEL[f.kind] }),
+          h('span', { class: 'grow' }, h('div', { style: { 'font-weight': '800' }, text: f.name }),
+            h('div', { class: 'tiny muted', text: `${f.brand ? f.brand + ' · ' : ''}${fmt(f.nutrients.kcal)} kcal per 100 ${f.unit}` })))))
+          : [h('li', { class: 'empty', text: 'No matches. You can add new items in the Food library.' })]));
+      };
+      search.addEventListener('input', draw);
+      search.addEventListener('keydown', (e) => {
+        // Enter picks the first match, so "type, Enter" is enough on a keyboard.
+        if (e.key === 'Enter') { e.preventDefault(); const first = list.querySelector('button.pick'); if (first) first.click(); }
+      });
+      draw();
+      back.append(h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': title },
+        h('div', { class: 'row between' }, h('h2', { text: title }), h('button', { class: 'icon-btn flat', type: 'button', 'aria-label': 'Close', onclick: () => close(null) }, icon('x', 18))),
+        h('div', { class: 'search' }, h('label', { class: 'sr', for: 'pick-q', text: 'Search ingredients' }), icon('search', 20, 2.4), search),
+        list));
+      document.body.append(back);
+      search.focus();
+    });
+  }
 
   // ------------------------------------------------------------------ theme
   const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -310,32 +350,57 @@
       h('details', { class: 'micros' }, h('summary', { text: 'Micronutrients & more' }), h('div', { class: 'chips' }, microChips))));
 
     // Water
+    // Each droplet is 250 mL; a droplet that is only partly reached is filled partly (e.g. 100 mL = 40%).
     const waterGoal = Number(goals.water_ml) || 2000;
-    const glassCount = Math.max(4, Math.min(16, Math.round(waterGoal / 250)));
     let water = d.water_ml;
     const waterLabel = h('span', { class: 'num', style: { 'font-size': '20px' } });
     const glassesEl = h('div', { class: 'glasses' });
     const saveWater = async (ml) => {
-      water = Math.max(0, Math.min(20000, ml)); drawWater();
+      water = Math.round(Math.max(0, Math.min(20000, ml))); drawWater();
       try { await api('PATCH', '/api/days/' + date, { water_ml: water }); } catch (e) { fail(e); }
     };
+    const DROP = 'M12 2 C12 2 3 13 3 19 a9 9 0 0 0 18 0 C21 13 12 2 12 2Z';
+    function droplet(frac, idx) {
+      // The fill is the droplet shape clipped to a rectangle that rises from the bottom.
+      const id = `drop-${date}-${idx}`;
+      const top = 2, bottom = 28, hgt = (bottom - top) * frac;
+      return s('svg', { width: 18, height: 22, viewBox: '0 0 24 30', 'aria-hidden': 'true' },
+        s('defs', {}, s('clipPath', { id }, s('rect', { x: 0, y: (bottom - hgt).toFixed(2), width: 24, height: (hgt + 2).toFixed(2) }))),
+        frac > 0 ? s('path', { class: 'drop-fill', d: DROP, 'clip-path': `url(#${id})` }) : null,
+        s('path', { class: 'drop-line', d: DROP, stroke: 'currentColor', 'stroke-width': 2 }));
+    }
     function drawWater() {
-      waterLabel.replaceChildren(fmtL(water) + ' L ', h('span', { class: 'small muted', text: '/ ' + fmtL(waterGoal) + ' L' }));
-      const filled = Math.round(water / 250);
-      glassesEl.replaceChildren(...Array.from({ length: glassCount }, (_, i) => h('button', {
-        class: 'glass' + (i < filled ? ' on' : ''), type: 'button', 'aria-label': `Set water to ${(i + 1) * 250} mL`,
-        'aria-pressed': String(i < filled),
-        onclick: () => saveWater((i + 1) * 250 === water ? i * 250 : (i + 1) * 250),
-      }, s('svg', { width: 18, height: 22, viewBox: '0 0 24 30', 'aria-hidden': 'true' }, s('path', { d: 'M12 2 C12 2 3 13 3 19 a9 9 0 0 0 18 0 C21 13 12 2 12 2Z', stroke: 'currentColor', 'stroke-width': 2 })))));
+      waterLabel.replaceChildren(fmtWater(water) + ' ', h('span', { class: 'small muted', text: '/ ' + fmtL(waterGoal) + ' L' }));
+      const count = Math.min(40, Math.max(4, Math.round(waterGoal / 250), Math.ceil(water / 250)));
+      glassesEl.replaceChildren(...Array.from({ length: count }, (_, i) => {
+        const frac = Math.max(0, Math.min(1, (water - i * 250) / 250));
+        return h('button', {
+          class: 'glass' + (frac >= 1 ? ' on' : frac > 0 ? ' part' : ''), type: 'button',
+          'aria-label': `Set water to ${(i + 1) * 250} mL`, 'aria-pressed': String(frac >= 1),
+          onclick: () => saveWater((i + 1) * 250 === water ? i * 250 : (i + 1) * 250),
+        }, droplet(frac, i));
+      }));
     }
     drawWater();
+    const customIn = h('input', { id: 'water-custom', class: 'input', type: 'text', inputmode: 'numeric', placeholder: 'e.g. 330', autocomplete: 'off', 'aria-label': 'Custom amount in mL' });
+    const custom = (sign) => {
+      const v = parseNum(customIn.value);
+      if (v === null || v <= 0) { toast('Type an amount in mL', 'error'); customIn.focus(); return; }
+      saveWater(water + sign * v); customIn.value = '';
+    };
     parts.push(h('section', { class: 'card pop', 'aria-label': 'Water' },
       h('div', { class: 'row between' }, h('h2', { class: 'water', text: 'Water' }), waterLabel),
       glassesEl,
       h('div', { class: 'row' },
         h('button', { class: 'btn btn-small btn-outline grow', type: 'button', text: '− 250 mL', onclick: () => saveWater(water - 250) }),
         h('button', { class: 'btn btn-small btn-outline grow', type: 'button', text: '+ 250 mL', onclick: () => saveWater(water + 250) }),
-        h('button', { class: 'btn btn-small btn-outline grow', type: 'button', text: '+ 500 mL', onclick: () => saveWater(water + 500) }))));
+        h('button', { class: 'btn btn-small btn-outline grow', type: 'button', text: '+ 500 mL', onclick: () => saveWater(water + 500) })),
+      h('form', { class: 'water-custom', onsubmit: (e) => { e.preventDefault(); custom(1); } },
+        h('label', { class: 'label', for: 'water-custom', text: 'Custom amount' }),
+        h('div', { class: 'row' },
+          h('div', { class: 'grow', style: { position: 'relative' } }, customIn, h('span', { class: 'unit-suffix', text: 'mL' })),
+          h('button', { class: 'btn btn-small btn-outline', type: 'button', 'aria-label': 'Remove this amount', onclick: () => custom(-1) }, icon('minus', 18, 3)),
+          h('button', { class: 'btn btn-small btn-primary', type: 'submit' }, icon('plus', 18, 3), 'Add')))));
 
     // Body
     const bmiEl = h('div', { class: 'row between', style: { background: 'var(--field)', 'border-radius': '18px', padding: '12px 14px' } });
@@ -365,8 +430,8 @@
     const rows = d.entries.length === 0
       ? [h('p', { class: 'muted small', text: 'Nothing yet. Add your first bite or sip below.' })]
       : d.entries.map((e) => h('div', { class: 'entry' },
-        h('span', { class: 'badge ' + e.kind, text: e.kind }),
-        h('div', { class: 'grow' }, h('div', { class: 'name', text: e.name }), h('div', { class: 'tiny muted', text: `${fmt(e.amount, 1)} ${e.unit}` })),
+        h('span', { class: 'badge ' + e.kind, text: KIND_LABEL[e.kind] }),
+        h('div', { class: 'grow' }, h('div', { class: 'name', text: e.name }), h('div', { class: 'tiny muted', text: `${e.brand ? e.brand + ' · ' : ''}${fmt(e.amount, 1)} ${e.unit}` })),
         h('span', { class: 'kcal', text: fmt(e.totals.kcal) }),
         editable ? h('button', { class: 'icon-btn flat', type: 'button', 'aria-label': 'Edit ' + e.name, onclick: () => editEntry(e, refresh) }, icon('edit', 18)) : null));
     parts.push(h('section', { class: 'card tight pop', 'aria-label': 'Eaten' },
@@ -428,30 +493,29 @@
     try { lib = await loadLib(true); } catch (e) { return fail(e); }
     const backHref = params.get('from') === 'today' ? '#/today' : '#/day/' + date;
     const items = [
-      ...lib.foods.map((f) => ({ key: 'f' + f.id, type: f.kind, name: f.name, unit: f.unit, per100: f.nutrients, food_id: f.id, def: 100 })),
+      ...lib.foods.map((f) => ({ key: 'f' + f.id, type: f.kind, name: f.name, brand: f.brand, unit: f.unit, per100: f.nutrients, food_id: f.id, def: 100 })),
       ...lib.meals.map((m) => ({ key: 'm' + m.id, type: 'meal', name: m.name, unit: 'g', per100: m.per100, meal_id: m.id, def: Math.round(m.weight) || 100 })),
     ].sort((a, b) => a.name.localeCompare(b.name));
     const st = { tab: 'all', q: '', sel: params.get('select') || null, amt: 100 };
     const pre = items.find((i) => i.key === st.sel);
     if (pre) st.amt = pre.def;
 
-    const search = h('input', { id: 'q', class: 'input', type: 'search', placeholder: 'e.g. yogurt', autocomplete: 'off' });
+    const search = h('input', { id: 'q', class: 'input', type: 'search', placeholder: 'Name or brand, e.g. yogurt', autocomplete: 'off' });
     const tabs = h('div', { class: 'seg', role: 'group', 'aria-label': 'Filter' });
     const list = h('ul', { class: 'list' });
     const panel = h('div');
 
     function draw() {
-      tabs.replaceChildren(...[['all', 'All'], ['food', 'Foods'], ['meal', 'Meals'], ['drink', 'Drinks']].map(([k, l]) =>
+      tabs.replaceChildren(...[['all', 'All'], ['food', 'Solids'], ['drink', 'Liquids'], ['meal', 'Meals']].map(([k, l]) =>
         h('button', { type: 'button', 'aria-pressed': String(st.tab === k), text: l, onclick: () => { st.tab = k; draw(); } })));
-      const q = st.q.toLowerCase();
-      const shown = items.filter((i) => (st.tab === 'all' || i.type === st.tab) && (!q || i.name.toLowerCase().includes(q)));
+      const shown = items.filter((i) => (st.tab === 'all' || i.type === st.tab) && matchQ(st.q, i.name, i.brand));
       list.replaceChildren(...(shown.length ? shown.map((i) => h('li', { class: S.addAnimated ? null : 'pop' },
         h('button', {
           class: 'pick', type: 'button', 'aria-pressed': String(i.key === st.sel),
           onclick: () => { st.sel = i.key; st.amt = i.def; draw(); panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); },
         },
-        h('span', { class: 'badge ' + i.type, text: i.type }),
-        h('span', { class: 'grow' }, h('div', { style: { 'font-weight': '800' }, text: i.name }), h('div', { class: 'tiny muted', text: `${fmt(i.per100.kcal)} kcal per 100 ${i.unit}` })),
+        h('span', { class: 'badge ' + i.type, text: KIND_LABEL[i.type] }),
+        h('span', { class: 'grow' }, h('div', { style: { 'font-weight': '800' }, text: i.name }), h('div', { class: 'tiny muted', text: `${i.brand ? i.brand + ' · ' : ''}${fmt(i.per100.kcal)} kcal per 100 ${i.unit}` })),
         i.key === st.sel ? icon('check', 22, 2.6) : null))) : [h('li', { class: 'empty' }, items.length ? 'No matches.' : 'Your library is empty — create your first item.')]));
       drawPanel();
     }
@@ -498,7 +562,7 @@
     S.addAnimated = true;
     page('today', [
       h('header', { class: 'row' }, h('a', { class: 'icon-btn', href: backHref, 'aria-label': 'Back' }, icon('left', 20, 2.5)), h('h1', { text: 'Add to ' + (backHref === '#/today' ? 'today' : shortDate(date)) })),
-      h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: 'q', text: 'Search your foods, meals and drinks' }), h('div', { class: 'search' }, icon('search', 20, 2.4), search)),
+      h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: 'q', text: 'Search your foods, meals and liquids' }), h('div', { class: 'search' }, icon('search', 20, 2.4), search)),
       tabs, list, panel,
       h('a', { href: `#/foods/new?back=${encodeURIComponent('add/' + date + (backHref === '#/today' ? '?from=today' : ''))}`, class: 'btn btn-ghost', style: { 'align-self': 'center' }, text: "Can't find it? Create a new item" }),
     ]);
@@ -511,24 +575,25 @@
     try { lib = await loadLib(true); } catch (e) { return fail(e); }
     const st = { q: '' };
     let firstDraw = true;   // bounce the list in once, not on every keystroke
-    const search = h('input', { id: 'lq', class: 'input', type: 'search', placeholder: 'Search library', autocomplete: 'off' });
+    const search = h('input', { id: 'lq', class: 'input', type: 'search', placeholder: 'Search by name or brand', autocomplete: 'off' });
     const list = h('ul', { class: 'list' });
     const draw = () => {
-      const q = st.q.toLowerCase();
       if (tab === 'foods') {
-        const shown = lib.foods.filter((f) => !q || f.name.toLowerCase().includes(q));
+        const shown = lib.foods.filter((f) => matchQ(st.q, f.name, f.brand));
         list.replaceChildren(...(shown.length ? shown.map((f) => h('li', { class: firstDraw ? 'pop' : null }, h('a', { class: 'libitem', href: '#/foods/' + f.id },
-          h('div', { class: 'row' }, h('span', { class: 'grow', style: { 'font-weight': '800' }, text: f.name }), h('span', { class: 'badge ' + f.kind, text: f.kind }), h('span', { class: 'tiny muted', text: `per 100 ${f.unit}` })),
+          h('div', { class: 'row' },
+            h('span', { class: 'grow' }, h('div', { style: { 'font-weight': '800' }, text: f.name }), f.brand ? h('div', { class: 'tiny muted', text: f.brand }) : null),
+            h('span', { class: 'badge ' + f.kind, text: KIND_LABEL[f.kind] }), h('span', { class: 'tiny muted', text: `per 100 ${f.unit}` })),
           h('div', { class: 'chips' },
             h('span', { class: 'chip kcal', text: `${fmt(f.nutrients.kcal)} kcal` }),
             h('span', { class: 'chip p', text: `P ${fmt(f.nutrients.protein, 1)} g` }),
             h('span', { class: 'chip c', text: `C ${fmt(f.nutrients.carbs, 1)} g` }),
             h('span', { class: 'chip f', text: `F ${fmt(f.nutrients.fat, 1)} g` }))))) : [h('li', { class: 'card empty' + (firstDraw ? ' pop' : '') }, lib.foods.length ? 'No matches.' : 'No foods yet. Add the things you eat often!')]));
       } else {
-        const shown = lib.meals.filter((m) => !q || m.name.toLowerCase().includes(q));
+        const shown = lib.meals.filter((m) => matchQ(st.q, m.name, ...m.items.map((i) => `${i.name} ${i.brand || ''}`)));
         list.replaceChildren(...(shown.length ? shown.map((m) => h('li', { class: firstDraw ? 'pop' : null }, h('a', { class: 'libitem', href: '#/meals/' + m.id },
           h('div', { class: 'row between' }, h('span', { class: 'serif', style: { 'font-size': '19px', color: 'var(--wine)' }, text: m.name }), h('span', { class: 'small', style: { 'font-weight': '800' }, text: `${fmt(m.weight)} g · ${fmt(m.totals.kcal)} kcal` })),
-          h('div', { class: 'tiny muted', text: m.items.map((i) => `${i.name} ${fmt(i.amount)} ${i.unit}`).join(' · ') })))) : [h('li', { class: 'card empty' + (firstDraw ? ' pop' : '') }, lib.meals.length ? 'No matches.' : 'No meals yet. A meal is a saved combination of foods.')]));
+          h('div', { class: 'tiny muted', text: m.items.map((i) => `${i.name}${i.brand ? ' (' + i.brand + ')' : ''} ${fmt(i.amount)} ${i.unit}`).join(' · ') })))) : [h('li', { class: 'card empty' + (firstDraw ? ' pop' : '') }, lib.meals.length ? 'No matches.' : 'No meals yet. A meal is a saved combination of foods.')]));
       }
     };
     search.addEventListener('input', () => { st.q = search.value; draw(); });
@@ -538,7 +603,7 @@
       h('header', { class: 'row between' }, h('h1', { text: 'Food library' }),
         h('a', { class: 'btn btn-primary btn-small', href: tab === 'foods' ? '#/foods/new' : '#/meals/new' }, icon('plus', 16, 3), tab === 'foods' ? 'New item' : 'New meal')),
       h('div', { class: 'seg pop', role: 'group', 'aria-label': 'Library section' },
-        h('a', { class: 'btn btn-small', href: '#/foods', style: tab === 'foods' ? { background: 'var(--rose)', color: 'var(--deeper)', flex: '1' } : { flex: '1', color: 'var(--muted)' }, 'aria-current': tab === 'foods' ? 'page' : null, text: 'Foods & drinks' }),
+        h('a', { class: 'btn btn-small', href: '#/foods', style: tab === 'foods' ? { background: 'var(--rose)', color: 'var(--deeper)', flex: '1' } : { flex: '1', color: 'var(--muted)' }, 'aria-current': tab === 'foods' ? 'page' : null, text: 'Solids & liquids' }),
         h('a', { class: 'btn btn-small', href: '#/meals', style: tab === 'meals' ? { background: 'var(--rose)', color: 'var(--deeper)', flex: '1' } : { flex: '1', color: 'var(--muted)' }, 'aria-current': tab === 'meals' ? 'page' : null, text: 'Meals' })),
       h('div', { class: 'search pop' }, h('label', { class: 'sr', for: 'lq', text: 'Search library' }), icon('search', 20, 2.4), search),
       list,
@@ -561,6 +626,7 @@
     const n = food ? food.nutrients : { kcal: '', protein: '', carbs: '', sugar: '', fat: '', satfat: '', fiber: '', salt: '', micros: {} };
     let kind = food ? food.kind : 'food';
     const name = h('input', { id: 'nm', class: 'input', type: 'text', maxlength: 80, value: food ? food.name : '', required: true });
+    const brand = h('input', { id: 'br', class: 'input', type: 'text', maxlength: 60, value: food ? food.brand : '', placeholder: 'optional, e.g. Kikkoman', autocomplete: 'off' });
     const numField = (key, label) => {
       const inp = h('input', { id: 'n-' + key.replace(/\W+/g, '-'), class: 'input', type: 'text', inputmode: 'decimal', value: n[key] === '' || n[key] === undefined ? '' : String(n[key]) });
       return [inp, h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: inp.id, text: label }), inp)];
@@ -592,7 +658,7 @@
 
     const kindSeg = h('div', { class: 'seg on-field', role: 'radiogroup', 'aria-label': 'Item type' });
     const drawKind = () => {
-      kindSeg.replaceChildren(...[['food', 'Food · grams'], ['drink', 'Drink · mL']].map(([k, l]) =>
+      kindSeg.replaceChildren(...[['food', 'Solid · grams'], ['drink', 'Liquid · mL']].map(([k, l]) =>
         h('button', { type: 'button', role: 'radio', 'aria-checked': String(kind === k), text: l, onclick: () => { kind = k; drawKind(); } })));
       unitLabel.textContent = kind === 'drink' ? ' per 100 mL' : ' per 100 g';
     };
@@ -617,7 +683,7 @@
         }
         save.disabled = true;
         try {
-          const saved = await api(food ? 'PUT' : 'POST', food ? '/api/foods/' + food.id : '/api/foods', { name: name.value, kind, nutrients });
+          const saved = await api(food ? 'PUT' : 'POST', food ? '/api/foods/' + food.id : '/api/foods', { name: name.value, brand: brand.value, kind, nutrients });
           S.lib = null;
           toast(food ? 'Saved' : `${saved.name} added to your library`);
           if (back && back.startsWith('add/')) {
@@ -630,7 +696,9 @@
     },
     h('section', { class: 'card pop' },
       h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: 'nm', text: 'Name' }), name),
-      h('div', { class: 'field-wrap' }, h('span', { class: 'label', text: 'This is a' }), kindSeg)),
+      h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: 'br', text: 'Brand' }), brand),
+      h('div', { class: 'field-wrap' }, h('span', { class: 'label', text: 'Measured as' }), kindSeg,
+        h('span', { class: 'tiny muted', text: 'Solids are weighed in grams, liquids measured in millilitres. Soy sauce, oil and milk are liquids.' }))),
     h('section', { class: 'card pop' }, h('h2', {}, 'Macros', unitLabel), macroGrid),
     h('section', { class: 'card pop' },
       h('h2', { class: 'water' }, 'Micros ', h('span', { class: 'small muted', style: { 'font-family': 'Nunito, sans-serif', 'font-style': 'normal' }, text: 'optional' })),
@@ -679,7 +747,7 @@
       return;
     }
     const foodsById = new Map(lib.foods.map((f) => [f.id, f]));
-    const rows = (meal ? meal.items : [{ food_id: lib.foods[0].id, amount: 100 }]).map((i) => ({ ...i }));
+    const rows = (meal ? meal.items : []).map((i) => ({ ...i }));
     const name = h('input', { id: 'mn', class: 'input', type: 'text', maxlength: 80, value: meal ? meal.name : '', required: true });
     const list = h('div', { class: 'stack' });
     const tiles = h('div', { class: 'grid4' });
@@ -697,26 +765,45 @@
         h('div', { class: 'tile t-f' }, h('div', { class: 'v num', text: fmt(tot.fat, 1) + ' g' }), h('div', { class: 'l', text: 'fat' })));
     };
     const drawRows = () => {
+      if (!rows.length) {
+        list.replaceChildren(h('p', { class: 'small muted', text: 'No ingredients yet. Add the first one below.' }));
+        drawTotals();
+        return;
+      }
       list.replaceChildren(...rows.map((r, idx) => {
-        const sel = h('select', { class: 'input', id: 'ing-' + idx }, lib.foods.map((f) => h('option', { value: String(f.id), text: f.name, selected: f.id === r.food_id })));
-        // Keep archived ingredients selectable when editing an old meal.
-        if (!foodsById.has(r.food_id)) sel.append(h('option', { value: String(r.food_id), text: (r.name || 'Removed item') + ' (removed)', selected: true }));
-        sel.addEventListener('change', () => { r.food_id = Number(sel.value); drawTotals(); });
-        const unit = (foodsById.get(r.food_id) || {}).unit || 'g';
-        const amt = h('input', { class: 'input', type: 'text', inputmode: 'decimal', value: String(r.amount), 'aria-label': 'Amount' });
+        const f = foodsById.get(r.food_id);
+        const unit = (f || {}).unit || 'g';
+        // Tap the ingredient to swap it for another one (opens the search sheet).
+        const choose = h('button', {
+          class: 'input ing-pick', type: 'button', id: 'ing-' + idx, 'aria-label': `Ingredient ${idx + 1}: change`,
+          onclick: async () => { const nf = await pickFood(lib.foods, 'Change ingredient'); if (nf) { r.food_id = nf.id; drawRows(); } },
+        },
+        h('span', { class: 'grow' }, h('span', { class: 'ing-name', text: f ? f.name : (r.name || 'Removed item') + ' (removed)' }),
+          f && f.brand ? h('span', { class: 'tiny muted', text: f.brand }) : null),
+        icon('search', 16, 2.4));
+        const amt = h('input', { class: 'input', id: 'amt-' + idx, type: 'text', inputmode: 'decimal', value: String(r.amount), 'aria-label': `Amount in ${unit}` });
         amt.addEventListener('input', () => { r.amount = parseNum(amt.value) || 0; drawTotals(); });
         return h('div', { class: 'ing' },
-          h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: sel.id, text: `Ingredient ${idx + 1}` }), sel),
-          h('div', { class: 'field-wrap' }, h('span', { class: 'label', text: unit }), amt),
-          h('button', { class: 'icon-btn flat', type: 'button', 'aria-label': 'Remove ingredient', disabled: rows.length === 1, onclick: () => { rows.splice(idx, 1); drawRows(); } }, icon('x', 18)));
+          h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: choose.id, text: `Ingredient ${idx + 1}` }), choose),
+          h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: amt.id, text: unit }), amt),
+          h('button', { class: 'icon-btn flat', type: 'button', 'aria-label': 'Remove ingredient', onclick: () => { rows.splice(idx, 1); drawRows(); } }, icon('x', 18)));
       }));
       drawTotals();
+    };
+    const addIngredient = async () => {
+      const f = await pickFood(lib.foods);
+      if (!f) return;
+      rows.push({ food_id: f.id, amount: 100 });
+      drawRows();
+      const amt = document.getElementById('amt-' + (rows.length - 1));
+      if (amt) { amt.focus(); amt.select(); }
     };
     drawRows();
     const save = h('button', { class: 'btn btn-primary grow', type: 'submit', text: 'Save meal' });
     const form = h('form', {
       class: 'stack', style: { gap: '16px' }, onsubmit: async (e) => {
         e.preventDefault();
+        if (!rows.length) { toast('Add at least one ingredient', 'error'); return; }
         save.disabled = true;
         try {
           await api(meal ? 'PUT' : 'POST', meal ? '/api/meals/' + meal.id : '/api/meals', { name: name.value, items: rows.map((r) => ({ food_id: r.food_id, amount: r.amount })) });
@@ -726,7 +813,7 @@
     },
     h('section', { class: 'card pop' }, h('div', { class: 'field-wrap' }, h('label', { class: 'label', for: 'mn', text: 'Meal name' }), name)),
     h('section', { class: 'card pop' }, h('h2', { class: 'wine', text: 'Ingredients' }), list,
-      h('button', { class: 'btn btn-outline btn-small', type: 'button', onclick: () => { rows.push({ food_id: lib.foods[0].id, amount: 100 }); drawRows(); } }, icon('plus', 16, 3), 'Add ingredient'),
+      h('button', { class: 'btn btn-outline btn-small', type: 'button', onclick: addIngredient }, icon('plus', 16, 3), 'Add ingredient'),
       h('p', { class: 'tiny muted', text: 'When you log this meal you enter how many grams you ate; the nutrients scale from the total above.' }),
       tiles),
     h('div', { class: 'row' }, h('a', { class: 'btn btn-outline grow', href: '#/meals', text: 'Cancel' }), save),

@@ -73,6 +73,20 @@ sudo nginx -t && sudo systemctl reload nginx
 Also in Cloudflare: add a proxied DNS record for `cute`, and keep Rocket Loader off for this hostname
 (it injects scripts that the Content-Security-Policy blocks).
 
+## Updating
+
+1. Back up first: `sudo -u www-data /usr/local/bin/cute-backup` (or Settings › Export backup).
+2. Copy the new files over the old ones (keep your `config.php`).
+3. Open the site. Database changes are applied automatically on the first request
+   (the version is tracked with SQLite's `PRAGMA user_version`), and existing data is kept.
+
+### Changelog
+* **1.1.0** – optional **brand** on foods (shown everywhere, searchable together with the name);
+  foods/drinks are now called **solids/liquids** (stored values unchanged, old backups still work);
+  **custom water amounts** with partially filled droplets; **searchable ingredient picker** for meals.
+  Database migration v2 adds a `brand` column to `foods` and `entries`.
+* **1.0.0** – first release.
+
 ## Managing accounts
 
 ```bash

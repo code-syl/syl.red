@@ -81,7 +81,7 @@ final class Days
             $t = Valid::scale(json_decode($e['per100'], true), (float) $e['amount']);
             $totals = Valid::add($totals, $t);
             $outEntries[] = [
-                'id' => (int) $e['id'], 'kind' => $e['kind'], 'name' => $e['name'], 'unit' => $e['unit'],
+                'id' => (int) $e['id'], 'kind' => $e['kind'], 'name' => $e['name'], 'brand' => $e['brand'] ?? '', 'unit' => $e['unit'],
                 'amount' => (float) $e['amount'], 'food_id' => $e['food_id'] !== null ? (int) $e['food_id'] : null,
                 'meal_id' => $e['meal_id'] !== null ? (int) $e['meal_id'] : null, 'totals' => $t,
             ];
@@ -181,8 +181,8 @@ final class Days
         } else {
             $food = Foods::getFood($uid, Valid::int($in['food_id'] ?? null, 'food_id'));
             Db::run(
-                'INSERT INTO entries (user_id, date, kind, food_id, name, unit, amount, per100) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                [$uid, $date, $food['kind'], $food['id'], $food['name'], $food['unit'], $amount, json_encode($food['nutrients'], JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION)]
+                'INSERT INTO entries (user_id, date, kind, food_id, name, brand, unit, amount, per100) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                [$uid, $date, $food['kind'], $food['id'], $food['name'], $food['brand'], $food['unit'], $amount, json_encode($food['nutrients'], JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION)]
             );
         }
 

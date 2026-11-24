@@ -212,8 +212,12 @@ details.micros .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 1
 .glasses { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; }
 .glass { height: 48px; border-radius: 16px; padding: 0; display: flex; align-items: center; justify-content: center; background: var(--card); border: 2px dashed var(--glassempty); color: var(--strong); transition: transform .2s cubic-bezier(.34,1.56,.64,1), background-color .25s; }
 .glass.on { background: var(--glassfill); border: 2px solid var(--glassline); }
-.glass svg path { fill: transparent; transition: fill .25s; }
-.glass.on svg path { fill: var(--glassline); }
+.glass.part { border: 2px solid var(--glassline); }
+.glass .drop-line { fill: none; }
+.glass .drop-fill { fill: var(--glassline); }
+.water-custom { display: flex; flex-direction: column; gap: 6px; }
+.water-custom .input { padding-right: 44px; }
+.unit-suffix { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 800; font-size: 14px; pointer-events: none; }
 .glass:hover svg { animation: wiggle .4s ease; }
 .glass:active { transform: scale(.9); }
 
@@ -235,6 +239,12 @@ details.micros .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 1
 .stepper input { width: 100%; text-align: center; border: none; background: transparent; font-weight: 800; font-size: 34px; color: var(--ink); padding: 0; }
 .stepper input:focus { outline: none; }
 .ing { display: grid; grid-template-columns: minmax(0, 1fr) 96px 44px; gap: 8px; align-items: end; }
+.ing-pick { display: flex; align-items: center; gap: 8px; text-align: left; color: var(--ink); padding-top: 6px; padding-bottom: 6px; }
+.ing-pick .grow { display: flex; flex-direction: column; line-height: 1.2; }
+.ing-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ing-pick svg { color: var(--head); flex-shrink: 0; }
+.picker-list { max-height: min(52vh, 460px); overflow-y: auto; padding: 2px; }
+.picker-list .pick { background: var(--field); }
 .empty { text-align: center; padding: 24px 12px; color: var(--muted); font-weight: 700; display: flex; flex-direction: column; gap: 12px; align-items: center; }
 
 /* ---------- Calendar ---------- */
